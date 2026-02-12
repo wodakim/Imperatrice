@@ -49,3 +49,13 @@ Error: MISSING_MESSAGE: Could not resolve `Legal` in messages for locale `fr`.
  GET /fr/login 200 in 1983ms
  ✓ Compiled in 271ms (460 modules)
  ✓ Compiled in 509ms (460 modules)
+ ✓ Compiled in 1879ms (460 modules)
+ ✓ Compiled in 337ms (460 modules)
+ ✓ Compiled in 306ms (460 modules)
+ ✓ Compiled in 212ms (460 modules)
+ ✓ Compiled in 363ms (460 modules)
+ ✓ Compiled in 291ms (460 modules)
+ ✓ Compiled in 220ms (460 modules)
+ ✓ Compiled in 257ms (460 modules)
+ ✓ Compiled in 183ms (460 modules)
+ ✓ Compiled in 210ms (460 modules)

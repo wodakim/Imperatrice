@@ -32,7 +32,7 @@ export default function SeoGenerator() {
     const getArray = (path: string) => {
         // This is a hack because useTranslations doesn't return arrays easily without full key
         // We will try to fetch 3 items max (0, 1, 2) and filter.
-        return [0, 1, 2].map(i => t_styles(`${formData.style}.${path}.${i}`)).filter(s => s !== `${formData.style}.${path}.${i}`);
+        return [0, 1, 2].map(idx => t_styles(`${formData.style}.${path}.${idx}`)).filter((s, idx) => s !== `${formData.style}.${path}.${idx}`);
     };
 
     const hooks = getArray('hooks');
