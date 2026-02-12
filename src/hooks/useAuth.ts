@@ -26,14 +26,11 @@ export function useAuth() {
     const localSpoons = localStorage.getItem('spoons');
     if (localSpoons) {
       await supabase.from('profiles').update({ spoons: parseInt(localSpoons) }).eq('id', userId);
-      // Optional: Clear local after sync or keep as cache?
-      // Let's keep for offline resilience but prefer DB data.
     }
 
     // 2. High Score
     const localScore = localStorage.getItem('crush_highscore');
     if (localScore) {
-       // Only update if higher
        const { data } = await supabase.from('profiles').select('high_score').eq('id', userId).single();
        if (data && parseInt(localScore) > (data.high_score || 0)) {
            await supabase.from('profiles').update({ high_score: parseInt(localScore) }).eq('id', userId);
