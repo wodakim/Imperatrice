@@ -10,6 +10,7 @@ import '../globals.css';
 import { constructMetadata } from '@/lib/utils';
 import { JsonLd, generateSoftwareAppSchema } from '@/components/seo/JsonLd';
 import CookieBanner from '@/components/layout/CookieBanner';
+import LoginModal from '@/components/auth/LoginModal';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const caveat = Caveat({ subsets: ['latin'], variable: '--font-caveat' });
@@ -38,6 +39,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
             <PanicRoom />
+            <LoginModal />
             <div className="max-w-4xl mx-auto p-5 pb-32">
               <Header />
               <Navigation />

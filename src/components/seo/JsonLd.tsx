@@ -35,7 +35,6 @@ export function generateHowToSchema(locale: string, steps: any[]) {
             "position": index + 1,
             "name": step.title,
             "text": step.description,
-            // "image": step.image // If we had images
         })),
         "inLanguage": locale
     };

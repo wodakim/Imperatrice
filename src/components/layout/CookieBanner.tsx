@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 
 export default function CookieBanner() {
   const [show, setShow] = useState(false);
-  const t = useTranslations('Legal'); // Assuming translations key, fallback to static
+  const t = useTranslations('Legal');
 
   useEffect(() => {
     const consent = localStorage.getItem('cookie_consent');
