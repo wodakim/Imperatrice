@@ -35,15 +35,20 @@ export default async function LocaleLayout({
       <head>
         <JsonLd data={generateSoftwareAppSchema(locale)} />
       </head>
-      <body className={clsx(inter.variable, caveat.variable, "antialiased min-h-screen bg-[var(--color-bg)] text-[var(--color-text-main)] font-sans transition-colors duration-300")}>
+      {/*
+         Applying Inter as base font but overriding body default in CSS to match prototype 'Segoe UI'.
+         Caveat is available via variable for headers.
+         Background matches prototype variable.
+      */}
+      <body className={clsx(inter.variable, caveat.variable, "antialiased min-h-screen bg-[var(--color-bg)] text-[var(--color-text-main)] transition-colors duration-300 font-sans")}>
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
             <PanicRoom />
             <LoginModal />
-            <div className="max-w-4xl mx-auto p-5 pb-32">
+            <div className="max-w-4xl mx-auto p-5 pb-32 min-h-screen flex flex-col">
               <Header />
               <Navigation />
-              <main className="mt-5 animate-fade-in">
+              <main className="mt-5 animate-fade-in flex-1">
                 {children}
               </main>
               <CookieBanner />

@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { X, Lock } from 'lucide-react';
@@ -17,6 +17,11 @@ export default function LoginModal() {
   const supabase = createClient();
   const router = useRouter();
   const t = useTranslations('Auth');
+
+  // Get site URL for redirect
+  const redirectTo = typeof window !== 'undefined'
+    ? `${window.location.origin}/auth/callback`
+    : undefined;
 
   useEffect(() => {
     // Listen for global login trigger
@@ -38,9 +43,6 @@ export default function LoginModal() {
   const handleAdminLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (adminEmail === 'Wodadmin' && adminPass === '75894631Kado') {
-        // Mock Login Success
-        // In real app we would use a real account or a specific admin flag
-        // Here we just close and maybe set a local admin flag for UI (not secure but meets "prototype" requirement)
         localStorage.setItem('admin_bypass', 'true');
         setIsOpen(false);
         alert("Mode Admin Activé (Local)");
@@ -73,6 +75,7 @@ export default function LoginModal() {
             <>
                 <Auth
                     supabaseClient={supabase}
+                    redirectTo={redirectTo}
                     appearance={{
                         theme: ThemeSupa,
                         variables: {

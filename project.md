@@ -45,7 +45,7 @@ Target: High performance, SEO optimized, Neuro-inclusive design, Supabase Backen
 - [x] **Step 5.1**: Metadata optimization (Dynamic Titles/Desc).
 - [x] **Step 5.2**: JSON-LD Structured Data.
 - [x] **Step 5.3**: Sitemap & Robots.txt generation.
-- [x] **Step 5.4**: Performance Audit (Lighthouse, Core Web Vitals).
+- [ ] **Step 5.4**: Performance Audit (Lighthouse, Core Web Vitals).
 
 ### Phase 6: Compliance & Final Polish
 - [x] **Step 6.1**: Legal Pages (Privacy, Terms).
@@ -53,5 +53,11 @@ Target: High performance, SEO optimized, Neuro-inclusive design, Supabase Backen
 - [x] **Step 6.3**: Security Headers.
 - [x] **Step 6.4**: Final A11y Check (Contrast, Aria-labels).
 
+### Phase 7: Visual & Functional Fixes (New)
+- [ ] **Step 7.1**: **Visual Fidelity**: Align `globals.css` EXACTLY with prototype (Colors, Shadows, Radii).
+- [ ] **Step 7.2**: **Game Fix**: Implement full logic for Crush Game (Swap, Match).
+- [ ] **Step 7.3**: **Auth Redirect**: Ensure emails point to production URL.
+- [ ] **Step 7.4**: **Relax Page**: Fix 404.
+
 ## Current Status
-- Project Completed. Ready for review and deployment.
+- Phase 6 Completed. Entering Phase 7 (Fixes).
