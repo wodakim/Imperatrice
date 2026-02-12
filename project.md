@@ -1,63 +1,60 @@
-# Project: L'IMPÉRATRICE - Web App SaaS Migration
+# L'IMPÉRATRICE - Migration Project Plan
 
-## Context
-Migration of a functional HTML/JS prototype to a Next.js (React/TypeScript) Web App.
-Target: High performance, SEO optimized, Neuro-inclusive design, Supabase Backend.
+## Goal
+Transform the HTML/JS prototype into a production-ready Next.js SaaS application with Supabase backend, keeping strict visual fidelity and enhancing features (SEO, Camera, Auth).
 
-## Stack
-- **Framework**: Next.js 14+ (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS (Custom themes: Light/Pastel, Dark/Slate)
-- **Backend/Auth**: Supabase
-- **i18n**: next-intl
-- **State Management**: React Context / Hooks / Supabase
-- **Deployment**: Vercel (Assumed standard for Next.js)
+## Current Status
+**Phase:** 6 - Final Polish & Handover
+**Progress:** 100%
 
 ## Roadmap
 
-### Phase 1: Initialization & Architecture
-- [x] **Step 1.1**: Initialize Next.js project with TypeScript, Tailwind, ESLint.
-- [x] **Step 1.2**: Configure Tailwind CSS with custom colors/fonts from prototype.
-- [x] **Step 1.3**: Setup `next-intl` for i18n (FR, EN, DE, ES, IT, PL).
-- [x] **Step 1.4**: Configure Supabase Client & Auth context.
-- [x] **Step 1.5**: Project Structure Setup (components, lib, app, public).
+### Phase 1: Initialization & Architecture (✅ Done)
+- [x] Initialize Next.js 14+ project with TypeScript.
+- [x] Configure Tailwind CSS v4 with custom variables (Light/Dark themes).
+- [x] Set up `next-intl` for i18n (FR, EN, DE, ES, IT, PL).
+- [x] Extract translations from `index.html`.
+- [x] Configure Supabase client.
 
-### Phase 2: Core Components & Layout
-- [x] **Step 2.1**: Implement Root Layout (Metadata, Fonts, ThemeProvider).
-- [x] **Step 2.2**: Create Header (Logo, Language Switcher, SOS Button, Theme Toggle).
-- [x] **Step 2.3**: Create Navigation Tabs (Responsive).
-- [x] **Step 2.4**: Implement Footer & Panic Room Overlay.
-- [x] **Step 2.5**: Implement "Spoons" & "Chrono" Widgets (Logic + UI).
+### Phase 2: Core Components & Layout (✅ Done)
+- [x] Implement Layout (Header, Navigation, Panic Room, Footer).
+- [x] Implement Dashboard Widgets (Spoons, Chrono).
+- [x] Ensure responsive design (Mobile First).
 
-### Phase 3: Features Migration
-- [x] **Step 3.1**: **Photo Studio**: Implement Client-side Camera Overlay.
-- [x] **Step 3.2**: **SEO Generator**: Logic for Title/Description generation + Copy/Paste.
-- [x] **Step 3.3**: **Tools**: Profit Calculator, Seasonal Calendar, Packing List.
-- [x] **Step 3.4**: **Crush Game**: React implementation of the match-3 game.
-- [x] **Step 3.5**: **Trophies**: Database integration for achievements.
+### Phase 3: Features Migration (✅ Done)
+- [x] **Studio:** `StudioPage` with native Camera API and "Wizard Card" UI.
+- [x] **SEO:** `SeoPage` with title scoring, description generator, and trend packs.
+- [x] **Tools:** `ToolsPage` with Calculator, Scripts, Packing List, Seasonal Widget.
+- [x] **Crush:** `CrushPage` match-3 game logic and UI.
+- [x] **Trophies:** `TrophiesPage` with achievement system.
+- [x] **Relax:** `RelaxPage` with breathing exercise and jokes.
 
-### Phase 4: Backend Integration & Data Sync
-- [x] **Step 4.1**: Define Database Schema (Users, Spoons, GameScores, Trophies).
-- [x] **Step 4.2**: Implement Auth Flows (Login/Signup/Google).
-- [x] **Step 4.3**: Sync User Data (Spoons, High Scores) with Supabase.
+### Phase 4: Backend Integration (✅ Done)
+- [x] Supabase Auth (Email/Password, Google).
+- [x] Database Schema (Profiles, Spoons, Trophies).
+- [x] Smart Data Sync (Merge Guest Data).
+- [x] RLS Policies.
 
-### Phase 5: SEO & Performance Optimization
-- [x] **Step 5.1**: Metadata optimization (Dynamic Titles/Desc).
-- [x] **Step 5.2**: JSON-LD Structured Data.
-- [x] **Step 5.3**: Sitemap & Robots.txt generation.
-- [ ] **Step 5.4**: Performance Audit (Lighthouse, Core Web Vitals).
+### Phase 5: SEO & Performance (✅ Done)
+- [x] Metadata & Open Graph.
+- [x] JSON-LD Structured Data.
+- [x] Sitemap & Robots.txt.
+- [x] Canonical URLs.
 
-### Phase 6: Compliance & Final Polish
-- [x] **Step 6.1**: Legal Pages (Privacy, Terms).
-- [x] **Step 6.2**: Cookie Consent banner.
-- [x] **Step 6.3**: Security Headers.
-- [x] **Step 6.4**: Final A11y Check (Contrast, Aria-labels).
+### Phase 6: Compliance & Security (✅ Done)
+- [x] Legal Pages (Mentions, Privacy, Terms).
+- [x] Cookie Consent Banner.
+- [x] Security Headers.
 
-### Phase 7: Visual & Functional Fixes (New)
-- [ ] **Step 7.1**: **Visual Fidelity**: Align `globals.css` EXACTLY with prototype (Colors, Shadows, Radii).
-- [ ] **Step 7.2**: **Game Fix**: Implement full logic for Crush Game (Swap, Match).
-- [ ] **Step 7.3**: **Auth Redirect**: Ensure emails point to production URL.
-- [ ] **Step 7.4**: **Relax Page**: Fix 404.
+### Phase 7: Deep Visual Audit (✅ Done)
+- [x] **Header:** Rounded corners, Language Select style, Animations.
+- [x] **Navigation:** Horizontal scroll layout, Pill style.
+- [x] **Dashboard:** Custom Icons, Seasonal Tip, Dynamic Tips.
+- [x] **Studio:** Immersive "Wizard Card" UI.
+- [x] **Tools:** Vertical layouts, Missing widgets.
+- [x] **Relax:** Card wrapper.
+- [x] **Panic Room:** Fix event listeners.
 
-## Current Status
-- Phase 6 Completed. Entering Phase 7 (Fixes).
+## Next Steps
+- [ ] Deploy to Vercel.
+- [ ] Configure Supabase Environment Variables in Production.

@@ -38,31 +38,37 @@ export default function RelaxPage() {
   };
 
   return (
-    <div className="flex flex-col gap-8 items-center min-h-[60vh]">
-      <div className="text-center">
+    <div className="animate-fade-in">
+      <div className="bg-[var(--color-surface)] p-6 rounded-[var(--radius-lg)] shadow-[var(--shadow-soft)] min-h-[60vh] flex flex-col items-center justify-center text-center">
+
         <h2 className="text-2xl font-bold text-[var(--color-primary-dark)] mb-2">{t('relax_title')}</h2>
-        <p className="text-[var(--color-text-muted)]">{t('relax_subtitle')}</p>
-      </div>
+        <p className="text-[var(--color-text-muted)] mb-10">{t('relax_subtitle')}</p>
 
-      <div className="text-center">
-        <h3 className="text-lg font-bold text-[var(--color-primary-dark)] mb-6">{t('breath_title')}</h3>
-        <div className={`w-32 h-32 bg-[var(--color-primary)] rounded-full flex items-center justify-center text-white font-bold text-xl shadow-[0_0_30px_var(--color-accent)] transition-all duration-[4000ms] ease-in-out ${breathState === 'in' ? 'scale-150 opacity-100' : 'scale-100 opacity-80'}`}>
-            {breathText}
+        <div className="flex flex-col gap-12 items-center w-full max-w-md">
+            {/* Breathing Circle */}
+            <div className="text-center">
+                <h3 className="text-lg font-bold text-[var(--color-primary-dark)] mb-8">{t('breath_title')}</h3>
+                <div className={`mx-auto w-32 h-32 bg-[var(--color-primary)] rounded-full flex items-center justify-center text-white font-bold text-xl shadow-[0_0_30px_var(--color-accent)] transition-all duration-[4000ms] ease-in-out ${breathState === 'in' ? 'scale-150 opacity-100' : 'scale-100 opacity-80'}`}>
+                    {breathText}
+                </div>
+                <p className="mt-10 text-sm text-[var(--color-text-muted)]">{t('breath_instruction')}</p>
+            </div>
+
+            {/* Joke Section */}
+            <div className="w-full bg-[var(--color-bg)] p-6 rounded-[var(--radius-lg)] border border-dashed border-[var(--color-secondary)] text-center relative overflow-hidden group">
+                <h3 className="text-[var(--color-secondary)] font-bold mb-4">{t('joke_title')}</h3>
+                <p className="min-h-[60px] flex items-center justify-center italic text-[var(--color-text-main)] mb-4 text-lg">
+                    {joke || "..."}
+                </p>
+                <button
+                    onClick={showJoke}
+                    className="bg-[var(--color-secondary)] text-white px-6 py-2 rounded-full font-bold shadow-md hover:scale-105 transition-transform active:scale-95"
+                >
+                    {t('btn_next_joke')}
+                </button>
+            </div>
         </div>
-        <p className="mt-8 text-sm text-[var(--color-text-muted)]">{t('breath_instruction')}</p>
-      </div>
 
-      <div className="w-full max-w-md bg-[var(--color-bg)] p-6 rounded-[var(--radius-lg)] border border-dashed border-[var(--color-secondary)] text-center">
-        <h3 className="text-[var(--color-secondary)] font-bold mb-4">{t('joke_title')}</h3>
-        <p className="min-h-[60px] flex items-center justify-center italic text-[var(--color-text-main)] mb-4">
-            {joke || "..."}
-        </p>
-        <button
-            onClick={showJoke}
-            className="bg-[var(--color-secondary)] text-white px-6 py-2 rounded-full font-bold shadow-md hover:scale-105 transition-transform"
-        >
-            {t('btn_next_joke')}
-        </button>
       </div>
     </div>
   );
