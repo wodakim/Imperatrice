@@ -1,42 +1,56 @@
 import createMiddleware from 'next-intl/middleware';
-import { routing } from './i18n/routing';
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 
-export default async function middleware(req: NextRequest) {
-  const intlResponse = createMiddleware(routing)(req);
+// Define routing explicitly here to avoid import issues in Edge Runtime
+const routing = {
+  locales: ['fr', 'en', 'de', 'es', 'it', 'pl'],
+  defaultLocale: 'fr'
+};
 
-  // Clone request to read cookies
+export default async function middleware(req: NextRequest) {
+  // 1. Handle i18n
+  const handleI18n = createMiddleware(routing);
+  const res = handleI18n(req);
+
+  // 2. Handle Supabase Auth Protection
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         getAll() {
-          return req.cookies.getAll()
+          return req.cookies.getAll();
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) => req.cookies.set(name, value))
-          cookiesToSet.forEach(({ name, value, options }) => intlResponse.cookies.set(name, value, options))
+          cookiesToSet.forEach(({ name, value, options }) => req.cookies.set(name, value));
+          cookiesToSet.forEach(({ name, value, options }) => res.cookies.set(name, value, options));
         },
       },
     }
   );
 
-  const { data: { user } } = await supabase.auth.getUser();
-
+  // Protected routes logic
   const path = req.nextUrl.pathname;
   const protectedRoutes = ['/dashboard', '/studio', '/trophies'];
   const isProtected = protectedRoutes.some(route => path.includes(route));
 
-  if (isProtected && !user) {
-    const locale = path.split('/')[1] || 'fr';
-    return NextResponse.redirect(new URL(`/${locale}/login`, req.url));
+  if (isProtected) {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      // Extract locale or default to 'fr'
+      const locale = path.split('/')[1];
+      const validLocale = routing.locales.includes(locale) ? locale : 'fr';
+      return NextResponse.redirect(new URL(`/${validLocale}/login`, req.url));
+    }
   }
 
-  return intlResponse;
+  return res;
 }
 
 export const config = {
-  matcher: ['/', '/(fr|en|de|es|it|pl)/:path*']
+  // Match all pathnames except for
+  // - … if they start with `/api`, `/_next` or `/_vercel`
+  // - … the ones containing a dot (e.g. `favicon.ico`)
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)']
 };
