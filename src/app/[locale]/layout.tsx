@@ -21,6 +21,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return constructMetadata({ locale });
 }
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export default async function LocaleLayout({
   children,
   params

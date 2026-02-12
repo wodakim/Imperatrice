@@ -1,34 +1,29 @@
 'use client';
 
-import { useState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
-import { Sun, Moon, Heart, UserCircle } from 'lucide-react';
-import { useLocale } from 'next-intl';
-import InstallPWA from './InstallPWA';
+import { usePathname, useRouter } from 'next/navigation';
+import { Sun, Moon, Heart, ChevronDown } from 'lucide-react';
+import InstallPWA from './InstallPWA'; // Assuming this component exists
 
 const FLAGS: Record<string, string> = {
   fr: '🇫🇷', en: '🇬🇧', de: '🇩🇪', es: '🇪🇸', it: '🇮🇹', pl: '🇵🇱'
 };
 
 export default function Header() {
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
   const router = useRouter();
   const pathname = usePathname();
-  const locale = useLocale();
-  const { theme, setTheme } = useTheme();
 
-  const [langOpen, setLangOpen] = useState(false);
+  // Extract locale from path
+  const currentLocale = pathname.split('/')[1] || 'fr';
+  const [isLangOpen, setIsLangOpen] = useState(false);
   const [isRotating, setIsRotating] = useState(false);
 
-  const changeLanguage = (newLocale: string) => {
-    // Replace locale segment in path
-    const segments = pathname.split('/');
-    segments[1] = newLocale;
-    const newPath = segments.join('/');
-
-    router.push(newPath);
-    setLangOpen(false);
-  };
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleTheme = () => {
     setIsRotating(true);
@@ -36,89 +31,92 @@ export default function Header() {
     setTimeout(() => setIsRotating(false), 500);
   };
 
-  const triggerPanic = () => {
-    if (typeof window !== 'undefined') {
-      const event = new Event('triggerPanic');
-      window.dispatchEvent(event);
-    }
+  const changeLanguage = (newLocale: string) => {
+    const segments = pathname.split('/');
+    segments[1] = newLocale;
+    const newPath = segments.join('/');
+    router.push(newPath);
+    setIsLangOpen(false);
   };
 
-  const openLogin = () => {
-    if (typeof window !== 'undefined') {
-      const event = new Event('openLoginModal');
-      window.dispatchEvent(event);
-    }
+  const triggerPanic = () => {
+      // Dispatch custom event for PanicRoom component to listen
+      window.dispatchEvent(new Event('triggerPanic'));
   };
+
+  if (!mounted) return <div className="h-[88px] mb-8" />; // Skeleton placeholder height
 
   return (
-    <header className="flex flex-col md:flex-row justify-between items-center mb-8 p-5 bg-[var(--color-surface)] rounded-[20px] shadow-[var(--shadow-soft)] transition-colors gap-4 md:gap-0">
-      <div className="flex flex-col text-center md:text-left">
+    <header className="flex flex-col md:flex-row justify-between items-center mb-8 p-5 bg-[var(--color-surface)] rounded-[20px] shadow-[var(--shadow-soft)] gap-4 md:gap-0 transition-all duration-300">
+
+      {/* Logo Area */}
+      <div className="text-center md:text-left">
         <h1 className="text-2xl font-bold text-[var(--color-primary-dark)] tracking-wide m-0">
           L'IMPÉRATRICE
         </h1>
-        <p className="text-sm text-[var(--color-text-muted)] mt-1">
+        <p className="text-sm text-[var(--color-text-muted)] mt-1 font-medium">
           Ton assistante personnelle de vente
         </p>
       </div>
 
+      {/* Actions Area */}
       <div className="flex items-center gap-3">
-        {/* Language Selector (Pill Style) */}
-        <div className="relative">
+
+        {/* Language Selector (Pill) */}
+        <div className="relative z-50">
           <button
-            onClick={() => setLangOpen(!langOpen)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-[20px] bg-[var(--color-bg)] border border-[var(--color-accent)] text-[var(--color-text-main)] text-sm hover:border-[var(--color-primary-dark)] transition-colors min-w-[80px]"
-            aria-label="Changer la langue"
+            onClick={() => setIsLangOpen(!isLangOpen)}
+            className="flex items-center gap-2 px-3 py-1.5 bg-[var(--color-bg)] border border-[var(--color-accent)] rounded-[20px] text-[var(--color-text-main)] text-sm font-bold hover:border-[var(--color-primary-dark)] transition-colors"
           >
-            <span className="text-lg">{FLAGS[locale] || '🌐'}</span>
-            <span className="font-bold">{locale.toUpperCase()}</span>
+            <span className="text-lg">{FLAGS[currentLocale]}</span>
+            <span>{currentLocale.toUpperCase()}</span>
+            <ChevronDown size={14} className={`transition-transform ${isLangOpen ? 'rotate-180' : ''}`}/>
           </button>
 
-          {langOpen && (
-            <div className="absolute right-0 top-full mt-2 bg-[var(--color-surface)] border border-[var(--color-accent)] rounded-xl shadow-xl overflow-hidden z-50 min-w-[120px]">
-              {Object.entries(FLAGS).map(([l, flag]) => (
+          {isLangOpen && (
+            <div className="absolute right-0 top-full mt-2 w-32 bg-[var(--color-surface)] border border-[var(--color-accent)] rounded-[15px] shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+              {Object.entries(FLAGS).map(([loc, flag]) => (
                 <button
-                  key={l}
-                  onClick={() => changeLanguage(l)}
-                  className={`flex items-center gap-2 w-full text-left px-4 py-2 text-sm hover:bg-[var(--color-primary)] hover:text-white transition-colors ${locale === l ? 'font-bold bg-[var(--color-bg)]' : ''}`}
+                  key={loc}
+                  onClick={() => changeLanguage(loc)}
+                  className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-3 hover:bg-[var(--color-bg)] transition-colors
+                    ${currentLocale === loc ? 'font-bold text-[var(--color-primary-dark)] bg-[var(--color-bg)]' : 'text-[var(--color-text-main)]'}
+                  `}
                 >
-                  <span>{flag}</span>
-                  <span>{l.toUpperCase()}</span>
+                  <span className="text-lg">{flag}</span>
+                  {loc.toUpperCase()}
                 </button>
               ))}
             </div>
           )}
         </div>
 
-        {/* SOS Button (Pulse Animation) */}
+        {/* SOS Button */}
         <button
           onClick={triggerPanic}
-          className="w-11 h-11 rounded-full bg-[#ff6b6b] text-white flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-transform animate-pulse-sos flex-shrink-0"
-          aria-label="SOS Hypersensibilité"
+          className="w-11 h-11 rounded-full bg-[#ff6b6b] text-white flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-transform animate-pulse-sos"
+          aria-label="SOS"
+          title="Zone d'Urgence"
         >
           <Heart size={20} fill="currentColor" stroke="none" />
         </button>
 
-        {/* Theme Toggle (Rotation) */}
+        {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
-          className="w-11 h-11 rounded-full border-2 border-[var(--color-primary)] text-[var(--color-primary-dark)] flex items-center justify-center hover:bg-[var(--color-bg)] transition-colors flex-shrink-0 overflow-hidden"
+          className="w-11 h-11 rounded-full border-2 border-[var(--color-primary)] text-[var(--color-primary-dark)] bg-transparent flex items-center justify-center hover:bg-[var(--color-bg)] transition-colors overflow-hidden"
           aria-label="Changer le thème"
         >
-          <div className={`transition-transform duration-500 ${isRotating ? 'rotate-[360deg]' : 'rotate-0'}`}>
+           <div className={`transition-transform duration-500 ease-in-out ${isRotating ? 'rotate-[360deg]' : 'rotate-0'}`}>
             {theme === 'dark' ? <Moon size={20} /> : <Sun size={20} />}
           </div>
         </button>
 
-        <InstallPWA />
+        {/* PWA Install (Optional) */}
+        <div className="hidden sm:block">
+            <InstallPWA />
+        </div>
 
-        {/* Login Trigger */}
-        <button
-          onClick={openLogin}
-          className="w-11 h-11 rounded-full bg-[var(--color-bg)] text-[var(--color-primary-dark)] flex items-center justify-center hover:bg-[var(--color-primary)] hover:text-white transition-colors flex-shrink-0"
-          aria-label="Connexion"
-        >
-          <UserCircle size={24} />
-        </button>
       </div>
     </header>
   );
