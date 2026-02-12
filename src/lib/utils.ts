@@ -15,6 +15,9 @@ export function constructMetadata({
   noIndex?: boolean;
   locale?: string;
 } = {}) {
+  // Fix: Ensure canonical is an absolute URL
+  const canonicalUrl = `${siteConfig.url}/${locale}`;
+
   return {
     title: {
       default: title,
@@ -43,14 +46,14 @@ export function constructMetadata({
     icons,
     metadataBase: new URL(siteConfig.url),
     alternates: {
-        canonical: `/${locale}`,
+        canonical: canonicalUrl,
         languages: {
-            'fr': '/fr',
-            'en': '/en',
-            'de': '/de',
-            'es': '/es',
-            'it': '/it',
-            'pl': '/pl',
+            'fr': `${siteConfig.url}/fr`,
+            'en': `${siteConfig.url}/en`,
+            'de': `${siteConfig.url}/de`,
+            'es': `${siteConfig.url}/es`,
+            'it': `${siteConfig.url}/it`,
+            'pl': `${siteConfig.url}/pl`,
         },
     },
     ...(noIndex && {

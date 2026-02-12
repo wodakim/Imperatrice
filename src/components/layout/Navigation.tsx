@@ -1,6 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
+import { Link } from '@/i18n/routing'; // Correct next-intl Link
 import {
   LayoutDashboard,
   Camera,
@@ -10,41 +11,57 @@ import {
   Gamepad2,
   Trophy
 } from 'lucide-react';
-import { Link } from '@/i18n/routing';
-import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 
 export default function Navigation() {
   const t = useTranslations('Navigation');
   const pathname = usePathname();
-  const isActive = (route: string) => pathname.includes(route);
+
+  // Helper to check active state robustly
+  // pathname includes locale prefix e.g. /fr/dashboard
+  // item.href is /dashboard
+  // We check if pathname ends with item.href OR equals item.href (for root)
+  // More robust: remove locale prefix and compare
+  const isActive = (href: string) => {
+      // Remove locale prefix (e.g. /fr)
+      const pathWithoutLocale = pathname.replace(/^\/[a-z]{2}/, '');
+      if(pathWithoutLocale === '' && href === '/dashboard') return false; // Edge case
+      return pathWithoutLocale.startsWith(href);
+  };
+
+  const navItems = [
+    { href: '/dashboard', icon: LayoutDashboard, label: t('home') },
+    { href: '/studio', icon: Camera, label: t('studio') },
+    { href: '/seo', icon: Search, label: t('seo') },
+    { href: '/tools', icon: Wrench, label: t('tools') },
+    { href: '/relax', icon: Coffee, label: t('relax') },
+    { href: '/crush', icon: Gamepad2, label: t('crush') },
+    { href: '/trophies', icon: Trophy, label: t('trophies') },
+  ];
 
   return (
-    <nav className="flex justify-start gap-3 bg-[var(--color-surface)] rounded-[20px] p-[10px] mb-5 shadow-[var(--shadow-soft)] overflow-x-auto hide-scrollbar">
-      <NavItem href="/dashboard" icon={LayoutDashboard} label={t('home')} active={isActive('/dashboard')} />
-      <NavItem href="/studio" icon={Camera} label={t('studio')} active={isActive('/studio')} />
-      <NavItem href="/seo" icon={Search} label={t('seo')} active={isActive('/seo')} />
-      <NavItem href="/tools" icon={Wrench} label={t('tools')} active={isActive('/tools')} />
-      <NavItem href="/relax" icon={Coffee} label={t('relax')} active={isActive('/relax')} />
-      <NavItem href="/crush" icon={Gamepad2} label={t('crush')} active={isActive('/crush')} />
-      <NavItem href="/trophies" icon={Trophy} label={t('trophies')} active={isActive('/trophies')} />
+    <nav className="flex items-center gap-3 p-3 mb-5 bg-[var(--color-surface)] rounded-[20px] shadow-[var(--shadow-soft)] overflow-x-auto hide-scrollbar whitespace-nowrap">
+      {navItems.map((item) => {
+        const active = isActive(item.href);
+        const Icon = item.icon;
+
+        return (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={`
+              flex items-center gap-2 px-4 py-2.5 rounded-[15px] font-semibold text-sm transition-all duration-200
+              ${active
+                ? 'nav-tab-active'
+                : 'text-[var(--color-text-muted)] hover:bg-[var(--color-bg)] hover:text-[var(--color-primary-dark)]'
+              }
+            `}
+          >
+            <Icon size={18} strokeWidth={active ? 2.5 : 2} />
+            <span>{item.label}</span>
+          </Link>
+        );
+      })}
     </nav>
-  );
-}
-
-function NavItem({ href, icon: Icon, label, active }: { href: string; icon: any; label: string; active: boolean }) {
-  return (
-    <Link
-      href={href}
-      className={clsx(
-        "flex flex-row items-center gap-2 px-4 py-2.5 rounded-[15px] whitespace-nowrap min-w-fit text-sm font-semibold transition-all duration-200",
-        active
-          ? "nav-tab-active"
-          : "text-[var(--color-text-muted)] hover:bg-[var(--color-bg)] hover:text-[var(--color-primary-dark)]"
-      )}
-    >
-      <Icon size={20} strokeWidth={active ? 2.5 : 2} />
-      <span>{label}</span>
-    </Link>
   );
 }

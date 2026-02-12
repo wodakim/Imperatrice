@@ -6,82 +6,115 @@ import { Clock } from 'lucide-react';
 
 export default function ChronoWidget() {
   const t = useTranslations('Dashboard');
-  const [time, setTime] = useState(new Date());
+  const [status, setStatus] = useState<'prime' | 'good' | 'neutral'>('neutral');
+  const [message, setMessage] = useState('');
+  const [timeStr, setTimeStr] = useState('');
+  const [dayStr, setDayStr] = useState('');
+  const [seasonTip, setSeasonTip] = useState('');
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const timer = setInterval(() => setTime(new Date()), 60000);
-    return () => clearInterval(timer);
-  }, []);
+    setMounted(true);
+    const update = () => {
+      const now = new Date();
+      const day = now.getDay(); // 0 = Sun
+      const hour = now.getHours();
+      const month = now.getMonth();
 
-  const day = time.getDay();
-  const hour = time.getHours();
+      // Update Time Display
+      setTimeStr(now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+      // Use standard formatting for day
+      setDayStr(new Intl.DateTimeFormat('fr-FR', { weekday: 'long' }).format(now));
 
-  const slots: Record<number, number[][]> = {
-    0: [[10, 12], [18, 21]],
-    1: [[7, 9], [19, 21]],
-    2: [[19, 21]],
-    3: [[12, 14], [18, 20]],
-    4: [[19, 21]],
-    5: [[13, 16], [20, 23]],
-    6: [[9, 11], [17, 19]]
-  };
+      // Algo Slots
+      const slots: Record<number, number[][]> = {
+        0: [[10, 12], [18, 21]], // Sun
+        1: [[7, 9], [19, 21]],   // Mon
+        2: [[19, 21]],           // Tue
+        3: [[12, 14], [18, 20]], // Wed
+        4: [[19, 21]],           // Thu
+        5: [[13, 16], [20, 23]], // Fri
+        6: [[9, 11], [17, 19]]   // Sat
+      };
 
-  const todaySlots = slots[day] || [];
-  let status = "neutral";
-  let message = t('chrono_calm');
+      const todaySlots = slots[day] || [];
+      let newStatus: 'prime' | 'good' | 'neutral' = 'neutral';
+      let newMessage = t('chrono_calm');
 
-  for(let slot of todaySlots) {
-    if(hour >= slot[0] && hour < slot[1]) {
-      status = "prime";
-      message = t('chrono_prime');
-      break;
-    }
-    if(hour >= slot[0] - 2 && hour < slot[0]) {
-      status = "good";
-      message = t('chrono_good', { h: slot[0] });
-    }
-  }
+      // Check Prime
+      for (const slot of todaySlots) {
+        if (hour >= slot[0] && hour < slot[1]) {
+          newStatus = 'prime';
+          newMessage = t('chrono_prime');
+          break;
+        }
+      }
 
-  const colorClass = status === 'prime'
-    ? 'text-[var(--color-secondary)] animate-pulse'
-    : status === 'good'
-      ? 'text-[var(--color-primary-dark)]'
-      : 'text-[var(--color-text-muted)]';
+      // Check Good (Approaching - 2h before)
+      if (newStatus === 'neutral') {
+        for (const slot of todaySlots) {
+          if (hour >= slot[0] - 2 && hour < slot[0]) {
+            newStatus = 'good';
+            newMessage = t('chrono_good', { h: slot[0] });
+            break;
+          }
+        }
+      }
 
-  const dayName = new Intl.DateTimeFormat('fr-FR', { weekday: 'long' }).format(time);
-  const dayNameCap = dayName.charAt(0).toUpperCase() + dayName.slice(1);
+      setStatus(newStatus);
+      setMessage(newMessage);
 
-  const month = time.getMonth();
-  let seasonTipKey = 'tip_spring';
-  if(month >= 7 && month <= 8) seasonTipKey = 'tip_autumn';
-  else if(month >= 10) seasonTipKey = 'tip_winter';
-  else if(month >= 0 && month <= 1) seasonTipKey = 'tip_jan';
-  else if(month >= 3 && month <= 5) seasonTipKey = 'tip_summer';
+      // Season Tip
+      let tipKey = 'tip_spring';
+      if(month >= 7 && month <= 8) tipKey = 'tip_autumn';
+      else if(month >= 10 || month === 11) tipKey = 'tip_winter';
+      else if(month >= 0 && month <= 1) tipKey = 'tip_jan';
+      else if(month >= 3 && month <= 5) tipKey = 'tip_summer';
 
-  const seasonTip = t(seasonTipKey);
+      // Manual mapping since dynamic keys are tricky with typesafe i18n
+      const tipMap: Record<string, string> = {
+          tip_autumn: t('tip_autumn'),
+          tip_winter: t('tip_winter'),
+          tip_jan: t('tip_jan'),
+          tip_summer: t('tip_summer'),
+          tip_spring: t('tip_spring')
+      };
+      setSeasonTip(tipMap[tipKey]);
+    };
+
+    update();
+    const interval = setInterval(update, 60000);
+    return () => clearInterval(interval);
+  }, [t]);
+
+  if (!mounted) return <div className="h-[200px] animate-pulse bg-[var(--color-bg)] rounded-[20px]" />;
+
+  const statusColor =
+    status === 'prime' ? 'text-[var(--color-secondary)]' :
+    status === 'good' ? 'text-[var(--color-primary-dark)]' :
+    'text-[var(--color-text-muted)]';
 
   return (
-    <div className="bg-[var(--color-surface)] p-6 rounded-[var(--radius-lg)] shadow-[var(--shadow-soft)] flex flex-col items-center justify-between h-full card-hover">
-      <div className="flex items-center gap-2 mb-4 w-full justify-start text-[var(--color-primary-dark)]">
-        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-        <h3 className="text-lg font-bold">{t('chrono_title')}</h3>
-      </div>
+    <div className="bg-[var(--color-surface)] rounded-[20px] p-5 shadow-[var(--shadow-soft)] card-hover h-full flex flex-col justify-between">
+       <h3 className="text-lg font-bold text-[var(--color-primary-dark)] flex items-center gap-2 mb-4">
+          <Clock size={20} /> {t('chrono_title')}
+        </h3>
 
-      <div className="text-center mb-6">
-        <div className={`text-4xl font-bold mb-1 tracking-wider font-mono ${colorClass}`}>
-          {time.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+        <div className="text-center flex-1 flex flex-col justify-center">
+            <div className={`text-4xl font-bold mb-1 ${statusColor}`}>
+                {timeStr}
+            </div>
+            <div className="text-sm font-bold uppercase tracking-wider mb-2 text-[var(--color-text-main)]">
+                {dayStr}
+            </div>
+            <div className={`font-semibold ${statusColor}`}>
+                {message}
+            </div>
         </div>
-        <div className="text-sm uppercase font-bold text-[var(--color-text-muted)] mb-3 tracking-wide">
-          {dayNameCap}
-        </div>
-        <div className={`font-semibold text-lg ${colorClass}`}>
-          {message}
-        </div>
-      </div>
 
-      <div className="mt-auto w-full text-sm bg-[var(--color-bg)] p-3 rounded-xl border border-[var(--color-accent)]/20">
-        💡 {seasonTip}
-      </div>
+        <div className="mt-4 text-xs text-[var(--color-text-muted)] bg-[var(--color-bg)] p-3 rounded-xl">
+            💡 {seasonTip}
+        </div>
     </div>
   );
 }

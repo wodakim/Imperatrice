@@ -1,78 +1,53 @@
-import { useState, useEffect, useCallback } from 'react';
-import { useAuth } from './useAuth';
+'use client';
+
+import { useState, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
 
-export function useSyncStore<T>(key: string, initialValue: T, dbField: string) {
-  const { user } = useAuth();
-  const [storedValue, setStoredValue] = useState<T>(initialValue);
-  const supabase = createClient();
-
-  // 1. Initial Load: Try LocalStorage first (Optimistic), then DB if user
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    // Load Local
+export function useSyncStore<T>(key: string, initialValue: T, dbField?: string): [T, (val: T) => void] {
+  // 1. Initial State from LocalStorage or Default
+  const [value, setValue] = useState<T>(() => {
+    if (typeof window === 'undefined') return initialValue;
     try {
       const item = window.localStorage.getItem(key);
-      if (item) {
-        setStoredValue(JSON.parse(item));
-      }
+      return item ? JSON.parse(item) : initialValue;
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      return initialValue;
     }
+  });
 
-    // Load Remote (if User)
-    if (user) {
-      const fetchRemote = async () => {
-        const { data } = await supabase
-          .from('profiles')
-          .select(dbField)
-          .eq('id', user.id)
-          .single();
+  const supabase = createClient();
 
-        if (data && (data as any)[dbField] !== null) {
-          // Remote wins on load (source of truth)
-          // Ideally we merge strategies, but "Remote Wins" prevents data loss on device switch
-          setStoredValue((data as any)[dbField]);
-          // Sync back to local to keep it fresh
-          window.localStorage.setItem(key, JSON.stringify((data as any)[dbField]));
-        }
-      };
-      fetchRemote();
-    }
-  }, [key, user, dbField]);
-
-  // 2. Set Value: Update Local immediately, Push Remote in background
-  const setValue = useCallback((value: T | ((val: T) => T)) => {
+  // 2. Set Value Wrapper (Updates Local + DB if needed)
+  const setStoredValue = useCallback(async (val: T | ((prev: T) => T)) => {
     try {
-      const valueToStore = value instanceof Function ? value(storedValue) : value;
+      // Allow value to be a function so we have same API as useState
+      const valueToStore = val instanceof Function ? val(value) : val;
 
       // Update State
-      setStoredValue(valueToStore);
+      setValue(valueToStore);
 
       // Update LocalStorage
-      if (typeof window !== "undefined") {
+      if (typeof window !== 'undefined') {
+        window.localStorage.getItem(key); // Just to ensure access
         window.localStorage.setItem(key, JSON.stringify(valueToStore));
       }
 
-      // Update Remote (Debounced ideally, but here direct for simplicity/reliability test)
-      if (user) {
-        const updatePayload: any = {};
-        updatePayload[dbField] = valueToStore;
-
-        supabase
-          .from('profiles')
-          .update(updatePayload)
-          .eq('id', user.id)
-          .then(({ error }) => {
-             if (error) console.error("Sync Error:", error);
-          });
+      // Update Supabase (Optimistic UI: we don't wait for DB)
+      if (dbField) {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+            await supabase
+            .from('profiles')
+            .update({ [dbField]: valueToStore })
+            .eq('id', user.id);
+        }
       }
 
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
-  }, [key, storedValue, user, dbField]);
+  }, [key, value, dbField, supabase]); // Dep array checks
 
-  return [storedValue, setValue] as const;
+  return [value, setStoredValue];
 }

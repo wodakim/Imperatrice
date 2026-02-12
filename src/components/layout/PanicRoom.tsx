@@ -1,45 +1,53 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
+import { X } from 'lucide-react';
 
 export default function PanicRoom() {
-  const [isVisible, setIsVisible] = useState(false);
+  const t = useTranslations('Dashboard'); // Assuming keys here
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const handlePanic = () => setIsVisible(true);
-    window.addEventListener('triggerPanic', handlePanic);
-    return () => window.removeEventListener('triggerPanic', handlePanic);
+    const handleTrigger = () => setIsOpen(true);
+    window.addEventListener('triggerPanic', handleTrigger);
+    return () => window.removeEventListener('triggerPanic', handleTrigger);
   }, []);
 
-  const close = () => setIsVisible(false);
-
-  if (!isVisible) return null;
+  if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center text-center p-5 bg-gradient-to-br from-[#a8c0ff] to-[#3f2b96] text-white overflow-y-auto animate-fade-in">
-        <h2 className="text-4xl font-bold mb-2">Tu es en sécurité.</h2>
-        <p className="text-xl max-w-xl mb-8 leading-relaxed">
-            Respire. Tu es aimée. Tu es capable. <br />
-            Cette anxiété n'est qu'un nuage qui passe, tu es le ciel. <br />
-            Prends tout le temps qu'il te faut. 💖
-        </p>
+    <div className="fixed inset-0 z-[9999] bg-gradient-to-br from-[#a8c0ff] to-[#3f2b96] flex flex-col items-center justify-center p-6 text-center text-white animate-fade-in">
 
-        <div className="bg-white/20 p-6 rounded-2xl mb-8 backdrop-blur-md text-left w-full max-w-md">
-            <h3 className="text-lg font-bold mb-4 border-b border-white/30 pb-2">Technique d'Ancrage 5-4-3-2-1</h3>
-            <ul className="space-y-3">
-                <li>👀 <b>5</b> choses que tu vois</li>
-                <li>✋ <b>4</b> choses que tu peux toucher</li>
-                <li>👂 <b>3</b> choses que tu entends</li>
-                <li>👃 <b>2</b> choses que tu peux sentir</li>
-                <li>👅 <b>1</b> chose que tu peux goûter</li>
+        <button
+            onClick={() => setIsOpen(false)}
+            className="absolute top-6 right-6 p-2 rounded-full bg-white/20 hover:bg-white/40 transition-colors"
+        >
+            <X size={32} />
+        </button>
+
+        <h2 className="text-4xl md:text-5xl font-bold mb-4 animate-slide-in-up delay-100">
+            {t('panic_title') || "Tu es en sécurité."}
+        </h2>
+
+        <p className="text-xl md:text-2xl leading-relaxed max-w-2xl mb-10 opacity-90 animate-slide-in-up delay-200" dangerouslySetInnerHTML={{__html: t.raw('panic_text') || "Respire..."}} />
+
+        <div className="bg-white/10 backdrop-blur-md p-8 rounded-[30px] max-w-lg w-full mb-10 border border-white/20 animate-slide-in-up delay-300 text-left">
+            <h3 className="text-xl font-bold mb-4 text-center">{t('anchor_title') || "Technique d'Ancrage"}</h3>
+            <ul className="space-y-3 text-lg">
+                <li>👀 <b>5</b> {t('anchor_5') || "choses que tu vois"}</li>
+                <li>✋ <b>4</b> {t('anchor_4') || "choses que tu touches"}</li>
+                <li>👂 <b>3</b> {t('anchor_3') || "choses que tu entends"}</li>
+                <li>👃 <b>2</b> {t('anchor_2') || "choses que tu sens"}</li>
+                <li>👅 <b>1</b> {t('anchor_1') || "chose que tu goûtes"}</li>
             </ul>
         </div>
 
         <button
-            onClick={close}
-            className="bg-white text-[#3f2b96] px-10 py-4 rounded-full text-lg font-bold shadow-lg hover:scale-105 transition-transform"
+            onClick={() => setIsOpen(false)}
+            className="bg-white text-[#3f2b96] px-10 py-4 rounded-full text-xl font-bold shadow-2xl hover:scale-105 active:scale-95 transition-transform animate-bounce-short delay-500"
         >
-            Je me sens mieux 🌿
+            {t('btn_better') || "Je me sens mieux 🌿"}
         </button>
     </div>
   );

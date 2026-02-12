@@ -1,0 +1,61 @@
+
+> limperatrice-app@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use, trying 3001 instead.
+ ⚠ Port 3001 is in use, trying 3002 instead.
+   ▲ Next.js 15.1.6
+   - Local:        http://localhost:3002
+   - Network:      http://192.168.0.2:3002
+   - Environments: .env.local
+
+ ✓ Starting...
+> [PWA] PWA support is disabled
+> [PWA] PWA support is disabled
+ ✓ Ready in 3.7s
+ ○ Compiling /src/middleware ...
+ ✓ Compiled /src/middleware in 1524ms (262 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (133kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ○ Compiling /[locale]/login ...
+ ✓ Compiled /[locale]/login in 10.5s (999 modules)
+Error: MISSING_MESSAGE: Could not resolve `Legal` in messages for locale `fr`.
+    at CookieBanner (src/components/layout/CookieBanner.tsx:8:28)
+   6 | export default function CookieBanner() {
+   7 |   const [show, setShow] = useState(false);
+>  8 |   const t = useTranslations('Legal');
+     |                            ^
+   9 |
+  10 |   useEffect(() => {
+  11 |     const consent = localStorage.getItem('cookie_consent'); {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'Could not resolve `Legal` in messages for locale `fr`.'
+}
+ GET /fr/login 200 in 13612ms
+ ✓ Compiled in 311ms (439 modules)
+ ✓ Compiled in 12s (1243 modules)
+ ✓ Compiled in 8s (1023 modules)
+Error: MISSING_MESSAGE: Could not resolve `Legal` in messages for locale `fr`.
+    at CookieBanner (src/components/layout/CookieBanner.tsx:8:28)
+   6 | export default function CookieBanner() {
+   7 |   const [show, setShow] = useState(false);
+>  8 |   const t = useTranslations('Legal');
+     |                            ^
+   9 |
+  10 |   useEffect(() => {
+  11 |     const consent = localStorage.getItem('cookie_consent'); {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'Could not resolve `Legal` in messages for locale `fr`.'
+}
+ GET /fr/login 200 in 1983ms
+ ✓ Compiled in 271ms (460 modules)
+ ✓ Compiled in 509ms (460 modules)
+ ✓ Compiled in 1879ms (460 modules)
+ ✓ Compiled in 337ms (460 modules)
+ ✓ Compiled in 306ms (460 modules)
+ ✓ Compiled in 212ms (460 modules)
+ ✓ Compiled in 363ms (460 modules)
+ ✓ Compiled in 291ms (460 modules)
+ ✓ Compiled in 220ms (460 modules)
+ ✓ Compiled in 257ms (460 modules)
+ ✓ Compiled in 183ms (460 modules)
+ ✓ Compiled in 210ms (460 modules)

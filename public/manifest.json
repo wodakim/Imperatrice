@@ -4,6 +4,7 @@
   "description": "Assistant Neuro-Inclusif pour Vendeurs Vinted",
   "start_url": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#FFF0F5",
   "theme_color": "#D8BFD8",
   "icons": [
