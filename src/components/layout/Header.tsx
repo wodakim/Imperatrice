@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { Sun, Moon, Heart, UserCircle } from 'lucide-react';
 import { useLocale } from 'next-intl';
+import InstallPWA from './InstallPWA';
 
 const FLAGS: Record<string, string> = {
   fr: '🇫🇷', en: '🇬🇧', de: '🇩🇪', es: '🇪🇸', it: '🇮🇹', pl: '🇵🇱'
@@ -107,6 +108,8 @@ export default function Header() {
             {theme === 'dark' ? <Moon size={20} /> : <Sun size={20} />}
           </div>
         </button>
+
+        <InstallPWA />
 
         {/* Login Trigger */}
         <button

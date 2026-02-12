@@ -2,11 +2,12 @@
 
 import { useTranslations } from 'next-intl';
 import { TROPHIES } from '@/lib/trophies';
-import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { useSyncStore } from '@/hooks/useSyncStore';
 
 export default function TrophiesPage() {
   const t = useTranslations('Trophies');
-  const [unlockedTrophies] = useLocalStorage<string[]>('unlocked_trophies', []);
+  // Sync Trophies (local key 'unlocked_trophies', DB field 'unlocked_trophies')
+  const [unlockedTrophies] = useSyncStore<string[]>('unlocked_trophies', [], 'unlocked_trophies');
 
   return (
     <div className="flex flex-col gap-6 animate-fade-in">
@@ -32,7 +33,7 @@ export default function TrophiesPage() {
                         {t(`tr_n_${tr.id}`)}
                     </div>
                     {/* Tooltip on Hover */}
-                    <div className="absolute opacity-0 group-hover:opacity-100 bottom-full mb-2 bg-black/80 text-white text-xs p-2 rounded pointer-events-none transition-opacity z-10 w-32 text-center">
+                    <div className="absolute opacity-0 group-hover:opacity-100 bottom-full mb-2 bg-black/80 text-white text-xs p-2 rounded pointer-events-none transition-opacity z-10 w-32 text-center shadow-lg">
                         {t(`tr_d_${tr.id}`)}
                     </div>
                 </div>

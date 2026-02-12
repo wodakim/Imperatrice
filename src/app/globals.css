@@ -116,3 +116,39 @@ body {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
+/* --- PROTOTYPE FIDELITY OVERRIDES --- */
+
+/* Specific Button Bounce */
+button:active {
+    transform: scale(0.95);
+}
+
+/* Glassmorphism Classes matching Prototype */
+.glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Exact Nav Tab Style */
+.nav-tab-active {
+    background-color: var(--color-primary);
+    color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Input Focus Ring matching Prototype */
+input:focus, select:focus, textarea:focus {
+    border-color: var(--color-primary-dark);
+    box-shadow: 0 0 0 2px var(--color-accent);
+}
+
+/* Card Hover Lift */
+.card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1);
+}

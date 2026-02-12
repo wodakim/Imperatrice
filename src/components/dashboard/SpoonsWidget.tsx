@@ -1,6 +1,4 @@
-'use client';
-
-import { Clock } from 'lucide-react';
+import { Zap, Battery, BatteryCharging, BatteryFull } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 const SpoonIcon = ({ size = 24, fill = "none", className = "" }: { size?: number, fill?: string, className?: string }) => (
@@ -25,7 +23,6 @@ export default function SpoonsWidget({ spoons, setSpoons }: { spoons: number; se
   const MAX_SPOONS = 12;
 
   const updateSpoons = (val: number) => {
-    // Toggle logic: if clicking the current max, decrease by 1. Else set to clicked value.
     const newVal = val === spoons ? val - 1 : val;
     setSpoons(newVal);
   };
@@ -42,14 +39,13 @@ export default function SpoonsWidget({ spoons, setSpoons }: { spoons: number; se
   }
 
   return (
-    <div className="bg-[var(--color-surface)] p-6 rounded-[var(--radius-lg)] shadow-[var(--shadow-soft)] flex flex-col items-center transition-transform hover:scale-[1.02]">
+    <div className="bg-[var(--color-surface)] p-6 rounded-[var(--radius-lg)] shadow-[var(--shadow-soft)] flex flex-col items-center transition-transform hover:scale-[1.02] card-hover">
       <div className="flex justify-between w-full mb-4">
         <h3 className="text-lg font-bold flex items-center gap-2 text-[var(--color-primary-dark)]">
-          {/* Prototype uses a Clock-like icon for title, oddly */}
-          <Clock size={20} />
+          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
           {t('spoons_title')}
         </h3>
-        <button className="text-[var(--color-text-muted)] hover:text-[var(--color-primary)]">
+        <button className="text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-transform hover:scale-110">
           ℹ️
         </button>
       </div>

@@ -3,10 +3,11 @@
 import SpoonsWidget from '@/components/dashboard/SpoonsWidget';
 import ChronoWidget from '@/components/dashboard/ChronoWidget';
 import DailyTip from '@/components/dashboard/DailyTip';
-import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { useSyncStore } from '@/hooks/useSyncStore';
 
 export default function DashboardPage() {
-  const [spoons, setSpoons] = useLocalStorage('spoons', 12);
+  // Sync Spoons (local key 'spoons', DB field 'spoons')
+  const [spoons, setSpoons] = useSyncStore<number>('spoons', 12, 'spoons');
 
   return (
     <div className="flex flex-col gap-6 animate-fade-in">

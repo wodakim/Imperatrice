@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { Calculator, Calendar, Box, MessageSquare } from 'lucide-react';
 import SeasonalWidget from '@/components/tools/SeasonalWidget';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import PremiumLock from '@/components/common/PremiumLock';
 
 export default function ToolsPage() {
   const t = useTranslations('Tools');
@@ -51,7 +52,7 @@ export default function ToolsPage() {
       </div>
 
       {/* 2. Profit Calculator (Vertical Stack) */}
-      <div className="bg-[var(--color-surface)] p-6 rounded-[var(--radius-lg)] shadow-[var(--shadow-soft)]">
+      <div className="bg-[var(--color-surface)] p-6 rounded-[var(--radius-lg)] shadow-[var(--shadow-soft)] relative">
         <h2 className="text-xl font-bold text-[var(--color-primary-dark)] mb-4 flex items-center gap-2">
             <Calculator size={24} /> {t('calc_title')}
         </h2>
@@ -60,40 +61,51 @@ export default function ToolsPage() {
             <input type="number" placeholder={t('calc_sell_ph')} className="p-3 rounded-lg border border-[var(--color-accent)] bg-[var(--color-bg)] outline-none transition-shadow focus:shadow-md" onChange={e => setSellPrice(parseFloat(e.target.value) || 0)} />
             <input type="number" placeholder={t('calc_fees_ph')} className="p-3 rounded-lg border border-[var(--color-accent)] bg-[var(--color-bg)] outline-none transition-shadow focus:shadow-md" onChange={e => setFees(parseFloat(e.target.value) || 0)} />
         </div>
-        <div className="text-center bg-[var(--color-bg)] p-4 rounded-xl">
-            <div className="text-sm text-[var(--color-text-muted)] uppercase tracking-wider mb-1">{t('calc_result_label')}</div>
-            <div className={`text-3xl font-bold ${profit >= 0 ? 'text-[var(--color-success)]' : 'text-[var(--color-secondary)]'}`}>
-                {profit.toFixed(2)} €
+
+        {/* PREMIUM LOCK ON RESULT */}
+        <div className="relative">
+          <PremiumLock title="Résultat Calculatrice" price="9.99€">
+            <div className="text-center bg-[var(--color-bg)] p-4 rounded-xl">
+                <div className="text-sm text-[var(--color-text-muted)] uppercase tracking-wider mb-1">{t('calc_result_label')}</div>
+                <div className={`text-3xl font-bold ${profit >= 0 ? 'text-[var(--color-success)]' : 'text-[var(--color-secondary)]'}`}>
+                    {profit.toFixed(2)} €
+                </div>
+                <div className="text-xs text-[var(--color-text-muted)] mt-1 font-medium">Marge: {roi.toFixed(0)}%</div>
             </div>
-            <div className="text-xs text-[var(--color-text-muted)] mt-1 font-medium">Marge: {roi.toFixed(0)}%</div>
+          </PremiumLock>
         </div>
       </div>
 
       {/* 3. Soft Skills Scripts */}
-      <div className="bg-[var(--color-surface)] p-6 rounded-[var(--radius-lg)] shadow-[var(--shadow-soft)]">
+      <div className="bg-[var(--color-surface)] p-6 rounded-[var(--radius-lg)] shadow-[var(--shadow-soft)] relative">
         <h2 className="text-xl font-bold text-[var(--color-primary-dark)] mb-4 flex items-center gap-2">
             <MessageSquare size={24} /> {t('scripts_title')}
         </h2>
-        <select
-            className="w-full p-3 mb-4 rounded-lg border border-[var(--color-accent)] bg-[var(--color-bg)] outline-none"
-            onChange={(e) => setSelectedScript(e.target.value)}
-        >
-            <option value="">{t('script_select_ph')}</option>
-            {Object.keys(scripts).map(key => (
-                <option key={key} value={key}>{t(`script_${key}_label`)}</option>
-            ))}
-        </select>
-        <textarea
-            readOnly
-            value={(scripts as any)[selectedScript] || ''}
-            className="w-full h-32 p-3 rounded-lg border border-[var(--color-accent)] bg-[var(--color-bg)] outline-none resize-none text-sm leading-relaxed"
-        ></textarea>
-        <button
-            onClick={() => navigator.clipboard.writeText((scripts as any)[selectedScript] || '')}
-            className="w-full mt-2 bg-[var(--color-primary-dark)] text-white py-2 rounded-lg font-bold hover:bg-[var(--color-primary)] transition-colors active:scale-95 transform"
-        >
-            {t('copy_response')}
-        </button>
+
+        <div className="relative">
+          <PremiumLock title="Scripts de Réponse" price="Inclus">
+              <select
+                  className="w-full p-3 mb-4 rounded-lg border border-[var(--color-accent)] bg-[var(--color-bg)] outline-none"
+                  onChange={(e) => setSelectedScript(e.target.value)}
+              >
+                  <option value="">{t('script_select_ph')}</option>
+                  {Object.keys(scripts).map(key => (
+                      <option key={key} value={key}>{t(`script_${key}_label`)}</option>
+                  ))}
+              </select>
+              <textarea
+                  readOnly
+                  value={(scripts as any)[selectedScript] || ''}
+                  className="w-full h-32 p-3 rounded-lg border border-[var(--color-accent)] bg-[var(--color-bg)] outline-none resize-none text-sm leading-relaxed"
+              ></textarea>
+              <button
+                  onClick={() => navigator.clipboard.writeText((scripts as any)[selectedScript] || '')}
+                  className="w-full mt-2 bg-[var(--color-primary-dark)] text-white py-2 rounded-lg font-bold hover:bg-[var(--color-primary)] transition-colors active:scale-95 transform"
+              >
+                  {t('copy_response')}
+              </button>
+          </PremiumLock>
+        </div>
       </div>
 
       {/* 4. Packing Checklist (Vertical Stack) */}

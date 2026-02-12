@@ -17,8 +17,6 @@ import { useTranslations } from 'next-intl';
 export default function Navigation() {
   const t = useTranslations('Navigation');
   const pathname = usePathname();
-
-  // Simple active check: if pathname contains the route (handling locale prefix)
   const isActive = (route: string) => pathname.includes(route);
 
   return (
@@ -41,7 +39,7 @@ function NavItem({ href, icon: Icon, label, active }: { href: string; icon: any;
       className={clsx(
         "flex flex-row items-center gap-2 px-4 py-2.5 rounded-[15px] whitespace-nowrap min-w-fit text-sm font-semibold transition-all duration-200",
         active
-          ? "bg-[var(--color-primary)] text-white shadow-md transform scale-100"
+          ? "nav-tab-active"
           : "text-[var(--color-text-muted)] hover:bg-[var(--color-bg)] hover:text-[var(--color-primary-dark)]"
       )}
     >

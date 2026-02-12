@@ -51,8 +51,7 @@ export default function ChronoWidget() {
   const dayName = new Intl.DateTimeFormat('fr-FR', { weekday: 'long' }).format(time);
   const dayNameCap = dayName.charAt(0).toUpperCase() + dayName.slice(1);
 
-  // Seasonality Logic
-  const month = time.getMonth(); // 0-11
+  const month = time.getMonth();
   let seasonTipKey = 'tip_spring';
   if(month >= 7 && month <= 8) seasonTipKey = 'tip_autumn';
   else if(month >= 10) seasonTipKey = 'tip_winter';
@@ -62,9 +61,9 @@ export default function ChronoWidget() {
   const seasonTip = t(seasonTipKey);
 
   return (
-    <div className="bg-[var(--color-surface)] p-6 rounded-[var(--radius-lg)] shadow-[var(--shadow-soft)] flex flex-col items-center justify-between h-full">
+    <div className="bg-[var(--color-surface)] p-6 rounded-[var(--radius-lg)] shadow-[var(--shadow-soft)] flex flex-col items-center justify-between h-full card-hover">
       <div className="flex items-center gap-2 mb-4 w-full justify-start text-[var(--color-primary-dark)]">
-        <Clock size={20} />
+        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
         <h3 className="text-lg font-bold">{t('chrono_title')}</h3>
       </div>
 
