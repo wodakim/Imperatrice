@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { Clock } from 'lucide-react';
@@ -47,24 +49,38 @@ export default function ChronoWidget() {
       : 'text-[var(--color-text-muted)]';
 
   const dayName = new Intl.DateTimeFormat('fr-FR', { weekday: 'long' }).format(time);
+  const dayNameCap = dayName.charAt(0).toUpperCase() + dayName.slice(1);
+
+  const month = time.getMonth();
+  let seasonTipKey = 'tip_spring';
+  if(month >= 7 && month <= 8) seasonTipKey = 'tip_autumn';
+  else if(month >= 10) seasonTipKey = 'tip_winter';
+  else if(month >= 0 && month <= 1) seasonTipKey = 'tip_jan';
+  else if(month >= 3 && month <= 5) seasonTipKey = 'tip_summer';
+
+  const seasonTip = t(seasonTipKey);
 
   return (
-    <div className="bg-[var(--color-surface)] p-6 rounded-[var(--radius-lg)] shadow-[var(--shadow-soft)] flex flex-col items-center">
+    <div className="bg-[var(--color-surface)] p-6 rounded-[var(--radius-lg)] shadow-[var(--shadow-soft)] flex flex-col items-center justify-between h-full card-hover">
       <div className="flex items-center gap-2 mb-4 w-full justify-start text-[var(--color-primary-dark)]">
-        <Clock size={20} />
-        <h3 className="font-bold">{t('chrono_title')}</h3>
+        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <h3 className="text-lg font-bold">{t('chrono_title')}</h3>
       </div>
 
-      <div className="text-center">
+      <div className="text-center mb-6">
         <div className={`text-4xl font-bold mb-1 tracking-wider font-mono ${colorClass}`}>
           {time.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
         </div>
-        <div className="text-sm uppercase font-bold text-[var(--color-text-muted)] mb-3">
-          {dayName}
+        <div className="text-sm uppercase font-bold text-[var(--color-text-muted)] mb-3 tracking-wide">
+          {dayNameCap}
         </div>
         <div className={`font-semibold text-lg ${colorClass}`}>
           {message}
         </div>
+      </div>
+
+      <div className="mt-auto w-full text-sm bg-[var(--color-bg)] p-3 rounded-xl border border-[var(--color-accent)]/20">
+        💡 {seasonTip}
       </div>
     </div>
   );

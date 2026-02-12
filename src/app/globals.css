@@ -3,7 +3,7 @@
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 :root {
-  /* Light Mode (Pastel/Feminine) */
+  /* Exact Colors from HTML Prototype */
   --color-bg: #FFF0F5; /* Lavender Blush */
   --color-surface: #FFFFFF;
   --color-primary: #D8BFD8; /* Thistle */
@@ -20,7 +20,7 @@
 }
 
 [data-theme="dark"] {
-  /* Dark Mode (Sensory Friendly - Slate/Mauve) */
+  /* Exact Dark Colors from HTML Prototype */
   --color-bg: #2D2D3A; /* Dark Slate */
   --color-surface: #383848;
   --color-primary: #6A5ACD; /* Slate Blue */
@@ -51,12 +51,42 @@
   --shadow-soft: var(--shadow-soft);
 }
 
-/* Base Styles */
+/* Base Styles matching Prototype */
 body {
   background-color: var(--color-background);
   color: var(--color-text-main);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  /* Fallback stack matching HTML */
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
   transition: background-color 0.3s, color 0.3s;
+}
+
+/* Auth UI Overrides */
+.auth-container {
+    background: transparent !important;
+}
+.auth-button {
+    background: var(--color-primary-dark) !important;
+    color: white !important;
+    font-weight: bold !important;
+    transition: transform 0.2s !important;
+    border-radius: 12px !important;
+    padding: 12px !important;
+}
+.auth-button:hover {
+    transform: scale(1.02);
+    filter: brightness(1.1);
+}
+.auth-input {
+    background: var(--color-bg) !important;
+    border: 1px solid var(--color-accent) !important;
+    color: var(--color-text-main) !important;
+    border-radius: 12px !important;
+    padding: 12px !important;
+}
+.auth-input:focus {
+    border-color: var(--color-primary-dark) !important;
+    box-shadow: 0 0 0 2px var(--color-accent) !important;
 }
 
 /* Scrollbar Hiding */
@@ -68,27 +98,57 @@ body {
     scrollbar-width: none;
 }
 
-/* Auth UI Overrides for perfect integration */
-.auth-container {
-    background: transparent !important;
+@keyframes pulse-sos {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
 }
-.auth-button {
-    background: var(--color-primary-dark) !important;
-    color: white !important;
-    font-weight: bold !important;
-    transition: transform 0.2s !important;
+
+.animate-pulse-sos {
+    animation: pulse-sos 2s infinite;
 }
-.auth-button:hover {
-    transform: scale(1.02);
-    filter: brightness(1.1);
+
+/* Custom Scrollbar Hiding for Horizontal Nav */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
 }
-.auth-input {
-    background: var(--color-bg) !important;
-    border: 1px solid var(--color-accent) !important;
-    color: var(--color-text-main) !important;
-    border-radius: 12px !important;
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
-.auth-input:focus {
-    border-color: var(--color-primary-dark) !important;
-    box-shadow: 0 0 0 2px var(--color-accent) !important;
+
+/* --- PROTOTYPE FIDELITY OVERRIDES --- */
+
+/* Specific Button Bounce */
+button:active {
+    transform: scale(0.95);
+}
+
+/* Glassmorphism Classes matching Prototype */
+.glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Exact Nav Tab Style */
+.nav-tab-active {
+    background-color: var(--color-primary);
+    color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Input Focus Ring matching Prototype */
+input:focus, select:focus, textarea:focus {
+    border-color: var(--color-primary-dark);
+    box-shadow: 0 0 0 2px var(--color-accent);
+}
+
+/* Card Hover Lift */
+.card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1);
 }
