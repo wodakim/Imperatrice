@@ -1,66 +1,57 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useAuth } from '@/hooks/useAuth';
+import { createContext, useContext, useEffect, useState, ReactNode, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
+import { useAuth } from '@/hooks/useAuth';
 
-type PremiumContextType = {
+interface PremiumContextType {
   isPremium: boolean;
-  unlockPremium: () => Promise<void>;
-  loading: boolean;
-};
+  checkPremium: () => Promise<void>;
+  isLoading: boolean;
+}
 
 const PremiumContext = createContext<PremiumContextType | undefined>(undefined);
 
-export function PremiumProvider({ children }: { children: React.ReactNode }) {
-  const { user } = useAuth();
+export function PremiumProvider({ children }: { children: ReactNode }) {
   const [isPremium, setIsPremium] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const { user } = useAuth();
   const supabase = createClient();
 
-  // Load premium status
-  useEffect(() => {
-    async function checkPremium() {
-      if (!user) {
-        // Guest mode: check localStorage for simulated premium (for dev/demo)
-        // In real prod, guests are never premium unless they login
-        const localPremium = localStorage.getItem('is_premium_guest') === 'true';
-        setIsPremium(localPremium);
-        setLoading(false);
-        return;
-      }
+  const checkPremium = useCallback(async () => {
+    if (!user) {
+      setIsPremium(false);
+      setIsLoading(false);
+      return;
+    }
 
-      const { data } = await supabase
+    try {
+      const { data, error } = await supabase
         .from('profiles')
         .select('is_premium')
         .eq('id', user.id)
         .single();
 
-      setIsPremium(data?.is_premium || false);
-      setLoading(false);
+      if (error) {
+        console.error('Error fetching premium status:', error);
+        setIsPremium(false);
+      } else {
+        setIsPremium(data?.is_premium || false);
+      }
+    } catch (err) {
+      console.error('Error:', err);
+      setIsPremium(false);
+    } finally {
+      setIsLoading(false);
     }
+  }, [user, supabase]);
 
+  useEffect(() => {
     checkPremium();
-  }, [user]);
-
-  const unlockPremium = async () => {
-    // Simulate payment process
-    await new Promise(resolve => setTimeout(resolve, 1500)); // Fake API delay
-
-    if (user) {
-      // Update DB
-      await supabase.from('profiles').update({ is_premium: true }).eq('id', user.id);
-      setIsPremium(true);
-    } else {
-      // Update Local
-      localStorage.setItem('is_premium_guest', 'true');
-      setIsPremium(true);
-      // Ideally, trigger login flow here in real app
-    }
-  };
+  }, [checkPremium]);
 
   return (
-    <PremiumContext.Provider value={{ isPremium, unlockPremium, loading }}>
+    <PremiumContext.Provider value={{ isPremium, checkPremium, isLoading }}>
       {children}
     </PremiumContext.Provider>
   );

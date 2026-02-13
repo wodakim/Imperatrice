@@ -89,3 +89,475 @@ https://nextjs.org/docs/messages/module-not-found
 
 Import trace for requested module:
 ./node_modules/next/dist/client/app-next-dev.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+   Reload env: .env.local
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/app/.next/cache/webpack/edge-server-development/0.pack.gz_' -> '/app/.next/cache/webpack/edge-server-development/0.pack.gz'
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+ ⨯ ./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
+Error: ENOENT: no such file or directory, open '/app/node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js'
+
+Import trace for requested module:
+./node_modules/next-intl/dist/esm/navigation/shared/BaseLink.js
