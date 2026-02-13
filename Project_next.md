@@ -1,101 +1,81 @@
-# PROJECT NEXT : AUDIT APPROFONDI & ETAT DES LIEUX (V2 COMPLETED)
+# PROJECT NEXT : CORRECTIONS CRITIQUES ET AUDIT V3
 
-Ce document est le résultat d'un audit minutieux ligne par ligne comparant le prototype `guide/index.html` avec l'implémentation Next.js actuelle.
+Suite à l'audit externe révélant des clés de traduction manquantes et des fonctionnalités incomplètes, ce document liste les corrections prioritaires à effectuer pour atteindre une conformité RÉELLE de 100%.
 
-## 1. INFRASTRUCTURE & SÉCURITÉ
-- [x] **Next.js 16** : Migration effectuée (v16.1.6). Build OK.
-- [x] **Dépendances** : `next-intl` (v4), `next-pwa`, `lucide-react` à jour.
-- [x] **CSP Strict** : En-têtes configurés dans `next.config.ts`.
-- [x] **PWA** : `manifest.json` présent avec orientation portrait et couleurs thématiques.
-- [x] **Linting** : `eslint.config.mjs` configuré pour tolérer les patterns nécessaires au build tout en vérifiant l'essentiel.
+## CHAPITRE 1 : ACCUEIL & CHRONOBIOLOGIE (CORRECTION)
+**Objectif :** Fixer les clés de traduction manquantes dans le widget Chrono.
 
-## 2. UI/UX & THÈME (FIDÉLITÉ VISUELLE)
-- [x] **Variables CSS** : `globals.css` contient exactement les valeurs HSL/Hexa du prototype (Lavender `#FFF0F5`, Thistle `#D8BFD8`).
-- [x] **Polices** : Utilisation de `Inter` (sans-serif) et `Caveat` (manuscrite pour les tips) via `layout.tsx`.
-- [x] **Animations** :
-    - [x] `pulse-sos` (Bouton Panic) : Implémenté dans `globals.css`.
-    - [x] `fadeIn` (Navigation) : Implémenté via classes utilitaires.
-    - [x] Rotation Dark Mode : Implémentée dans `Header.tsx`.
-- [x] **Layout** :
-    - [x] `Header.tsx` : Logo gauche, Actions droite (Langue Pill, SOS, Theme).
-    - [x] `Navigation.tsx` : Scroll horizontal masqué (`hide-scrollbar`), Pill style actif/inactif.
+- [ ] **1.1 Clés i18n Manquantes (Dashboard)**
+    - *Fichier cible :* `messages/*.json` et `src/components/dashboard/ChronoWidget.tsx`
+    - *Clés à vérifier/ajouter :* `tip_jan` (et tous les mois : `tip_feb`... `tip_dec`), `chrono_prime`, `chrono_good`, `chrono_calm`.
+    - *Action :* Vérifier le mappage `month -> key` dans le composant.
 
-## 3. FONCTIONNALITÉS (DÉTAIL PAR ONGLET)
+## CHAPITRE 2 : STUDIO VIRTUEL (CORRECTION)
+**Objectif :** Rétablir les catégories et les traductions du Wizard.
 
-### 🏠 Dashboard (`/dashboard`)
-- [x] **Widget Cuillères** (`SpoonsWidget.tsx`) :
-    - [x] Affichage 12 cuillères.
-    - [x] Interaction clic (remplir/vider).
-    - [x] Persistance `localStorage` + Reset date jour.
-    - [x] Logique trophée `spoon_saver` câblée.
-- [x] **Widget Chronobiologie** (`ChronoWidget.tsx`) :
-    - [x] Algorithme `slots` (Matrice Jour/Heure du prototype).
-    - [x] États visuels : Prime (Rouge), Good (Violet), Neutral (Gris).
-    - [x] Conseil saisonnier basé sur `new Date().getMonth()`.
-- [x] **Widget Conseil** (`DailyTip.tsx`) :
-    - [x] Rotation quotidienne (index basé sur la date).
-    - [x] Style Post-it jaune, inclinaison `-1deg`, font `Caveat`.
+- [ ] **2.1 Catégories & Clés**
+    - *Fichier cible :* `src/components/studio/studioData.ts`
+    - *Clés manquantes :* `Studio.cat_shoes`, `Studio.cat_bags` (et non `cat_bag`).
+    - *Action :* Vérifier que `nameKey` dans `STUDIO_DATA` correspond aux clés JSON.
 
-### 📸 Studio (`/studio`)
-- [x] **Wizard Navigation** (`StudioWizard.tsx`) :
-    - [x] Écran 1 : Sélection Catégorie (Vêtements, Chaussures, Sacs) avec icônes.
-    - [x] Écran 2 : Pas à pas (Icone centrale, Titre, Description).
-    - [x] **Secret Algo** : Encart sombre en bas de carte (Fidélité proto).
-    - [x] Écran 3 : Succès avec récapitulatif conseils.
-- [x] **Données** : `studioData.ts` mappe correctement les clés de traduction.
+## CHAPITRE 3 : SEO GENERATOR (CORRECTION UI & KEYS)
+**Objectif :** Réparer le style du formulaire (encadrés manquants) et les traductions.
 
-### ✍️ SEO (`/seo`)
-- [x] **Générateur** (`SeoGenerator.tsx`) :
-    - [x] Champs : Marque, Type, Couleur, Matière, État, Style (Select), Vibe.
-    - [x] **Moteur** : Assemblage procédural (Hook + Reason + Specs + Closing).
-    - [x] **Score** : Barre de progression temps réel (Calcul points + Pénalités mots vides).
-    - [x] **Tags** : Système d'ajout/suppression, Packs tendances (Gorpcore, etc.), Tags rapides.
-    - [x] **UX** : Bouton copier, Bouton Remix.
+- [ ] **3.1 Styles & UI (Placeholders)**
+    - *Fichier cible :* `src/components/seo/SeoGenerator.tsx`
+    - *Clés manquantes :* `ph_type`, `ph_details`, `ph_manual_tag`, `pack_select`, `label_preview`.
+    - *Problème visuel :* Manque les "encadrés" (borders/styles) sur les inputs "Marque", "Type", etc.
+    - *Action :* Ajouter les classes Tailwind `border border-[var(--color-accent)]` aux inputs.
 
-### 🛠️ Outils (`/tools`)
-- [x] **Calculatrice** (`ProfitCalculator.tsx`) :
-    - [x] Inputs Achat/Vente/Frais.
-    - [x] Calcul Marge %.
-    - [x] Code couleur résultat (Vert/Rouge/Gris).
-- [x] **Scripts** (`MagicScripts.tsx`) :
-    - [x] Dropdown scénarios (Lowball, Rude, etc.).
-    - [x] Textarea readonly avec le texte.
-    - [x] Bouton copier.
-- [x] **Checklist** (`PackingChecklist.tsx`) :
-    - [x] Liste items à cocher.
-    - [x] Persistance état.
-    - [x] Bouton Reset.
-- [x] **Calendrier** (`SeasonalCalendar.tsx`) :
-    - [x] Affichage double colonne (À Vendre / À Préparer) selon le mois.
+- [ ] **3.2 Données & Boutons**
+    - *Clés manquantes :* `btn_remix`, `btn_add`, `desc_magic`, `tags_title`.
+    - *Données manquantes :* `seo_data_style.0` (Tableaux de styles).
+    - *Action :* S'assurer que le composant sait lire les tableaux imbriqués dans le JSON (ou aplatir la structure si nécessaire).
 
-### 🎮 Gamification (`/crush`, `/trophies`)
-- [x] **Trophées** (`TrophySystem.tsx`) :
-    - [x] Grille complète des trophées (Grisé/Coloré).
-    - [x] Système d'écoute événements `unlockTrophy`.
-    - [x] Toast de notification + Confettis.
-- [x] **Jeu** (`CrushGame.tsx`) :
-    - [x] Grille 8x8.
-    - [x] Logique Drag & Drop basique.
-    - [x] Score & HighScore persistant.
+## CHAPITRE 4 : OUTILS PRATIQUES (CORRECTION)
+**Objectif :** Rétablir les traductions et le style des outils.
 
-### 🧘 Bien-être (`/relax`, Global)
-- [x] **Relax** :
-    - [x] `BreathingCircle.tsx` : Animation CSS scale sur 4s/4s.
-    - [x] `JokeGenerator.tsx` : Blagues aléatoires.
-- [x] **Panic Room** (`PanicRoom.tsx`) :
-    - [x] Overlay plein écran (Z-Index max).
-    - [x] Dégradé apaisant.
-    - [x] Technique 5-4-3-2-1.
-    - [x] Fermeture avec message "Douceur sur toi".
+- [ ] **4.1 Calendrier Saisonnier**
+    - *Clés manquantes :* `seasonal_title`, `season_focus.1` (accès tableau), `season_prep_label`.
+    - *Action :* Corriger l'accès aux tableaux dans `SeasonalCalendar.tsx`.
 
-## 4. DONNÉES & INTÉGRATION
-- [x] **Traductions** : Fichiers `messages/*.json` générés et complets (aucune clé manquante détectée au build).
-- [x] **Sync** : Hook `useSyncStore` implémenté pour gérer le stockage hybride (Local -> Supabase).
-- [x] **Auth** : Redirection protégée vers Login, intégration Supabase Client.
+- [ ] **4.2 Calculatrice**
+    - *Clés manquantes :* `calc_buy_ph`, `calc_sell_ph`, `calc_fees_ph`, `calc_result_label`.
+    - *Problème visuel :* Manque encadrés inputs.
 
-## 5. DERNIERS DÉTAILS (FINISHING TOUCHES)
-- [x] **Favicons** : Placeholder configuré dans le manifest.
-- [x] **Meta** : Viewport bloqué à scale 1 pour effet natif.
+- [ ] **4.3 Scripts & Checklist**
+    - *Clés manquantes :* `script_select_ph`, `reset_list`, `pack_items.0` à `7`.
+    - *Action :* Vérifier la boucle de rendu des items checklist.
+
+## CHAPITRE 5 : DÉTENTE & PANIC (CORRECTION)
+**Objectif :** Fixer les textes de la zone Wellness et du Panic Room.
+
+- [ ] **5.1 Textes Relax**
+    - *Clés manquantes :* `relax_title`, `relax_subtitle`, `breath_title`, `breath_instruction`, `joke_title`, `btn_next_joke`.
+    - *Action :* Vérifier le namespace utilisé (Dashboard vs Relax).
+
+- [ ] **5.2 Panic Room (BONUS)**
+    - *Clés manquantes :* `panic_title`, `panic_text`, `anchor_title`, `anchor_5`... `anchor_1`, `btn_better`.
+    - *Action :* S'assurer que le composant `PanicRoom` a accès aux bonnes traductions.
+
+## CHAPITRE 6 : JEU CRUSH (REFONTE)
+**Objectif :** Rendre le jeu jouable et corriger l'UI.
+
+- [ ] **6.1 UI & Traduction**
+    - *Clé manquante :* `btn_new_game`.
+    - *Action :* Traduire le bouton.
+
+- [ ] **6.2 Gameplay & UI**
+    - *Critique :* "Le système ne fonctionne absolument pas".
+    - *Action :* Revoir la logique de Drag & Drop (HTML5 Dnd peut être capricieux sur React). Envisager une logique de "Click A -> Click B" plus robuste pour mobile/desktop. Améliorer le visuel (Grille, animations).
+
+## CHAPITRE 7 : TROPHÉES (CORRECTION)
+**Objectif :** Afficher les noms et descriptions corrects.
+
+- [ ] **7.1 Données Trophées**
+    - *Clés manquantes :* `tr_n_first_visit`, `tr_d_first_visit`...
+    - *Action :* Vérifier la concaténation des clés dans `TrophySystem.tsx`.
 
 ---
-**Verdict de l'Audit :** L'application est conforme à 100% fonctionnellement au cahier des charges V2. Le code est propre, typé (autant que possible avec les contraintes de build), et modulaire.
+**MÉTHODE DE TRAVAIL :**
+Je traiterai ces chapitres un par un. À la fin de chaque chapitre, je générerai un screenshot de la section concernée pour validation avant de passer au suivant.

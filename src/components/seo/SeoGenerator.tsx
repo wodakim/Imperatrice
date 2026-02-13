@@ -2,12 +2,14 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
-import { Copy, RefreshCw, Trash2, Tag, Info, AlertCircle } from 'lucide-react';
+import { Copy, RefreshCw, Trash2, Tag, Info, AlertCircle, Plus } from 'lucide-react';
 import { TREND_PACKS, QUICK_TAGS } from './seoData';
 
 export default function SeoGenerator() {
   const t = useTranslations('Seo');
-  const t_styles = useTranslations('seo_data'); // Access complex object
+  // Access data by knowing the structure. We will fetch keys directly in generateDescription.
+  // We can't use useTranslations for complex nested objects directly in a way that returns the object in all next-intl versions easily without robust typing.
+  // Strategy: construct key strings dynamically.
 
   const [formData, setFormData] = useState({
     brand: '',
@@ -15,7 +17,7 @@ export default function SeoGenerator() {
     color: '',
     material: '',
     condition: '',
-    style: 'Casual', // Default style key
+    style: 'Casual',
     details: '',
     vibe: ''
   });
@@ -27,21 +29,28 @@ export default function SeoGenerator() {
   const [seoScore, setSeoScore] = useState(0);
   const [remixSeed, setRemixSeed] = useState(0);
 
+  // Style for inputs (Bordered as requested)
+  const inputStyle = "w-full p-3 rounded-xl border border-[var(--color-accent)] bg-[var(--color-bg)] focus:ring-2 focus:ring-[var(--color-primary)] outline-none transition-all placeholder:text-[var(--color-text-muted)] text-[var(--color-text-main)]";
+
   const generateDescription = useCallback(() => {
-    // Helper to get array from translation
-    const getArray = (path: string) => {
-        // This is a hack because useTranslations doesn't return arrays easily without full key
-        // We will try to fetch 3 items max (0, 1, 2) and filter.
-        return [0, 1, 2].map(idx => t_styles(`${formData.style}.${path}.${idx}`)).filter((s, idx) => s !== `${formData.style}.${path}.${idx}`);
+    // Helper to get random template from the translation files based on style
+    // Keys format: seo_data.Casual.hooks.0, seo_data.Casual.hooks.1, etc.
+    const getTemplate = (section: string) => {
+        const templates = [];
+        // Try to fetch up to 5 variations (usually 3)
+        for (let i = 0; i < 5; i++) {
+            const key = `seo_data.${formData.style}.${section}.${i}`;
+            const text = t.raw(key);
+            // If raw returns the key itself, it means missing.
+            // next-intl raw behavior depends on config, but standard t returns key if missing.
+            // Let's check if it looks like a translation.
+            if (text && text !== key) templates.push(text);
+        }
+        if (templates.length === 0) return "";
+        // Deterministic random based on seed
+        const idx = (remixSeed + Math.floor(Math.random() * templates.length)) % templates.length;
+        return templates[idx];
     };
-
-    const hooks = getArray('hooks');
-    const reasons = getArray('reasons');
-    const states = getArray('states');
-    const closings = getArray('closings');
-
-    // Pick random (using seed to keep it stable unless remix clicked)
-    const pick = (arr: string[]) => arr[(remixSeed + Math.floor(Math.random() * arr.length)) % arr.length] || "";
 
     const ctx = {
         brand: formData.brand || t('ph_brand'),
@@ -56,20 +65,25 @@ export default function SeoGenerator() {
     const fill = (tpl: string) => tpl.replace(/\{(\w+)\}/g, (_, k) => (ctx as any)[k] || "");
 
     let desc = "";
-    if(hooks.length) desc += fill(pick(hooks)) + "\n\n";
-    if(reasons.length) desc += fill(pick(reasons)) + "\n";
-    if(states.length) desc += fill(pick(states)) + "\n\n";
+    const hook = getTemplate('hooks');
+    const reason = getTemplate('reasons');
+    const state = getTemplate('states');
+    const closing = getTemplate('closings');
+
+    if(hook) desc += fill(hook) + "\n\n";
+    if(reason) desc += fill(reason) + "\n";
+    if(state) desc += fill(state) + "\n\n";
 
     if(formData.details) desc += `📝 ${formData.details}\n\n`;
     if(formData.material) desc += `🧶 ${formData.material}\n`;
     if(formData.color) desc += `🎨 ${formData.color}\n\n`;
 
-    if(closings.length) desc += fill(pick(closings)) + "\n\n";
+    if(closing) desc += fill(closing) + "\n\n";
 
     if(activeTags.length) desc += activeTags.join(' ');
 
     setGeneratedDesc(desc);
-  }, [formData, activeTags, remixSeed, t_styles, t]);
+  }, [formData, activeTags, remixSeed, t]);
 
   // --- LOGIC: UPDATE PREVIEW ---
   useEffect(() => {
@@ -101,7 +115,7 @@ export default function SeoGenerator() {
          window.dispatchEvent(new CustomEvent('unlockTrophy', { detail: 'seo_master' }));
     }
 
-  }, [formData, activeTags, remixSeed, generateDescription]); // Dependencies
+  }, [formData, activeTags, remixSeed, generateDescription]);
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -127,13 +141,9 @@ export default function SeoGenerator() {
             <select
                 value={formData.style}
                 onChange={(e) => setFormData({...formData, style: e.target.value})}
-                className="bg-white border border-[var(--color-primary)] rounded-lg px-3 py-1 font-semibold text-[var(--color-text-main)]"
+                className="bg-white border border-[var(--color-primary)] rounded-lg px-3 py-1 font-semibold text-[var(--color-text-main)] outline-none"
             >
-                {['Casual', 'Pro', 'Emoji', 'Story', 'Minimal'].map(s => (
-                    <option key={s} value={s}>{t(`seo_data.styles.${['Casual', 'Pro', 'Emoji', 'Story', 'Minimal'].indexOf(s)}`)}</option> // Dirty key map or just use literal if translation keys match
-                    // Ideally: use keys like style_casual
-                ))}
-                {/* Fallback to keys matching messages.json */}
+                {/* Manual options mapping to ensure keys match */}
                  <option value="Casual">{t('style_casual')}</option>
                  <option value="Pro">{t('style_pro')}</option>
                  <option value="Emoji">{t('style_emoji')}</option>
@@ -157,18 +167,36 @@ export default function SeoGenerator() {
 
         {/* Inputs Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
-             <input placeholder={t('ph_brand')} className="input-field" onChange={e => setFormData({...formData, brand: e.target.value})} />
-             <input placeholder={t('ph_type')} className="input-field" onChange={e => setFormData({...formData, type: e.target.value})} />
-             <input placeholder={t('ph_color')} className="input-field" onChange={e => setFormData({...formData, color: e.target.value})} />
-             <input placeholder={t('ph_material')} className="input-field" onChange={e => setFormData({...formData, material: e.target.value})} />
-             <select className="input-field" onChange={e => setFormData({...formData, condition: e.target.value})}>
-                 <option value="">{t('ph_condition')}</option>
-                 <option value={t('cond_new')}>{t('cond_new')}</option>
-                 <option value={t('cond_vgood')}>{t('cond_vgood')}</option>
-                 <option value={t('cond_good')}>{t('cond_good')}</option>
-                 <option value={t('cond_fair')}>{t('cond_fair')}</option>
-             </select>
-             <input placeholder={t('ph_vibe')} className="input-field" onChange={e => setFormData({...formData, vibe: e.target.value})} />
+             <div className="flex flex-col">
+                <input placeholder={t('ph_brand')} className={inputStyle} onChange={e => setFormData({...formData, brand: e.target.value})} />
+                <span className="text-[10px] text-[var(--color-text-muted)] italic mt-1 ml-1">{t('ex_brand')}</span>
+             </div>
+             <div className="flex flex-col">
+                <input placeholder={t('ph_type')} className={inputStyle} onChange={e => setFormData({...formData, type: e.target.value})} />
+                <span className="text-[10px] text-[var(--color-text-muted)] italic mt-1 ml-1">{t('ex_type')}</span>
+             </div>
+             <div className="flex flex-col">
+                <input placeholder={t('ph_color')} className={inputStyle} onChange={e => setFormData({...formData, color: e.target.value})} />
+                <span className="text-[10px] text-[var(--color-text-muted)] italic mt-1 ml-1">{t('ex_color')}</span>
+             </div>
+             <div className="flex flex-col">
+                <input placeholder={t('ph_material')} className={inputStyle} onChange={e => setFormData({...formData, material: e.target.value})} />
+                <span className="text-[10px] text-[var(--color-text-muted)] italic mt-1 ml-1">{t('ex_material')}</span>
+             </div>
+             <div className="flex flex-col">
+                <select className={inputStyle} onChange={e => setFormData({...formData, condition: e.target.value})}>
+                    <option value="">{t('ph_condition')}</option>
+                    <option value={t('cond_new')}>{t('cond_new')}</option>
+                    <option value={t('cond_vgood')}>{t('cond_vgood')}</option>
+                    <option value={t('cond_good')}>{t('cond_good')}</option>
+                    <option value={t('cond_fair')}>{t('cond_fair')}</option>
+                </select>
+                <span className="text-[10px] text-[var(--color-text-muted)] italic mt-1 ml-1">{t('ex_condition')}</span>
+             </div>
+             <div className="flex flex-col">
+                <input placeholder={t('ph_vibe')} className={inputStyle} onChange={e => setFormData({...formData, vibe: e.target.value})} />
+                <span className="text-[10px] text-[var(--color-text-muted)] italic mt-1 ml-1">{t('ex_vibe')}</span>
+             </div>
         </div>
 
         {/* Score & Preview */}
@@ -198,10 +226,10 @@ export default function SeoGenerator() {
 
             <button
                 onClick={() => handleCopy(generatedTitle)}
-                className="absolute top-4 right-4 text-[var(--color-primary-dark)] hover:bg-white p-2 rounded-lg transition-colors"
+                className="absolute top-4 right-4 text-[var(--color-primary-dark)] hover:bg-white p-2 rounded-lg transition-colors flex items-center gap-1 text-xs font-bold"
                 title={t('btn_copy')}
             >
-                <Copy size={18} />
+                <Copy size={14} /> {t('btn_copy')}
             </button>
         </div>
       </div>
@@ -214,7 +242,7 @@ export default function SeoGenerator() {
 
         <textarea
             placeholder={t('ph_details')}
-            className="w-full h-24 p-3 rounded-xl border border-[var(--color-accent)] bg-[var(--color-bg)] mb-6 focus:ring-2 focus:ring-[var(--color-primary)] outline-none"
+            className={`w-full h-24 ${inputStyle} mb-6 resize-none`}
             onChange={e => setFormData({...formData, details: e.target.value})}
         />
 
@@ -227,13 +255,13 @@ export default function SeoGenerator() {
                     value={manualTag}
                     onChange={e => setManualTag(e.target.value)}
                     placeholder={t('ph_manual_tag')}
-                    className="flex-1 input-field py-1"
+                    className={`flex-1 ${inputStyle} py-2`}
                 />
                 <button
                     onClick={() => { if(manualTag) { addTag(manualTag.startsWith('#') ? manualTag : '#'+manualTag); setManualTag(''); } }}
-                    className="bg-[var(--color-primary-dark)] text-white px-4 rounded-lg font-bold"
+                    className="bg-[var(--color-primary-dark)] text-white px-4 rounded-xl font-bold flex items-center gap-2"
                 >
-                    {t('btn_add')}
+                    <Plus size={18} /> {t('btn_add')}
                 </button>
             </div>
 
@@ -246,7 +274,7 @@ export default function SeoGenerator() {
                     }
                     e.target.value = "";
                 }}
-                className="w-full mb-3 input-field"
+                className={`w-full mb-3 ${inputStyle} py-2`}
             >
                 <option value="">{t('pack_select')}</option>
                 {Object.keys(TREND_PACKS).map(k => (
@@ -254,7 +282,7 @@ export default function SeoGenerator() {
                 ))}
             </select>
 
-            <div className="flex flex-wrap gap-2 mb-4 max-h-20 overflow-y-auto">
+            <div className="flex flex-wrap gap-2 mb-4 max-h-24 overflow-y-auto">
                 {QUICK_TAGS.map(tag => (
                     <button key={tag} onClick={() => addTag(tag)} className="text-xs bg-[var(--color-surface)] border border-[var(--color-primary)] rounded-full px-3 py-1 hover:bg-[var(--color-primary)] hover:text-white transition-colors">
                         {tag}
@@ -262,11 +290,11 @@ export default function SeoGenerator() {
                 ))}
             </div>
 
-            <div className="flex flex-wrap gap-2 p-3 bg-[var(--color-bg)] rounded-xl min-h-[50px]">
+            <div className="flex flex-wrap gap-2 p-3 bg-[var(--color-bg)] rounded-xl min-h-[50px] border border-[var(--color-accent)]">
                 {activeTags.map(tag => (
-                    <span key={tag} className="flex items-center gap-1 bg-[var(--color-primary-dark)] text-white text-xs px-2 py-1 rounded-lg">
+                    <span key={tag} className="flex items-center gap-1 bg-[var(--color-primary-dark)] text-white text-xs px-2 py-1 rounded-lg animate-in fade-in zoom-in">
                         {tag}
-                        <button onClick={() => setActiveTags(activeTags.filter(t => t !== tag))}><Trash2 size={12} /></button>
+                        <button onClick={() => setActiveTags(activeTags.filter(t => t !== tag))} className="hover:text-red-300"><Trash2 size={12} /></button>
                     </span>
                 ))}
             </div>
@@ -275,15 +303,15 @@ export default function SeoGenerator() {
         {/* Preview */}
         <div className="bg-[var(--color-bg)] p-4 rounded-[15px] border border-dashed border-[var(--color-primary-dark)] relative">
             <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] block mb-2">{t('label_preview')}</span>
-            <div className="whitespace-pre-wrap text-sm leading-relaxed text-[var(--color-text-main)]">
+            <div className="whitespace-pre-wrap text-sm leading-relaxed text-[var(--color-text-main)] min-h-[4rem]">
                 {generatedDesc || "..."}
             </div>
             <button
                 onClick={() => handleCopy(generatedDesc)}
-                className="absolute top-4 right-4 text-[var(--color-primary-dark)] hover:bg-white p-2 rounded-lg transition-colors"
+                className="absolute top-4 right-4 text-[var(--color-primary-dark)] hover:bg-white p-2 rounded-lg transition-colors flex items-center gap-1 text-xs font-bold"
                 title={t('btn_copy')}
             >
-                <Copy size={18} />
+                <Copy size={14} /> {t('btn_copy')}
             </button>
         </div>
 

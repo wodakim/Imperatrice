@@ -7,46 +7,47 @@ import { Trophy } from 'lucide-react';
 
 export default function TrophySystem() {
   const t = useTranslations('Trophies');
+  const t_dash = useTranslations('Dashboard'); // For notification prefix "notif_trophy"
 
   const [unlocked, setUnlocked] = useState<string[]>([]);
   const [notification, setNotification] = useState<{ id: string, name: string } | null>(null);
 
   useEffect(() => {
-    // Initial Load
     const saved = localStorage.getItem('unlocked_trophies');
     if (saved) setUnlocked(JSON.parse(saved));
 
-    // Event Listener for unlocking
     const handleUnlock = (e: CustomEvent) => {
         const id = e.detail;
-
-        // Simplified: re-read local storage to be safe
         const currentSaved = JSON.parse(localStorage.getItem('unlocked_trophies') || '[]');
+
         if(!currentSaved.includes(id)) {
             const updated = [...currentSaved, id];
             localStorage.setItem('unlocked_trophies', JSON.stringify(updated));
             setUnlocked(updated);
 
             // Show Notification
-            const trophyDef = TROPHY_DATA.find(tDef => tDef.id === id);
-            if(trophyDef) {
-                setNotification({ id, name: t(`tr_n_${id}`) }); // Assuming keys exist
-                triggerConfetti();
-                setTimeout(() => setNotification(null), 4000);
-            }
+            // Note: We need to access translation dynamically.
+            // Since we are inside the component, t is available.
+            // Keys: tr_n_first_visit, etc.
+            const name = t(`tr_n_${id}`);
+
+            setNotification({ id, name });
+            triggerConfetti();
+            setTimeout(() => setNotification(null), 4000);
         }
     };
 
     window.addEventListener('unlockTrophy', handleUnlock as EventListener);
 
-    // Auto-unlock 'first_visit'
-    window.dispatchEvent(new CustomEvent('unlockTrophy', { detail: 'first_visit' }));
+    // Auto check first visit
+    setTimeout(() => {
+        window.dispatchEvent(new CustomEvent('unlockTrophy', { detail: 'first_visit' }));
+    }, 1000);
 
     return () => window.removeEventListener('unlockTrophy', handleUnlock as EventListener);
   }, [t]);
 
   function triggerConfetti() {
-    // Simple DOM confetti
     for(let i=0; i<30; i++) {
         const c = document.createElement('div');
         c.style.position = 'fixed';
@@ -69,7 +70,6 @@ export default function TrophySystem() {
     }
   }
 
-  // Render Grid
   return (
     <div className="animate-fade-in">
         <div className="text-center mb-8">
@@ -84,6 +84,10 @@ export default function TrophySystem() {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {TROPHY_DATA.map((trophy) => {
                 const isUnlocked = unlocked.includes(trophy.id);
+                // Dynamic keys check
+                const nameKey = `tr_n_${trophy.id}`;
+                const descKey = `tr_d_${trophy.id}`;
+
                 return (
                     <div
                         key={trophy.id}
@@ -98,22 +102,22 @@ export default function TrophySystem() {
                             {trophy.icon}
                         </div>
                         <div className="font-bold text-sm text-[var(--color-text-main)] mb-1">
-                            {t(`tr_n_${trophy.id}`)}
+                            {t(nameKey)}
                         </div>
                         <div className={`text-xs text-[var(--color-text-muted)] ${isUnlocked ? 'block' : 'hidden group-hover:block'}`}>
-                            {t(`tr_d_${trophy.id}`)}
+                            {t(descKey)}
                         </div>
                     </div>
                 );
             })}
         </div>
 
-        {/* Toast Notification */}
+        {/* Toast */}
         {notification && (
             <div className="fixed bottom-20 right-5 bg-[var(--color-primary-dark)] text-white px-6 py-4 rounded-[15px] shadow-2xl z-50 animate-slide-in-up flex items-center gap-4">
                 <div className="text-2xl">🏆</div>
                 <div>
-                    <div className="font-bold text-sm uppercase tracking-wider opacity-80">Succès débloqué</div>
+                    <div className="font-bold text-sm uppercase tracking-wider opacity-80">{t_dash('notif_trophy')}</div>
                     <div className="font-bold text-lg">{notification.name}</div>
                 </div>
             </div>

@@ -6,15 +6,22 @@ import { Smile } from 'lucide-react';
 
 export default function JokeGenerator() {
   const t = useTranslations('Dashboard');
-  const t_jokes = useTranslations('jokes'); // Array logic
+  // Access array via nested keys logic: jokes.0, jokes.1
+  // We need to know how many jokes. Hardcoded 5 matching JSON.
 
-  // Need joke count or raw array. Hardcoded 5 in proto.
   const getJoke = () => {
       const idx = Math.floor(Math.random() * 5);
-      return t_jokes(`${idx}`);
+      return t(`jokes.${idx}`);
   };
 
-  const [joke, setJoke] = useState(getJoke());
+  // We need to handle hydration mismatch with random
+  // Start with empty or first one, but random on client
+  const [joke, setJoke] = useState("");
+
+  // Use effect to set initial joke to avoid server/client mismatch
+  useState(() => {
+      setJoke(getJoke());
+  });
 
   return (
     <div className="bg-[var(--color-bg)] border border-dashed border-[var(--color-secondary)] p-6 rounded-[20px] text-center max-w-sm mx-auto w-full">
@@ -27,7 +34,10 @@ export default function JokeGenerator() {
         </p>
 
         <button
-            onClick={() => { setJoke(getJoke()); if(typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('unlockTrophy', { detail: 'joke_lover' })); }}
+            onClick={() => {
+                setJoke(getJoke());
+                if(typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('unlockTrophy', { detail: 'joke_lover' }));
+            }}
             className="bg-[var(--color-secondary)] text-white px-6 py-2 rounded-full font-bold shadow-md hover:scale-105 transition-transform"
         >
             {t('btn_next_joke')}

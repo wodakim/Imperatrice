@@ -19,6 +19,9 @@ export default function ProfitCalculator() {
   if (b > 0) roi = (profit / b) * 100;
   else if (profit > 0) roi = 100;
 
+  // Added border style explicitly
+  const inputStyle = "w-full p-3 rounded-xl border border-[var(--color-accent)] bg-[var(--color-bg)] focus:ring-2 focus:ring-[var(--color-primary)] outline-none transition-all";
+
   return (
     <div className="bg-[var(--color-surface)] p-6 rounded-[20px] shadow-[var(--shadow-soft)] card-hover">
       <h3 className="text-lg font-bold text-[var(--color-primary-dark)] mb-4">
@@ -31,21 +34,21 @@ export default function ProfitCalculator() {
             placeholder={t('calc_buy_ph')}
             value={buy}
             onChange={(e) => setBuy(e.target.value)}
-            className="input-field"
+            className={inputStyle}
         />
         <input
             type="number"
             placeholder={t('calc_sell_ph')}
             value={sell}
             onChange={(e) => setSell(e.target.value)}
-            className="input-field"
+            className={inputStyle}
         />
         <input
             type="number"
             placeholder={t('calc_fees_ph')}
             value={fees}
             onChange={(e) => setFees(e.target.value)}
-            className="input-field"
+            className={inputStyle}
         />
       </div>
 
