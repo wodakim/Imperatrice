@@ -125,7 +125,7 @@ export default function SeoGenerator() {
             <select
                 value={formData.style}
                 onChange={(e) => setFormData({...formData, style: e.target.value})}
-                className="bg-white border border-[var(--color-primary)] rounded-lg px-3 py-1 font-semibold text-[var(--color-text-main)] outline-none"
+                className="bg-[var(--color-surface)] border border-[var(--color-primary)] rounded-lg px-3 py-1 font-semibold text-[var(--color-text-main)] outline-none dark:bg-[#383848]"
             >
                  <option value="Casual">{t('style_casual')}</option>
                  <option value="Pro">{t('style_pro')}</option>
@@ -252,11 +252,11 @@ export default function SeoGenerator() {
                     }
                     e.target.value = "";
                 }}
-                className={`w-full mb-3 ${inputStyle} py-2`}
+                className={`w-full mb-3 ${inputStyle} py-2 bg-[var(--color-surface)] text-[var(--color-text-main)] dark:bg-[#383848]`}
             >
                 <option value="">{t('pack_select')}</option>
                 {Object.keys(TREND_PACKS).map(k => (
-                    <option key={k} value={k}>#{k}</option>
+                    <option key={k} value={k}>{k}</option>
                 ))}
             </select>
 
