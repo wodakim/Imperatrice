@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { X } from 'lucide-react';
 
 export default function PanicRoom() {
-  const t = useTranslations('Dashboard'); // Assuming keys here
+  const t = useTranslations('Dashboard'); // Keys are flattened in Dashboard scope in our JSON
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -27,19 +27,19 @@ export default function PanicRoom() {
         </button>
 
         <h2 className="text-4xl md:text-5xl font-bold mb-4 animate-slide-in-up delay-100">
-            {t('panic_title') || "Tu es en sécurité."}
+            {t('panic_title')}
         </h2>
 
-        <p className="text-xl md:text-2xl leading-relaxed max-w-2xl mb-10 opacity-90 animate-slide-in-up delay-200" dangerouslySetInnerHTML={{__html: t.raw('panic_text') || "Respire..."}} />
+        <p className="text-xl md:text-2xl leading-relaxed max-w-2xl mb-10 opacity-90 animate-slide-in-up delay-200" dangerouslySetInnerHTML={{__html: t.raw('panic_text')}} />
 
         <div className="bg-white/10 backdrop-blur-md p-8 rounded-[30px] max-w-lg w-full mb-10 border border-white/20 animate-slide-in-up delay-300 text-left">
-            <h3 className="text-xl font-bold mb-4 text-center">{t('anchor_title') || "Technique d'Ancrage"}</h3>
+            <h3 className="text-xl font-bold mb-4 text-center">{t('anchor_title')}</h3>
             <ul className="space-y-3 text-lg">
-                <li>👀 <b>5</b> {t('anchor_5') || "choses que tu vois"}</li>
-                <li>✋ <b>4</b> {t('anchor_4') || "choses que tu touches"}</li>
-                <li>👂 <b>3</b> {t('anchor_3') || "choses que tu entends"}</li>
-                <li>👃 <b>2</b> {t('anchor_2') || "choses que tu sens"}</li>
-                <li>👅 <b>1</b> {t('anchor_1') || "chose que tu goûtes"}</li>
+                <li>👀 <b>5</b> <span dangerouslySetInnerHTML={{__html: t.raw('anchor_5')}} /></li>
+                <li>✋ <b>4</b> <span dangerouslySetInnerHTML={{__html: t.raw('anchor_4')}} /></li>
+                <li>👂 <b>3</b> <span dangerouslySetInnerHTML={{__html: t.raw('anchor_3')}} /></li>
+                <li>👃 <b>2</b> <span dangerouslySetInnerHTML={{__html: t.raw('anchor_2')}} /></li>
+                <li>👅 <b>1</b> <span dangerouslySetInnerHTML={{__html: t.raw('anchor_1')}} /></li>
             </ul>
         </div>
 
@@ -47,7 +47,7 @@ export default function PanicRoom() {
             onClick={() => setIsOpen(false)}
             className="bg-white text-[#3f2b96] px-10 py-4 rounded-full text-xl font-bold shadow-2xl hover:scale-105 active:scale-95 transition-transform animate-bounce-short delay-500"
         >
-            {t('btn_better') || "Je me sens mieux 🌿"}
+            {t('btn_better')}
         </button>
     </div>
   );

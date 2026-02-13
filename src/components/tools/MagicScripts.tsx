@@ -6,7 +6,7 @@ import { Copy, MessageSquare } from 'lucide-react';
 
 export default function MagicScripts() {
   const t = useTranslations('Tools');
-  const t_scripts = useTranslations('scripts'); // Assuming direct script keys exist or map them
+  // Removed t_scripts hook assumption, using main t() with specific keys logic
   const [selectedScript, setSelectedScript] = useState('');
 
   const scripts = [
@@ -14,11 +14,11 @@ export default function MagicScripts() {
     'accept', 'counter', 'bundle', 'thanks', 'review', 'measure'
   ];
 
-  // We need to map selection to text content.
-  // In `messages/fr.json`, keys are `script_lowball`, `script_rude` etc.
-  // The select options labels are `script_lowball_label`.
-
+  // Map to keys like "script_lowball"
   const currentText = selectedScript ? t(`script_${selectedScript}`) : "";
+
+  // Style correction
+  const inputStyle = "w-full p-3 rounded-xl border border-[var(--color-accent)] bg-[var(--color-bg)] focus:ring-2 focus:ring-[var(--color-primary)] outline-none transition-all";
 
   const handleCopy = () => {
     if(currentText) {
@@ -34,7 +34,7 @@ export default function MagicScripts() {
       </h3>
 
       <select
-        className="input-field mb-4 w-full"
+        className={`${inputStyle} mb-4`}
         onChange={(e) => setSelectedScript(e.target.value)}
         value={selectedScript}
       >
@@ -50,7 +50,7 @@ export default function MagicScripts() {
         <textarea
             readOnly
             value={currentText}
-            className="w-full h-32 p-3 rounded-xl bg-[var(--color-bg)] text-sm text-[var(--color-text-muted)] border-none focus:ring-0 resize-none"
+            className="w-full h-32 p-3 rounded-xl bg-[var(--color-bg)] text-sm text-[var(--color-text-muted)] border border-[var(--color-accent)] focus:ring-0 resize-none"
         />
         {currentText && (
             <button

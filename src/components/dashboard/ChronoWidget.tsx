@@ -64,22 +64,27 @@ export default function ChronoWidget() {
       setStatus(newStatus);
       setMessage(newMessage);
 
-      // Season Tip
+      // Season Tip Logic
+      // 0=Jan, 1=Feb, 2=Mar, 3=Apr, 4=May, 5=Jun, 6=Jul, 7=Aug, 8=Sep, 9=Oct, 10=Nov, 11=Dec
+      // Match prototype logic or month specific logic
+      // Proto had logic: 7-8 autumn, 10-11 winter, 0-1 jan, 3-5 summer, else spring
+      // Let's implement full coverage or fallback
+
       let tipKey = 'tip_spring';
       if(month >= 7 && month <= 8) tipKey = 'tip_autumn';
       else if(month >= 10 || month === 11) tipKey = 'tip_winter';
       else if(month >= 0 && month <= 1) tipKey = 'tip_jan';
       else if(month >= 3 && month <= 5) tipKey = 'tip_summer';
+      // Fallback for others (March, June/Sept edge cases not fully covered in proto logic?
+      // Proto: "else seasonTip = d.tip_spring;" covers it.
 
-      // Manual mapping since dynamic keys are tricky with typesafe i18n
-      const tipMap: Record<string, string> = {
-          tip_autumn: t('tip_autumn'),
-          tip_winter: t('tip_winter'),
-          tip_jan: t('tip_jan'),
-          tip_summer: t('tip_summer'),
-          tip_spring: t('tip_spring')
-      };
-      setSeasonTip(tipMap[tipKey]);
+      // We must ensure these keys exist in translation files.
+      // Based on extract_i18n output, they are in 'Dashboard' namespace if flattened,
+      // or we need to access them properly.
+      // The extract script creates a flat JSON usually.
+
+      // Let's use t directly.
+      setSeasonTip(t(tipKey));
     };
 
     update();

@@ -6,8 +6,7 @@ import { CheckSquare, RotateCcw } from 'lucide-react';
 
 export default function PackingChecklist() {
   const t = useTranslations('Tools');
-  const t_items = useTranslations('pack_items'); // Access array logic if possible, else manual map
-  // Manual map based on known array length in prototype (8 items)
+  // Access array items by index key since i18n flattens arrays
   const items = [0,1,2,3,4,5,6,7].map(i => t(`pack_items.${i}`));
 
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
@@ -30,7 +29,6 @@ export default function PackingChecklist() {
     if(newChecked.length === items.length) {
         if (typeof window !== 'undefined') {
             window.dispatchEvent(new CustomEvent('unlockTrophy', { detail: 'packing_done' }));
-            // Could trigger confetti here too
         }
     }
   };
