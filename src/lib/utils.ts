@@ -1,12 +1,18 @@
-import { siteConfig } from '@/config/site';
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+// Fallback metadata constructor if needed by other components, although V2 uses layout.tsx
 export function constructMetadata({
-  title = siteConfig.name,
-  description = siteConfig.description,
-  image = siteConfig.ogImage,
+  title = "L'IMPÉRATRICE - Assistant Vinted Neuro-Inclusif",
+  description = "Ton assistante personnelle de vente, conçue pour réussir avec douceur.",
+  image = "/images/og-image.jpg",
   icons = "/favicon.ico",
   noIndex = false,
-  locale = "fr",
+  locale = "fr", // Added locale prop support
 }: {
   title?: string;
   description?: string;
@@ -15,14 +21,8 @@ export function constructMetadata({
   noIndex?: boolean;
   locale?: string;
 } = {}) {
-  // Fix: Ensure canonical is an absolute URL
-  const canonicalUrl = `${siteConfig.url}/${locale}`;
-
   return {
-    title: {
-      default: title,
-      template: `%s | ${siteConfig.name}`,
-    },
+    title,
     description,
     openGraph: {
       title,
@@ -32,9 +32,7 @@ export function constructMetadata({
           url: image,
         },
       ],
-      type: "website",
-      locale: locale,
-      siteName: siteConfig.name,
+      locale,
     },
     twitter: {
       card: "summary_large_image",
@@ -44,18 +42,7 @@ export function constructMetadata({
       creator: "@limperatrice",
     },
     icons,
-    metadataBase: new URL(siteConfig.url),
-    alternates: {
-        canonical: canonicalUrl,
-        languages: {
-            'fr': `${siteConfig.url}/fr`,
-            'en': `${siteConfig.url}/en`,
-            'de': `${siteConfig.url}/de`,
-            'es': `${siteConfig.url}/es`,
-            'it': `${siteConfig.url}/it`,
-            'pl': `${siteConfig.url}/pl`,
-        },
-    },
+    metadataBase: new URL('https://limperatrice.app'),
     ...(noIndex && {
       robots: {
         index: false,
