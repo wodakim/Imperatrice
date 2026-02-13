@@ -6,8 +6,12 @@ export default function SeasonalCalendar() {
   const t = useTranslations('Tools');
   const month = new Date().getMonth();
 
-  const focus = t(`season_focus.${month}`);
-  const prep = t(`season_prep.${month}`);
+  // Safely access array data
+  const focusList = t.raw('season_focus') as string[];
+  const prepList = t.raw('season_prep') as string[];
+
+  const focus = Array.isArray(focusList) ? focusList[month] : "";
+  const prep = Array.isArray(prepList) ? prepList[month] : "";
 
   return (
     <div className="bg-[var(--color-surface)] p-6 rounded-[20px] shadow-[var(--shadow-soft)] card-hover col-span-1 md:col-span-2">

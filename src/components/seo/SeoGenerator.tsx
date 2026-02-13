@@ -7,9 +7,6 @@ import { TREND_PACKS, QUICK_TAGS } from './seoData';
 
 export default function SeoGenerator() {
   const t = useTranslations('Seo');
-  // Access data by knowing the structure. We will fetch keys directly in generateDescription.
-  // We can't use useTranslations for complex nested objects directly in a way that returns the object in all next-intl versions easily without robust typing.
-  // Strategy: construct key strings dynamically.
 
   const [formData, setFormData] = useState({
     brand: '',
@@ -29,27 +26,22 @@ export default function SeoGenerator() {
   const [seoScore, setSeoScore] = useState(0);
   const [remixSeed, setRemixSeed] = useState(0);
 
-  // Style for inputs (Bordered as requested)
   const inputStyle = "w-full p-3 rounded-xl border border-[var(--color-accent)] bg-[var(--color-bg)] focus:ring-2 focus:ring-[var(--color-primary)] outline-none transition-all placeholder:text-[var(--color-text-muted)] text-[var(--color-text-main)]";
 
   const generateDescription = useCallback(() => {
-    // Helper to get random template from the translation files based on style
-    // Keys format: seo_data.Casual.hooks.0, seo_data.Casual.hooks.1, etc.
+    // Retrieve array of templates from translation files
+    // Key format: Seo.seo_data.Casual.hooks -> Returns Array
     const getTemplate = (section: string) => {
-        const templates = [];
-        // Try to fetch up to 5 variations (usually 3)
-        for (let i = 0; i < 5; i++) {
-            const key = `seo_data.${formData.style}.${section}.${i}`;
-            const text = t.raw(key);
-            // If raw returns the key itself, it means missing.
-            // next-intl raw behavior depends on config, but standard t returns key if missing.
-            // Let's check if it looks like a translation.
-            if (text && text !== key) templates.push(text);
+        // Construct the key path relative to 'Seo' namespace
+        const key = `seo_data.${formData.style}.${section}`;
+        const templates = t.raw(key);
+
+        // Ensure we got an array
+        if (Array.isArray(templates) && templates.length > 0) {
+            const idx = (remixSeed + Math.floor(Math.random() * templates.length)) % templates.length;
+            return templates[idx];
         }
-        if (templates.length === 0) return "";
-        // Deterministic random based on seed
-        const idx = (remixSeed + Math.floor(Math.random() * templates.length)) % templates.length;
-        return templates[idx];
+        return "";
     };
 
     const ctx = {
@@ -85,14 +77,11 @@ export default function SeoGenerator() {
     setGeneratedDesc(desc);
   }, [formData, activeTags, remixSeed, t]);
 
-  // --- LOGIC: UPDATE PREVIEW ---
   useEffect(() => {
-    // 1. Generate Title
     const parts = [formData.brand, formData.type, formData.material, formData.color, formData.vibe, formData.condition].filter(Boolean);
     const title = parts.join(' ');
     setGeneratedTitle(title);
 
-    // 2. Calculate Score
     let score = 0;
     if (title.length > 10) score += 20;
     if (formData.brand) score += 20;
@@ -102,15 +91,12 @@ export default function SeoGenerator() {
     if (formData.condition) score += 10;
     if (formData.vibe) score += 10;
 
-    // Penalties
     if (title.toLowerCase().includes('joli') || title.toLowerCase().includes('sympa')) score -= 10;
 
     setSeoScore(Math.min(100, Math.max(0, score)));
 
-    // 3. Generate Description
     generateDescription();
 
-    // Check Trophy
     if (score >= 100 && typeof window !== 'undefined') {
          window.dispatchEvent(new CustomEvent('unlockTrophy', { detail: 'seo_master' }));
     }
@@ -133,8 +119,6 @@ export default function SeoGenerator() {
 
   return (
     <div className="animate-fade-in grid gap-8">
-
-      {/* HEADER + STYLE SELECTOR */}
       <div className="bg-[var(--color-bg)] p-4 rounded-[15px] border border-[var(--color-accent)] flex flex-wrap gap-4 items-center justify-between">
         <div className="flex items-center gap-2">
             <label className="font-bold text-[var(--color-primary-dark)]">Style :</label>
@@ -143,7 +127,6 @@ export default function SeoGenerator() {
                 onChange={(e) => setFormData({...formData, style: e.target.value})}
                 className="bg-white border border-[var(--color-primary)] rounded-lg px-3 py-1 font-semibold text-[var(--color-text-main)] outline-none"
             >
-                {/* Manual options mapping to ensure keys match */}
                  <option value="Casual">{t('style_casual')}</option>
                  <option value="Pro">{t('style_pro')}</option>
                  <option value="Emoji">{t('style_emoji')}</option>
@@ -159,13 +142,11 @@ export default function SeoGenerator() {
         </button>
       </div>
 
-      {/* TITLE GENERATOR */}
       <div className="bg-[var(--color-surface)] p-6 rounded-[20px] shadow-[var(--shadow-soft)]">
         <h3 className="flex items-center gap-2 text-lg font-bold text-[var(--color-primary-dark)] mb-4">
             <Tag size={20} /> {t('title_perfect')}
         </h3>
 
-        {/* Inputs Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
              <div className="flex flex-col">
                 <input placeholder={t('ph_brand')} className={inputStyle} onChange={e => setFormData({...formData, brand: e.target.value})} />
@@ -199,7 +180,6 @@ export default function SeoGenerator() {
              </div>
         </div>
 
-        {/* Score & Preview */}
         <div className="bg-[var(--color-bg)] p-4 rounded-[15px] border border-dashed border-[var(--color-primary-dark)] relative">
             <div className="flex justify-between items-center mb-2">
                 <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)]">{t('label_preview')}</span>
@@ -234,7 +214,6 @@ export default function SeoGenerator() {
         </div>
       </div>
 
-      {/* DESCRIPTION GENERATOR */}
       <div className="bg-[var(--color-surface)] p-6 rounded-[20px] shadow-[var(--shadow-soft)]">
         <h3 className="flex items-center gap-2 text-lg font-bold text-[var(--color-primary-dark)] mb-4">
             <Info size={20} /> {t('desc_magic')}
@@ -246,7 +225,6 @@ export default function SeoGenerator() {
             onChange={e => setFormData({...formData, details: e.target.value})}
         />
 
-        {/* Tags Section */}
         <div className="mb-6">
             <h4 className="font-bold text-sm text-[var(--color-text-muted)] mb-3">{t('tags_title')}</h4>
 
@@ -300,7 +278,6 @@ export default function SeoGenerator() {
             </div>
         </div>
 
-        {/* Preview */}
         <div className="bg-[var(--color-bg)] p-4 rounded-[15px] border border-dashed border-[var(--color-primary-dark)] relative">
             <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] block mb-2">{t('label_preview')}</span>
             <div className="whitespace-pre-wrap text-sm leading-relaxed text-[var(--color-text-main)] min-h-[4rem]">
