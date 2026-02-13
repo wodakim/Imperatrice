@@ -6,8 +6,10 @@ import { CheckSquare, RotateCcw } from 'lucide-react';
 
 export default function PackingChecklist() {
   const t = useTranslations('Tools');
-  // Access array items by index key since i18n flattens arrays
-  const items = [0,1,2,3,4,5,6,7].map(i => t(`pack_items.${i}`));
+
+  // Safely retrieve array via t.raw()
+  const rawItems = t.raw('pack_items');
+  const items = Array.isArray(rawItems) ? rawItems : [];
 
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
   const [mounted, setMounted] = useState(false);
@@ -26,7 +28,7 @@ export default function PackingChecklist() {
     setCheckedItems(newChecked);
     localStorage.setItem('packing_state', JSON.stringify(newChecked));
 
-    if(newChecked.length === items.length) {
+    if(newChecked.length === items.length && items.length > 0) {
         if (typeof window !== 'undefined') {
             window.dispatchEvent(new CustomEvent('unlockTrophy', { detail: 'packing_done' }));
         }
@@ -52,7 +54,7 @@ export default function PackingChecklist() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {items.map((item, idx) => (
+        {items.map((item: string, idx: number) => (
             <label
                 key={idx}
                 className={`
