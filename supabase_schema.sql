@@ -1,47 +1,45 @@
--- Create Profiles Table (User Data)
-CREATE TABLE public.profiles (
-  id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
-  email TEXT NOT NULL,
-  spoons INT DEFAULT 12,
-  high_score INT DEFAULT 0,
-  unlocked_trophies JSONB DEFAULT '[]'::jsonb,
-  settings JSONB DEFAULT '{}'::jsonb,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
+-- Create profiles table
+create table if not exists public.profiles (
+  id uuid references auth.users on delete cascade not null primary key,
+  updated_at timestamp with time zone,
+  username text unique,
+  full_name text,
+  avatar_url text,
+  website text,
+  is_premium boolean default false,
+  role text default 'user' check (role in ('user', 'admin'))
 );
 
--- Enable RLS
-ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
+-- Set up Row Level Security (RLS)
+alter table public.profiles enable row level security;
 
--- Policy: Users can only see/edit their own profile
-CREATE POLICY "Users can view own profile" ON public.profiles FOR SELECT USING (auth.uid() = id);
-CREATE POLICY "Users can update own profile" ON public.profiles FOR UPDATE USING (auth.uid() = id);
+create policy "Public profiles are viewable by everyone."
+  on profiles for select
+  using ( true );
 
--- Trigger to create profile on signup
-CREATE OR REPLACE FUNCTION public.handle_new_user()
-RETURNS TRIGGER AS $$
-BEGIN
-  INSERT INTO public.profiles (id, email, spoons, high_score, unlocked_trophies)
-  VALUES (new.id, new.email, 12, 0, '[]'::jsonb);
-  RETURN new;
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+create policy "Users can insert their own profile."
+  on profiles for insert
+  with check ( auth.uid() = id );
 
-CREATE TRIGGER on_auth_user_created
-  AFTER INSERT ON auth.users
-  FOR EACH ROW EXECUTE PROCEDURE public.handle_new_user();
+create policy "Users can update own profile."
+  on profiles for update
+  using ( auth.uid() = id );
 
--- Add is_premium column to profiles
-ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS is_premium BOOLEAN DEFAULT FALSE;
+-- Set up triggers for auto profile creation on signup
+create or replace function public.handle_new_user()
+returns trigger
+language plpgsql
+security definer set search_path = public
+as $$
+begin
+  insert into public.profiles (id, full_name, avatar_url, role, is_premium)
+  values (new.id, new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'avatar_url', 'user', false);
+  return new;
+end;
+$$;
 
--- Update RLS policy to allow users to update their own premium status (for simulation/testing)
--- In production, this would be handled by a webhook from Stripe/Payment Provider
-CREATE POLICY "Users can update own premium status" ON public.profiles FOR UPDATE USING (auth.uid() = id);
-
--- Add role column to profiles (default 'user', can be 'admin')
-ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS role TEXT DEFAULT 'user';
-
--- RLS Policy for Admin access
-CREATE POLICY "Admins can view all profiles" ON public.profiles FOR SELECT USING (
-  (SELECT role FROM public.profiles WHERE id = auth.uid()) = 'admin'
-);
+-- Trigger the function every time a user is created
+drop trigger if exists on_auth_user_created on auth.users;
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute procedure public.handle_new_user();
