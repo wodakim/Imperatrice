@@ -43,7 +43,7 @@
     "chrono_title": "Cronobiologia",
     "chrono_calm": "Momento calmo. Prepara bozze.",
     "chrono_prime": "🔥 È IL MOMENTO! Pubblica ora!",
-    "chrono_good": "Picco presto (%h%h). Finisci le foto!",
+    "chrono_good": "Picco presto ({h}). Finisci le foto!",
     "jokes": [
       "Cosa fa un caffè allo specchio? Si guarda e si esprime.",
       "Qual è il colmo per un computer? Avere la memoria corta.",

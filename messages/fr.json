@@ -43,7 +43,7 @@
     "chrono_title": "Chronobiologie",
     "chrono_calm": "Moment calme. Prépare tes brouillons.",
     "chrono_prime": "🔥 C'EST LE MOMENT ! Poste maintenant !",
-    "chrono_good": "Bientôt le pic (%h%h). Finis tes photos !",
+    "chrono_good": "Bientôt le pic ({h}). Finis tes photos !",
     "panic_title": "Tu es en sécurité.",
     "panic_text": "Respire. Tu es aimée. Tu es capable. <br>Cette anxiété n'est qu'un nuage qui passe, tu es le ciel. <br>Prends tout le temps qu'il te faut. 💖",
     "anchor_title": "Technique d'Ancrage 5-4-3-2-1",

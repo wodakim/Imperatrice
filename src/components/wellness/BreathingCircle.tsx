@@ -21,16 +21,12 @@ export default function BreathingCircle() {
         </h3>
 
         <div className="relative flex items-center justify-center w-32 h-32">
-            {/* Pulsing Circle */}
-            <div className={`
-                absolute w-full h-full rounded-full bg-[var(--color-primary)] opacity-80 transition-transform duration-[4000ms] ease-in-out
-                ${phase === 'Inspire' ? 'scale-100' : 'scale-[1.6]'}
-            `} />
-
-            {/* Text */}
-            <span className="relative z-10 font-bold text-white text-xl drop-shadow-md">
-                {phase}
-            </span>
+            {/* Pulsing Circle with CSS Animation */}
+            <div className="absolute w-full h-full rounded-full animate-breathe flex items-center justify-center">
+                 <span className="relative z-10 font-bold text-white text-xl drop-shadow-md">
+                    {phase}
+                </span>
+            </div>
         </div>
 
         <p className="mt-8 text-sm text-[var(--color-text-muted)] text-center max-w-xs">
