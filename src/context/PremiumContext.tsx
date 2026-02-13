@@ -7,6 +7,7 @@ import { useAuth } from '@/hooks/useAuth';
 interface PremiumContextType {
   isPremium: boolean;
   checkPremium: () => Promise<void>;
+  unlockPremium: () => Promise<void>;
   isLoading: boolean;
 }
 
@@ -46,12 +47,29 @@ export function PremiumProvider({ children }: { children: ReactNode }) {
     }
   }, [user, supabase]);
 
+  const unlockPremium = async () => {
+    if (!user) return;
+
+    // Simulate payment success immediately for UX
+    setIsPremium(true);
+
+    try {
+        await supabase
+            .from('profiles')
+            .update({ is_premium: true })
+            .eq('id', user.id);
+    } catch (error) {
+        console.error("Failed to update premium status", error);
+        // In real app, revert state or show error
+    }
+  };
+
   useEffect(() => {
     checkPremium();
   }, [checkPremium]);
 
   return (
-    <PremiumContext.Provider value={{ isPremium, checkPremium, isLoading }}>
+    <PremiumContext.Provider value={{ isPremium, checkPremium, unlockPremium, isLoading }}>
       {children}
     </PremiumContext.Provider>
   );
