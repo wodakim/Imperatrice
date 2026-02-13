@@ -7,7 +7,6 @@ import { Trophy } from 'lucide-react';
 
 export default function TrophySystem() {
   const t = useTranslations('Trophies');
-  const t_dash = useTranslations('Dashboard'); // For notification prefix "notif_trophy"
 
   const [unlocked, setUnlocked] = useState<string[]>([]);
   const [notification, setNotification] = useState<{ id: string, name: string } | null>(null);
@@ -117,7 +116,7 @@ export default function TrophySystem() {
             <div className="fixed bottom-20 right-5 bg-[var(--color-primary-dark)] text-white px-6 py-4 rounded-[15px] shadow-2xl z-50 animate-slide-in-up flex items-center gap-4">
                 <div className="text-2xl">🏆</div>
                 <div>
-                    <div className="font-bold text-sm uppercase tracking-wider opacity-80">{t_dash('notif_trophy')}</div>
+                    <div className="font-bold text-sm uppercase tracking-wider opacity-80">{t('notif_trophy')}</div>
                     <div className="font-bold text-lg">{notification.name}</div>
                 </div>
             </div>

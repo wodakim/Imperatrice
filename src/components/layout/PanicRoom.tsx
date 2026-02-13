@@ -35,11 +35,11 @@ export default function PanicRoom() {
         <div className="bg-white/10 backdrop-blur-md p-8 rounded-[30px] max-w-lg w-full mb-10 border border-white/20 animate-slide-in-up delay-300 text-left">
             <h3 className="text-xl font-bold mb-4 text-center">{t('anchor_title')}</h3>
             <ul className="space-y-3 text-lg">
-                <li>👀 <b>5</b> <span dangerouslySetInnerHTML={{__html: t.raw('anchor_5')}} /></li>
-                <li>✋ <b>4</b> <span dangerouslySetInnerHTML={{__html: t.raw('anchor_4')}} /></li>
-                <li>👂 <b>3</b> <span dangerouslySetInnerHTML={{__html: t.raw('anchor_3')}} /></li>
-                <li>👃 <b>2</b> <span dangerouslySetInnerHTML={{__html: t.raw('anchor_2')}} /></li>
-                <li>👅 <b>1</b> <span dangerouslySetInnerHTML={{__html: t.raw('anchor_1')}} /></li>
+                <li><span dangerouslySetInnerHTML={{__html: t.raw('anchor_5')}} /></li>
+                <li><span dangerouslySetInnerHTML={{__html: t.raw('anchor_4')}} /></li>
+                <li><span dangerouslySetInnerHTML={{__html: t.raw('anchor_3')}} /></li>
+                <li><span dangerouslySetInnerHTML={{__html: t.raw('anchor_2')}} /></li>
+                <li><span dangerouslySetInnerHTML={{__html: t.raw('anchor_1')}} /></li>
             </ul>
         </div>
 
