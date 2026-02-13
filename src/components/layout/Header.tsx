@@ -74,7 +74,7 @@ export default function Header() {
           </button>
 
           {isLangOpen && (
-            <div className="absolute right-0 top-full mt-2 w-32 bg-[var(--color-surface)] border border-[var(--color-accent)] rounded-[15px] shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div className="absolute right-0 top-full mt-2 w-32 bg-[var(--color-surface)] border border-[var(--color-accent)] rounded-[15px] shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200 z-[60]">
               {Object.entries(FLAGS).map(([loc, flag]) => (
                 <button
                   key={loc}

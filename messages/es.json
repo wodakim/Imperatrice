@@ -43,7 +43,7 @@
     "chrono_title": "Cronobiología",
     "chrono_calm": "Momento tranquilo. Prepara borradores.",
     "chrono_prime": "🔥 ¡ES EL MOMENTO! ¡Publica!",
-    "chrono_good": "Pico pronto (%h%h). ¡Termina fotos!",
+    "chrono_good": "Pico pronto ({h}). ¡Termina fotos!",
     "jokes": [
       "¿Qué hace una abeja en el gimnasio? ¡Zum-ba!",
       "¿Cuál es el último animal que subió al arca de Noé? El del-fin.",
