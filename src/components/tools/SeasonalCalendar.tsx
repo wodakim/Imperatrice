@@ -3,15 +3,9 @@
 import { useTranslations } from 'next-intl';
 
 export default function SeasonalCalendar() {
-  // We need to access array data. In next-intl, we can use useTranslations to get the array object
-  // IF the JSON structure supports it.
-  // The extract script flattens the JSON? Let's check.
-  // If flattened as keys "season_focus.0", "season_focus.1", etc., we can access by index.
-
-  const t = useTranslations('Dashboard');
+  const t = useTranslations('Tools');
   const month = new Date().getMonth();
 
-  // Access by index key
   const focus = t(`season_focus.${month}`);
   const prep = t(`season_prep.${month}`);
 
