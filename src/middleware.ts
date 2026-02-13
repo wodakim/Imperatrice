@@ -1,14 +1,14 @@
 import createMiddleware from 'next-intl/middleware';
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
-import { routing } from './navigation'; // Updated import to use src/navigation.ts
+import { routing } from './navigation';
 
 export default async function middleware(req: NextRequest) {
-  // 1. Gérer l'internationalisation (i18n)
+  // 1. Initialiser le middleware i18n
   const handleI18n = createMiddleware(routing);
   const res = handleI18n(req);
 
-  // 2. Gérer Supabase Auth
+  // 2. Initialiser Supabase (pour rafraîchir la session si nécessaire)
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -18,7 +18,6 @@ export default async function middleware(req: NextRequest) {
           return req.cookies.getAll();
         },
         setAll(cookiesToSet) {
-          // On met à jour la requête ET la réponse
           cookiesToSet.forEach(({ name, value, options }) => req.cookies.set(name, value));
           cookiesToSet.forEach(({ name, value, options }) => res.cookies.set(name, value, options));
         },
@@ -26,13 +25,8 @@ export default async function middleware(req: NextRequest) {
     }
   );
 
-  // 3. Logique des routes protégées
-  // V2: Tout est public sauf /admin et potentiellement /profile
-  // Les outils sont en mode Freemium local-first.
-  // Je retire /dashboard, /studio, /trophies des routes protégées.
   const path = req.nextUrl.pathname;
   const protectedRoutes = ['/admin', '/profile'];
-  
   const isProtected = protectedRoutes.some(route => path.includes(route));
 
   if (isProtected) {
@@ -49,5 +43,6 @@ export default async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)']
+  // Matcher standard pour next-intl + exclusion auth
+  matcher: ['/((?!api|_next|_vercel|.*\\..*|auth).*)']
 };
