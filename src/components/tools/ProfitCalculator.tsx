@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import clsx from 'clsx';
 import { Calculator } from 'lucide-react';
+import { FloatingLabelInput } from '@/components/ui/FloatingLabel';
 
 export default function ProfitCalculator() {
   const t = useTranslations('Tools');
@@ -20,22 +21,6 @@ export default function ProfitCalculator() {
   if (b > 0) roi = (profit / b) * 100;
   else if (profit > 0) roi = 100;
 
-  // New Input Style with "Encadré" look
-  const InputField = ({ label, value, onChange, placeholder }: any) => (
-    <div className="relative group">
-        <label className="absolute -top-2.5 left-3 bg-[var(--color-surface)] px-2 text-xs font-bold text-[var(--color-primary-dark)] z-10 transition-colors group-hover:text-[var(--color-primary)]">
-            {label}
-        </label>
-        <input
-            type="number"
-            value={value}
-            onChange={onChange}
-            placeholder={placeholder}
-            className="w-full p-4 rounded-xl border-2 border-[var(--color-accent)] bg-transparent focus:border-[var(--color-primary)] outline-none transition-all placeholder:text-[var(--color-text-muted)]/50 text-[var(--color-text-main)] font-medium text-lg"
-        />
-    </div>
-  );
-
   return (
     <div className="bg-[var(--color-surface)] p-6 rounded-[20px] shadow-[var(--shadow-soft)] card-hover h-full flex flex-col">
       <h3 className="text-lg font-bold text-[var(--color-primary-dark)] mb-6 flex items-center gap-2">
@@ -43,23 +28,26 @@ export default function ProfitCalculator() {
       </h3>
 
       <div className="grid gap-6 mb-6 flex-1">
-        <InputField
+        <FloatingLabelInput
             label={t('calc_buy_ph')}
             placeholder="Ex: 5.00"
             value={buy}
-            onChange={(e: any) => setBuy(e.target.value)}
+            onChange={(e) => setBuy(e.target.value)}
+            type="number"
         />
-        <InputField
+        <FloatingLabelInput
             label={t('calc_sell_ph')}
             placeholder="Ex: 15.00"
             value={sell}
-            onChange={(e: any) => setSell(e.target.value)}
+            onChange={(e) => setSell(e.target.value)}
+            type="number"
         />
-        <InputField
+        <FloatingLabelInput
             label={t('calc_fees_ph')}
             placeholder="Ex: 0.50"
             value={fees}
-            onChange={(e: any) => setFees(e.target.value)}
+            onChange={(e) => setFees(e.target.value)}
+            type="number"
         />
       </div>
 
