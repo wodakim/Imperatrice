@@ -136,7 +136,7 @@ export default function SeoGenerator() {
         </div>
         <button
             onClick={() => setRemixSeed(s => s + 1)}
-            className="flex items-center gap-2 bg-[var(--color-secondary)] text-gray-900 dark:text-white px-4 py-2 rounded-lg font-bold hover:shadow-lg transition-transform active:scale-95"
+            className="flex items-center gap-2 bg-[var(--color-secondary)] text-gray-900 px-4 py-2 rounded-lg font-bold hover:shadow-lg transition-transform active:scale-95"
         >
             <RefreshCw size={18} /> {t('btn_remix')}
         </button>
