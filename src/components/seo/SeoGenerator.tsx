@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import { Copy, RefreshCw, Trash2, Tag, Info, AlertCircle, Plus, Wand2 } from 'lucide-react';
 import { TREND_PACKS, QUICK_TAGS } from './seoData';
+import { FloatingLabelInput, FloatingLabelSelect, FloatingLabelTextarea } from '@/components/ui/FloatingLabel';
 
 export default function SeoGenerator() {
   const t = useTranslations('Seo');
@@ -25,40 +26,6 @@ export default function SeoGenerator() {
   const [generatedDesc, setGeneratedDesc] = useState('');
   const [seoScore, setSeoScore] = useState(0);
   const [remixSeed, setRemixSeed] = useState(0);
-
-  // New Input Style with "Encadré" look
-  const InputField = ({ label, value, onChange, placeholder, type = 'text' }: any) => (
-    <div className="relative group">
-        <label className="absolute -top-2.5 left-3 bg-[var(--color-surface)] px-2 text-xs font-bold text-[var(--color-primary-dark)] z-10">
-            {label}
-        </label>
-        <input
-            type={type}
-            value={value}
-            onChange={onChange}
-            placeholder={placeholder}
-            className="w-full p-3 rounded-xl border-2 border-[var(--color-accent)] bg-transparent focus:border-[var(--color-primary)] outline-none transition-all placeholder:text-[var(--color-text-muted)]/50 text-[var(--color-text-main)] font-medium"
-        />
-    </div>
-  );
-
-  const SelectField = ({ label, value, onChange, options }: any) => (
-    <div className="relative group">
-        <label className="absolute -top-2.5 left-3 bg-[var(--color-surface)] px-2 text-xs font-bold text-[var(--color-primary-dark)] z-10">
-            {label}
-        </label>
-        <select
-            value={value}
-            onChange={onChange}
-            className="w-full p-3 rounded-xl border-2 border-[var(--color-accent)] bg-transparent focus:border-[var(--color-primary)] outline-none transition-all text-[var(--color-text-main)] font-medium appearance-none cursor-pointer"
-        >
-            {options}
-        </select>
-        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[var(--color-text-muted)]">
-            ▼
-        </div>
-    </div>
-  );
 
   const generateDescription = useCallback(() => {
     const getTemplate = (section: string) => {
@@ -144,29 +111,36 @@ export default function SeoGenerator() {
     }
   };
 
+  const handleRemix = () => {
+    setRemixSeed(s => s + 1);
+    // Random style switch
+    const styles = ["Casual", "Pro", "Emoji", "Story", "Minimal"];
+    const randomStyle = styles[Math.floor(Math.random() * styles.length)];
+    setFormData(prev => ({ ...prev, style: randomStyle }));
+  };
+
   return (
     <div className="animate-fade-in grid gap-8">
       {/* Top Bar */}
       <div className="bg-[var(--color-bg)] p-4 rounded-[15px] border border-[var(--color-accent)] flex flex-wrap gap-4 items-center justify-between shadow-sm">
-        <div className="flex items-center gap-2">
-            <label className="font-bold text-[var(--color-primary-dark)]">Style :</label>
-            <select
+        <div className="flex items-center gap-2 flex-1">
+            <FloatingLabelSelect
+                label={t('ph_vibe')}
                 value={formData.style}
                 onChange={(e) => setFormData({...formData, style: e.target.value})}
-                className="bg-[var(--color-surface)] border-2 border-[var(--color-primary)] rounded-lg px-3 py-1 font-bold text-[var(--color-text-main)] outline-none cursor-pointer hover:bg-[var(--color-bg)] transition-colors dark:bg-[#383848]"
+                className="min-w-[150px]"
             >
                  <option value="Casual">{t('style_casual')}</option>
                  <option value="Pro">{t('style_pro')}</option>
                  <option value="Emoji">{t('style_emoji')}</option>
                  <option value="Story">{t('style_story')}</option>
                  <option value="Minimal">{t('style_minimal')}</option>
-            </select>
+            </FloatingLabelSelect>
         </div>
 
-        {/* Updated Remix Button with high contrast and background */}
         <button
-            onClick={() => setRemixSeed(s => s + 1)}
-            className="flex items-center gap-2 bg-gradient-to-r from-[var(--color-secondary)] to-pink-500 text-white px-6 py-2 rounded-full font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all active:scale-95"
+            onClick={handleRemix}
+            className="flex items-center gap-2 bg-gradient-to-r from-[var(--color-secondary)] to-pink-500 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all active:scale-95 whitespace-nowrap"
         >
             <Wand2 size={18} /> {t('btn_remix')}
         </button>
@@ -178,62 +152,47 @@ export default function SeoGenerator() {
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-             <div className="flex flex-col gap-1">
-                <InputField
-                    label={t('ph_brand')}
-                    placeholder={t('ex_brand')}
-                    value={formData.brand}
-                    onChange={(e: any) => setFormData({...formData, brand: e.target.value})}
-                />
-             </div>
-             <div className="flex flex-col gap-1">
-                <InputField
-                    label={t('ph_type')}
-                    placeholder={t('ex_type')}
-                    value={formData.type}
-                    onChange={(e: any) => setFormData({...formData, type: e.target.value})}
-                />
-             </div>
-             <div className="flex flex-col gap-1">
-                <InputField
-                    label={t('ph_color')}
-                    placeholder={t('ex_color')}
-                    value={formData.color}
-                    onChange={(e: any) => setFormData({...formData, color: e.target.value})}
-                />
-             </div>
-             <div className="flex flex-col gap-1">
-                <InputField
-                    label={t('ph_material')}
-                    placeholder={t('ex_material')}
-                    value={formData.material}
-                    onChange={(e: any) => setFormData({...formData, material: e.target.value})}
-                />
-             </div>
-             <div className="flex flex-col gap-1">
-                <SelectField
-                    label={t('ph_condition')}
-                    value={formData.condition}
-                    onChange={(e: any) => setFormData({...formData, condition: e.target.value})}
-                    options={
-                        <>
-                            <option value="">{t('ph_condition')}</option>
-                            <option value={t('cond_new')}>{t('cond_new')}</option>
-                            <option value={t('cond_vgood')}>{t('cond_vgood')}</option>
-                            <option value={t('cond_good')}>{t('cond_good')}</option>
-                            <option value={t('cond_fair')}>{t('cond_fair')}</option>
-                        </>
-                    }
-                />
-             </div>
-             <div className="flex flex-col gap-1">
-                <InputField
-                    label={t('ph_vibe')}
-                    placeholder={t('ex_vibe')}
-                    value={formData.vibe}
-                    onChange={(e: any) => setFormData({...formData, vibe: e.target.value})}
-                />
-             </div>
+             <FloatingLabelInput
+                label={t('ph_brand')}
+                placeholder={t('ex_brand')}
+                value={formData.brand}
+                onChange={(e) => setFormData({...formData, brand: e.target.value})}
+             />
+             <FloatingLabelInput
+                label={t('ph_type')}
+                placeholder={t('ex_type')}
+                value={formData.type}
+                onChange={(e) => setFormData({...formData, type: e.target.value})}
+             />
+             <FloatingLabelInput
+                label={t('ph_color')}
+                placeholder={t('ex_color')}
+                value={formData.color}
+                onChange={(e) => setFormData({...formData, color: e.target.value})}
+             />
+             <FloatingLabelInput
+                label={t('ph_material')}
+                placeholder={t('ex_material')}
+                value={formData.material}
+                onChange={(e) => setFormData({...formData, material: e.target.value})}
+             />
+             <FloatingLabelSelect
+                label={t('ph_condition')}
+                value={formData.condition}
+                onChange={(e) => setFormData({...formData, condition: e.target.value})}
+             >
+                <option value="">{t('ph_condition')}</option>
+                <option value={t('cond_new')}>{t('cond_new')}</option>
+                <option value={t('cond_vgood')}>{t('cond_vgood')}</option>
+                <option value={t('cond_good')}>{t('cond_good')}</option>
+                <option value={t('cond_fair')}>{t('cond_fair')}</option>
+             </FloatingLabelSelect>
+             <FloatingLabelInput
+                label={t('ph_vibe')}
+                placeholder={t('ex_vibe')}
+                value={formData.vibe}
+                onChange={(e) => setFormData({...formData, vibe: e.target.value})}
+             />
         </div>
 
         {/* Preview Title */}
@@ -255,7 +214,7 @@ export default function SeoGenerator() {
                 />
             </div>
 
-            <p className="font-bold text-lg mb-2 min-h-[1.75rem] break-words">{generatedTitle || "..."}</p>
+            <p className="font-bold text-lg mb-2 min-h-[1.75rem] break-words select-all">{generatedTitle || "..."}</p>
 
             {seoScore < 100 && (
                 <div className="flex items-center gap-1 text-xs text-[var(--color-text-muted)] italic">
@@ -278,14 +237,12 @@ export default function SeoGenerator() {
             <Info size={20} /> {t('desc_magic')}
         </h3>
 
-        <div className="relative mb-6 group">
-            <label className="absolute -top-2.5 left-3 bg-[var(--color-surface)] px-2 text-xs font-bold text-[var(--color-primary-dark)] z-10">
-                {t('ph_details')}
-            </label>
-            <textarea
+        <div className="mb-6">
+            <FloatingLabelTextarea
+                label={t('ph_details')}
                 placeholder="Ex: Jamais porté, cadeau..."
-                className="w-full h-24 p-4 rounded-xl border-2 border-[var(--color-accent)] bg-transparent focus:border-[var(--color-primary)] outline-none transition-all resize-none text-[var(--color-text-main)]"
-                onChange={e => setFormData({...formData, details: e.target.value})}
+                value={formData.details}
+                onChange={(e) => setFormData({...formData, details: e.target.value})}
             />
         </div>
 
@@ -295,27 +252,25 @@ export default function SeoGenerator() {
             </h4>
 
             <div className="flex gap-2 mb-4">
-                <div className="flex-1 relative">
-                     <InputField
-                        label="#"
-                        placeholder={t('ph_manual_tag')}
+                <div className="flex-1">
+                     <FloatingLabelInput
+                        label={t('ph_manual_tag')}
+                        placeholder="#tag"
                         value={manualTag}
-                        onChange={(e: any) => setManualTag(e.target.value)}
+                        onChange={(e) => setManualTag(e.target.value)}
                     />
                 </div>
                 <button
                     onClick={() => { if(manualTag) { addTag(manualTag.startsWith('#') ? manualTag : '#'+manualTag); setManualTag(''); } }}
-                    className="bg-[var(--color-primary-dark)] text-white px-6 rounded-xl font-bold flex items-center gap-2 hover:bg-[var(--color-primary)] transition-colors shadow-md h-[52px] mt-0.5"
+                    className="bg-[var(--color-primary-dark)] text-white px-6 rounded-xl font-bold flex items-center gap-2 hover:bg-[var(--color-primary)] transition-colors shadow-md h-[52px]"
                 >
                     <Plus size={18} /> {t('btn_add')}
                 </button>
             </div>
 
-            <div className="relative group mb-4">
-                <label className="absolute -top-2.5 left-3 bg-[var(--color-surface)] px-2 text-xs font-bold text-[var(--color-primary-dark)] z-10">
-                    {t('pack_select')}
-                </label>
-                <select
+            <div className="mb-4">
+                <FloatingLabelSelect
+                    label={t('pack_select')}
                     onChange={(e) => {
                         const pack = TREND_PACKS[e.target.value];
                         if(pack) {
@@ -330,14 +285,12 @@ export default function SeoGenerator() {
                         }
                         e.target.value = "";
                     }}
-                    className="w-full p-3 rounded-xl border-2 border-[var(--color-accent)] bg-[var(--color-surface)] text-[var(--color-text-main)] outline-none cursor-pointer appearance-none dark:bg-[#383848]"
                 >
                     <option value="">{t('pack_select')}</option>
                     {Object.keys(TREND_PACKS).map(k => (
                         <option key={k} value={k}>{k}</option>
                     ))}
-                </select>
-                <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[var(--color-text-muted)]">▼</div>
+                </FloatingLabelSelect>
             </div>
 
             <div className="flex flex-wrap gap-2 mb-4 max-h-24 overflow-y-auto custom-scrollbar">
@@ -361,7 +314,7 @@ export default function SeoGenerator() {
 
         <div className="bg-[var(--color-bg)] p-4 rounded-[15px] border-2 border-dashed border-[var(--color-primary-dark)] relative hover:border-solid transition-all">
             <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] block mb-2">{t('label_preview')}</span>
-            <div className="whitespace-pre-wrap text-sm leading-relaxed text-[var(--color-text-main)] min-h-[4rem]">
+            <div className="whitespace-pre-wrap text-sm leading-relaxed text-[var(--color-text-main)] min-h-[4rem] select-all">
                 {generatedDesc || "..."}
             </div>
             <button

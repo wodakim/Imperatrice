@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { X } from 'lucide-react';
+import { X, Heart } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function PanicRoom() {
-  const t = useTranslations('Dashboard'); // Keys are flattened in Dashboard scope in our JSON
+  const t = useTranslations('Dashboard');
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -14,41 +15,80 @@ export default function PanicRoom() {
     return () => window.removeEventListener('triggerPanic', handleTrigger);
   }, []);
 
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-[9999] bg-gradient-to-br from-[#a8c0ff] to-[#3f2b96] flex flex-col items-center justify-center p-6 text-center text-white animate-fade-in">
+    <AnimatePresence>
+        {isOpen && (
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-[9999] bg-gradient-to-br from-[#a8c0ff] to-[#3f2b96] flex flex-col items-center justify-center p-6 text-center text-white overflow-y-auto"
+            >
+                <button
+                    onClick={() => setIsOpen(false)}
+                    className="absolute top-6 right-6 p-2 rounded-full bg-white/20 hover:bg-white/40 transition-colors z-50"
+                >
+                    <X size={32} />
+                </button>
 
-        <button
-            onClick={() => setIsOpen(false)}
-            className="absolute top-6 right-6 p-2 rounded-full bg-white/20 hover:bg-white/40 transition-colors"
-        >
-            <X size={32} />
-        </button>
+                <motion.div
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.1 }}
+                >
+                    <h2 className="text-4xl md:text-5xl font-bold mb-4 drop-shadow-lg font-comic">
+                        {t('panic_title')}
+                    </h2>
+                </motion.div>
 
-        <h2 className="text-4xl md:text-5xl font-bold mb-4 animate-slide-in-up delay-100">
-            {t('panic_title')}
-        </h2>
+                <motion.div
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className="max-w-2xl mb-10"
+                >
+                    <p className="text-xl md:text-2xl leading-relaxed opacity-90 font-medium" dangerouslySetInnerHTML={{__html: t.raw('panic_text')}} />
+                </motion.div>
 
-        <p className="text-xl md:text-2xl leading-relaxed max-w-2xl mb-10 opacity-90 animate-slide-in-up delay-200" dangerouslySetInnerHTML={{__html: t.raw('panic_text')}} />
+                <motion.div
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                    className="bg-white/10 backdrop-blur-md p-8 rounded-[30px] max-w-lg w-full mb-10 border border-white/20 text-left shadow-2xl"
+                >
+                    <h3 className="text-xl font-bold mb-6 text-center text-yellow-300 flex items-center justify-center gap-2">
+                        <Heart className="fill-current" size={24} /> {t('anchor_title')}
+                    </h3>
+                    <ul className="space-y-4 text-lg">
+                        <li className="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/10">
+                            <span dangerouslySetInnerHTML={{__html: t.raw('anchor_5')}} />
+                        </li>
+                        <li className="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/10">
+                            <span dangerouslySetInnerHTML={{__html: t.raw('anchor_4')}} />
+                        </li>
+                        <li className="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/10">
+                            <span dangerouslySetInnerHTML={{__html: t.raw('anchor_3')}} />
+                        </li>
+                        <li className="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/10">
+                            <span dangerouslySetInnerHTML={{__html: t.raw('anchor_2')}} />
+                        </li>
+                        <li className="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/10">
+                            <span dangerouslySetInnerHTML={{__html: t.raw('anchor_1')}} />
+                        </li>
+                    </ul>
+                </motion.div>
 
-        <div className="bg-white/10 backdrop-blur-md p-8 rounded-[30px] max-w-lg w-full mb-10 border border-white/20 animate-slide-in-up delay-300 text-left">
-            <h3 className="text-xl font-bold mb-4 text-center">{t('anchor_title')}</h3>
-            <ul className="space-y-3 text-lg">
-                <li><span dangerouslySetInnerHTML={{__html: t.raw('anchor_5')}} /></li>
-                <li><span dangerouslySetInnerHTML={{__html: t.raw('anchor_4')}} /></li>
-                <li><span dangerouslySetInnerHTML={{__html: t.raw('anchor_3')}} /></li>
-                <li><span dangerouslySetInnerHTML={{__html: t.raw('anchor_2')}} /></li>
-                <li><span dangerouslySetInnerHTML={{__html: t.raw('anchor_1')}} /></li>
-            </ul>
-        </div>
-
-        <button
-            onClick={() => setIsOpen(false)}
-            className="bg-white text-[#3f2b96] px-10 py-4 rounded-full text-xl font-bold shadow-2xl hover:scale-105 active:scale-95 transition-transform animate-bounce-short delay-500"
-        >
-            {t('btn_better')}
-        </button>
-    </div>
+                <motion.button
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                    onClick={() => setIsOpen(false)}
+                    className="bg-white text-[#3f2b96] px-10 py-4 rounded-full text-xl font-bold shadow-2xl hover:scale-105 active:scale-95 transition-transform animate-bounce-short"
+                >
+                    {t('btn_better')}
+                </motion.button>
+            </motion.div>
+        )}
+    </AnimatePresence>
   );
 }

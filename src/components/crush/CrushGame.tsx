@@ -2,26 +2,26 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useTranslations } from 'next-intl';
-import { RotateCcw, Trophy, Zap } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { RotateCcw, Trophy } from 'lucide-react';
 import clsx from 'clsx';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const WIDTH = 8;
 const CANDY_COLORS = ['👗', '👠', '👜', '📦', '⭐', '💖'];
 
 export default function CrushGame() {
   const t = useTranslations('Crush');
-
   const [grid, setGrid] = useState<string[]>([]);
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [combo, setCombo] = useState(1);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   // Initialize
   useEffect(() => {
+    setMounted(true);
     const saved = localStorage.getItem('crush_highscore');
     if (saved) setHighScore(parseInt(saved));
     createBoard();
@@ -40,7 +40,7 @@ export default function CrushGame() {
     setIsProcessing(false);
   }, []);
 
-  const checkForMatches = (currentGrid: string[]) => {
+  const checkForMatches = useCallback((currentGrid: string[]) => {
     const matches = new Set<number>();
 
     // Horizontal
@@ -69,9 +69,9 @@ export default function CrushGame() {
     }
 
     return Array.from(matches);
-  };
+  }, []);
 
-  const moveIntoSquareBelow = (currentGrid: string[]) => {
+  const moveIntoSquareBelow = useCallback((currentGrid: string[]) => {
       const newGrid = [...currentGrid];
       let moved = false;
 
@@ -91,11 +91,11 @@ export default function CrushGame() {
           }
       }
       return { newGrid, moved };
-  };
+  }, []);
 
   // Game Loop
   useEffect(() => {
-      if (!grid.length) return;
+      if (!mounted || !grid.length) return;
 
       const timer = setInterval(() => {
           const matches = checkForMatches(grid);
@@ -147,7 +147,7 @@ export default function CrushGame() {
       }, 150);
 
       return () => clearInterval(timer);
-  }, [grid, highScore, score, combo]);
+  }, [grid, highScore, combo, checkForMatches, moveIntoSquareBelow, mounted]);
 
 
   const handleInteraction = (index: number) => {
@@ -203,12 +203,14 @@ export default function CrushGame() {
       }
   };
 
+  if(!mounted) return <div className="h-[400px] animate-pulse bg-[var(--color-bg)] rounded-[30px]" />;
+
   return (
     <div className="text-center animate-fade-in max-w-md mx-auto select-none p-4 bg-[var(--color-surface)] rounded-[30px] shadow-[var(--shadow-soft)] border-4 border-[var(--color-bg)]">
 
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-             <div className="bg-[var(--color-bg)] px-4 py-2 rounded-full border border-[var(--color-accent)]">
+             <div className="bg-[var(--color-bg)] px-4 py-2 rounded-full border border-[var(--color-accent)] min-w-[80px]">
                 <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] block">{t('score')}</span>
                 <span className="text-xl font-black text-[var(--color-secondary)]">{score}</span>
              </div>
@@ -218,11 +220,11 @@ export default function CrushGame() {
                     {t('game_title')}
                 </h2>
                 {combo > 1 && (
-                    <span className="text-xs font-bold text-orange-500 animate-pulse">COMBO x{combo}!</span>
+                    <span className="text-xs font-bold text-orange-500 animate-pulse block mt-1">COMBO x{combo}!</span>
                 )}
              </div>
 
-             <div className="bg-[var(--color-bg)] px-4 py-2 rounded-full border border-[var(--color-accent)]">
+             <div className="bg-[var(--color-bg)] px-4 py-2 rounded-full border border-[var(--color-accent)] min-w-[80px]">
                 <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] block">{t('high_score')}</span>
                 <span className="text-xl font-black text-[var(--color-primary-dark)]">{highScore}</span>
              </div>
@@ -235,7 +237,7 @@ export default function CrushGame() {
             <AnimatePresence mode='popLayout'>
                 {grid.map((candy, index) => (
                     <motion.div
-                        key={`${index}-${candy}`} // Key change triggers animation
+                        key={`${index}-${candy}`} // Key based on index AND content ensures re-render on change
                         layout
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
@@ -245,12 +247,12 @@ export default function CrushGame() {
                         className={clsx(
                             "rounded-lg flex items-center justify-center text-2xl md:text-3xl cursor-pointer transition-all relative",
                             selectedId === index
-                                ? "bg-[var(--color-accent)] ring-2 ring-[var(--color-primary)] z-10 shadow-lg"
+                                ? "bg-[var(--color-accent)] ring-2 ring-[var(--color-primary)] z-10 shadow-lg scale-110"
                                 : "hover:bg-white/10 active:scale-95",
                             candy === '' && "invisible"
                         )}
                     >
-                        <span className="filter drop-shadow-md select-none">{candy}</span>
+                        <span className="filter drop-shadow-md select-none pointer-events-none">{candy}</span>
                     </motion.div>
                 ))}
             </AnimatePresence>

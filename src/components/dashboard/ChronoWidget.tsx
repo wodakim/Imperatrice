@@ -19,14 +19,13 @@ export default function ChronoWidget() {
       const now = new Date();
       const day = now.getDay(); // 0 = Sun
       const hour = now.getHours();
-      const month = now.getMonth();
+      const month = now.getMonth(); // 0 = Jan
 
       // Update Time Display
       setTimeStr(now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-      // Use standard formatting for day
       setDayStr(new Intl.DateTimeFormat('fr-FR', { weekday: 'long' }).format(now));
 
-      // Algo Slots
+      // Algo Slots (Exact Match to Prototype)
       const slots: Record<number, number[][]> = {
         0: [[10, 12], [18, 21]], // Sun
         1: [[7, 9], [19, 21]],   // Mon
@@ -64,20 +63,15 @@ export default function ChronoWidget() {
       setStatus(newStatus);
       setMessage(newMessage);
 
-      // Season Tip Logic
-      // 0=Jan, 1=Feb, 2=Mar, 3=Apr, 4=May, 5=Jun, 6=Jul, 7=Aug, 8=Sep, 9=Oct, 10=Nov, 11=Dec
-      let tipKey = 'tip_spring'; // Default to spring (Mar, Apr, May)
+      // Season Tip Logic (Refined)
+      let tipKey = 'tip_spring';
 
-      if (month === 0) tipKey = 'tip_jan'; // Jan specific
-      else if (month === 1) tipKey = 'tip_spring'; // Feb - Early Spring/Mi-saison
-      else if (month >= 5 && month <= 7) tipKey = 'tip_summer'; // Jun, Jul, Aug (Summer sales/Heat)
-      // Note: Aug (7) often starts "Rentrée" prep, but is still summer.
-      // Existing logic used tip_autumn for 7-8. Let's stick closer to retail.
-      // If tip_autumn is "Prépare les manteaux et la rentrée", then Aug (7) fits.
-      else if (month >= 7 && month <= 9) tipKey = 'tip_autumn'; // Aug, Sep, Oct (Back to school, Autumn)
-      else if (month >= 10 || month === 11) tipKey = 'tip_winter'; // Nov, Dec (Holidays)
-
-      // Override for Feb to ensure coverage if needed, but 'tip_spring' (Mi-saison) fits Feb/Mar/Apr/May.
+      if (month === 0) tipKey = 'tip_jan'; // Jan
+      else if (month === 1) tipKey = 'tip_jan'; // Feb (Late winter/resolutions still active?) or tip_spring. Prototype: 0-1 -> tip_jan (which is "Sport Janvier" in prep but "Résolutions" in tip).
+      else if (month >= 2 && month <= 4) tipKey = 'tip_spring'; // Mar, Apr, May
+      else if (month >= 5 && month <= 7) tipKey = 'tip_summer'; // Jun, Jul, Aug
+      else if (month >= 8 && month <= 10) tipKey = 'tip_autumn'; // Sep, Oct, Nov
+      else if (month === 11) tipKey = 'tip_winter'; // Dec
 
       setSeasonTip(t(tipKey));
     };
@@ -104,7 +98,7 @@ export default function ChronoWidget() {
             <div className={`text-4xl font-bold mb-1 ${statusColor}`}>
                 {timeStr}
             </div>
-            <div className="text-sm font-bold uppercase tracking-wider mb-2 text-[var(--color-text-main)]">
+            <div className="text-sm font-bold uppercase tracking-wider mb-2 text-[var(--color-text-main)] capitalize">
                 {dayStr}
             </div>
             <div className={`font-semibold ${statusColor}`}>
