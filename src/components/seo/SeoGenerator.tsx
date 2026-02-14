@@ -247,7 +247,17 @@ export default function SeoGenerator() {
                 onChange={(e) => {
                     const pack = TREND_PACKS[e.target.value];
                     if(pack) {
-                        pack.forEach(addTag);
+                        // Pick 5 random unique tags from the pack
+                        const shuffled = [...pack].sort(() => 0.5 - Math.random());
+                        const selected = shuffled.slice(0, 5);
+
+                        selected.forEach(tag => {
+                            // Only add if not already present and limit total tags (e.g., 15)
+                            if (!activeTags.includes(tag) && activeTags.length < 15) {
+                                setActiveTags(prev => [...prev, tag]);
+                            }
+                        });
+
                         if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('unlockTrophy', { detail: 'trend_setter' }));
                     }
                     e.target.value = "";
