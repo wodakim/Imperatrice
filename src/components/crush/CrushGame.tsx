@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useTranslations } from 'next-intl';
-import { RotateCcw } from 'lucide-react';
+import { RotateCcw, Trophy, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
 
@@ -17,6 +17,8 @@ export default function CrushGame() {
   const [highScore, setHighScore] = useState(0);
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [combo, setCombo] = useState(1);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Initialize
   useEffect(() => {
@@ -33,11 +35,11 @@ export default function CrushGame() {
     }
     setGrid(newGrid);
     setScore(0);
+    setCombo(1);
     setSelectedId(null);
     setIsProcessing(false);
   }, []);
 
-  // Check for matches
   const checkForMatches = (currentGrid: string[]) => {
     const matches = new Set<number>();
 
@@ -48,7 +50,7 @@ export default function CrushGame() {
         const isBlank = currentGrid[i] === '';
 
         if (
-            i % WIDTH < WIDTH - 2 && // Prevent wrap-around matches
+            i % WIDTH < WIDTH - 2 &&
             rowOfThree.every(index => currentGrid[index] === decidedColor && !isBlank)
         ) {
             rowOfThree.forEach(index => matches.add(index));
@@ -56,7 +58,7 @@ export default function CrushGame() {
     }
 
     // Vertical
-    for (let i = 0; i <= 47; i++) { // 47 is max index for start of vertical match (64 - 2*8)
+    for (let i = 0; i <= 47; i++) {
         const columnOfThree = [i, i + WIDTH, i + WIDTH * 2];
         const decidedColor = currentGrid[i];
         const isBlank = currentGrid[i] === '';
@@ -104,8 +106,8 @@ export default function CrushGame() {
               matches.forEach(id => newGrid[id] = '');
               setGrid(newGrid);
 
-              // Score Update
-              const points = matches.length * 10;
+              // Score Update with Combo
+              const points = matches.length * 10 * combo;
               setScore(prev => {
                   const newScore = prev + points;
                   if (newScore > highScore) {
@@ -121,6 +123,13 @@ export default function CrushGame() {
                   return newScore;
               });
 
+              // Increase combo
+              setCombo(c => Math.min(c + 1, 5));
+
+              if(matches.length > 4 && typeof window !== 'undefined') {
+                  window.dispatchEvent(new CustomEvent('unlockTrophy', { detail: 'combo_master' }));
+              }
+
           } else {
               // No matches, check if we need to drop items
               const { newGrid, moved } = moveIntoSquareBelow(grid);
@@ -129,12 +138,16 @@ export default function CrushGame() {
               } else {
                   // Stable state
                   setIsProcessing(false);
+                  if (combo > 1) {
+                      // Reset combo after chain reaction ends
+                      setTimeout(() => setCombo(1), 500);
+                  }
               }
           }
       }, 150);
 
       return () => clearInterval(timer);
-  }, [grid, highScore, score]);
+  }, [grid, highScore, score, combo]);
 
 
   const handleInteraction = (index: number) => {
@@ -169,20 +182,20 @@ export default function CrushGame() {
                   setGrid(newGrid);
                   setSelectedId(null);
                   setIsProcessing(true);
-                  // Trophy for playing
                   if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('unlockTrophy', { detail: 'gamer' }));
               } else {
-                  // No match, swap back animation logic or just reject
-                  // For simplicity, we just select the new one if invalid swap (standard mobile game behavior sometimes)
-                  // Or better: swap, wait, swap back.
+                  // No match, swap visually then revert logic (or just revert immediately)
+                  // We'll set it, wait a bit, then revert to show "invalid move"
                   setGrid(newGrid);
+                  setIsProcessing(true);
                   setTimeout(() => {
                       const revertGrid = [...newGrid];
                       revertGrid[selectedId] = newGrid[index];
                       revertGrid[index] = newGrid[selectedId];
                       setGrid(revertGrid);
                       setSelectedId(null);
-                  }, 300);
+                      setIsProcessing(false);
+                  }, 400);
               }
           } else {
               setSelectedId(index);
@@ -191,54 +204,71 @@ export default function CrushGame() {
   };
 
   return (
-    <div className="text-center animate-fade-in max-w-md mx-auto select-none">
-        <h2 className="text-2xl font-bold text-[var(--color-primary-dark)] mb-4 drop-shadow-sm font-comic">
-            {t('game_title')}
-        </h2>
+    <div className="text-center animate-fade-in max-w-md mx-auto select-none p-4 bg-[var(--color-surface)] rounded-[30px] shadow-[var(--shadow-soft)] border-4 border-[var(--color-bg)]">
 
-        <div className="flex justify-between px-6 mb-4 font-bold text-[var(--color-text-main)] bg-[var(--color-bg)] py-3 rounded-xl shadow-inner">
-            <div className="flex flex-col items-center">
-                <span className="text-xs uppercase tracking-wider text-[var(--color-text-muted)]">{t('score')}</span>
-                <span className="text-xl text-[var(--color-secondary)]">{score}</span>
-            </div>
-            <div className="flex flex-col items-center">
-                <span className="text-xs uppercase tracking-wider text-[var(--color-text-muted)]">{t('high_score')}</span>
-                <span className="text-xl text-[var(--color-primary-dark)]">{highScore}</span>
-            </div>
+        {/* Header */}
+        <div className="flex items-center justify-between mb-6">
+             <div className="bg-[var(--color-bg)] px-4 py-2 rounded-full border border-[var(--color-accent)]">
+                <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] block">{t('score')}</span>
+                <span className="text-xl font-black text-[var(--color-secondary)]">{score}</span>
+             </div>
+
+             <div className="text-center">
+                 <h2 className="text-xl font-bold text-[var(--color-primary-dark)] drop-shadow-sm font-comic leading-none">
+                    {t('game_title')}
+                </h2>
+                {combo > 1 && (
+                    <span className="text-xs font-bold text-orange-500 animate-pulse">COMBO x{combo}!</span>
+                )}
+             </div>
+
+             <div className="bg-[var(--color-bg)] px-4 py-2 rounded-full border border-[var(--color-accent)]">
+                <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] block">{t('high_score')}</span>
+                <span className="text-xl font-black text-[var(--color-primary-dark)]">{highScore}</span>
+             </div>
         </div>
 
+        {/* Board */}
         <div
-            className="grid grid-cols-8 gap-1 bg-[var(--color-surface)] p-3 rounded-[20px] mx-auto aspect-square w-full shadow-[var(--shadow-soft)] border-4 border-[var(--color-bg)]"
+            className="grid grid-cols-8 gap-1 bg-[var(--color-bg)] p-2 rounded-[20px] mx-auto aspect-square w-full shadow-inner border-2 border-[var(--color-accent)]"
         >
-            <AnimatePresence>
+            <AnimatePresence mode='popLayout'>
                 {grid.map((candy, index) => (
                     <motion.div
-                        key={index}
+                        key={`${index}-${candy}`} // Key change triggers animation
                         layout
-                        initial={{ opacity: 0, scale: 0.5 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0 }}
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        exit={{ scale: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
                         onClick={() => handleInteraction(index)}
                         className={clsx(
-                            "rounded-lg flex items-center justify-center text-2xl cursor-pointer transition-all duration-200",
+                            "rounded-lg flex items-center justify-center text-2xl md:text-3xl cursor-pointer transition-all relative",
                             selectedId === index
-                                ? "bg-[var(--color-accent)] scale-110 shadow-lg ring-2 ring-[var(--color-primary-dark)] z-10"
-                                : "bg-[var(--color-bg)] hover:brightness-95 active:scale-95",
+                                ? "bg-[var(--color-accent)] ring-2 ring-[var(--color-primary)] z-10 shadow-lg"
+                                : "hover:bg-white/10 active:scale-95",
                             candy === '' && "invisible"
                         )}
                     >
-                        <span className="filter drop-shadow-sm">{candy}</span>
+                        <span className="filter drop-shadow-md select-none">{candy}</span>
                     </motion.div>
                 ))}
             </AnimatePresence>
         </div>
 
-        <button
-            onClick={createBoard}
-            className="mt-8 bg-[var(--color-secondary)] text-white px-8 py-3 rounded-full font-bold shadow-lg hover:scale-105 active:scale-95 transition-all flex items-center gap-2 mx-auto"
-        >
-            <RotateCcw size={20} /> {t('btn_new_game')}
-        </button>
+        {/* Controls */}
+        <div className="mt-6 flex justify-center gap-4">
+            <button
+                onClick={createBoard}
+                className="bg-[var(--color-primary-dark)] text-white px-8 py-3 rounded-full font-bold shadow-lg hover:brightness-110 active:scale-95 transition-all flex items-center gap-2 border-b-4 border-black/20"
+            >
+                <RotateCcw size={20} /> {t('btn_new_game')}
+            </button>
+        </div>
+
+        <p className="mt-4 text-xs text-[var(--color-text-muted)] italic">
+            Astuce: Alignez 3 symboles identiques !
+        </p>
     </div>
   );
 }

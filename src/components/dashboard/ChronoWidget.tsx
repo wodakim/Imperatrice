@@ -66,24 +66,19 @@ export default function ChronoWidget() {
 
       // Season Tip Logic
       // 0=Jan, 1=Feb, 2=Mar, 3=Apr, 4=May, 5=Jun, 6=Jul, 7=Aug, 8=Sep, 9=Oct, 10=Nov, 11=Dec
-      // Match prototype logic or month specific logic
-      // Proto had logic: 7-8 autumn, 10-11 winter, 0-1 jan, 3-5 summer, else spring
-      // Let's implement full coverage or fallback
+      let tipKey = 'tip_spring'; // Default to spring (Mar, Apr, May)
 
-      let tipKey = 'tip_spring';
-      if(month >= 7 && month <= 8) tipKey = 'tip_autumn';
-      else if(month >= 10 || month === 11) tipKey = 'tip_winter';
-      else if(month >= 0 && month <= 1) tipKey = 'tip_jan';
-      else if(month >= 3 && month <= 5) tipKey = 'tip_summer';
-      // Fallback for others (March, June/Sept edge cases not fully covered in proto logic?
-      // Proto: "else seasonTip = d.tip_spring;" covers it.
+      if (month === 0) tipKey = 'tip_jan'; // Jan specific
+      else if (month === 1) tipKey = 'tip_spring'; // Feb - Early Spring/Mi-saison
+      else if (month >= 5 && month <= 7) tipKey = 'tip_summer'; // Jun, Jul, Aug (Summer sales/Heat)
+      // Note: Aug (7) often starts "Rentrée" prep, but is still summer.
+      // Existing logic used tip_autumn for 7-8. Let's stick closer to retail.
+      // If tip_autumn is "Prépare les manteaux et la rentrée", then Aug (7) fits.
+      else if (month >= 7 && month <= 9) tipKey = 'tip_autumn'; // Aug, Sep, Oct (Back to school, Autumn)
+      else if (month >= 10 || month === 11) tipKey = 'tip_winter'; // Nov, Dec (Holidays)
 
-      // We must ensure these keys exist in translation files.
-      // Based on extract_i18n output, they are in 'Dashboard' namespace if flattened,
-      // or we need to access them properly.
-      // The extract script creates a flat JSON usually.
+      // Override for Feb to ensure coverage if needed, but 'tip_spring' (Mi-saison) fits Feb/Mar/Apr/May.
 
-      // Let's use t directly.
       setSeasonTip(t(tipKey));
     };
 
