@@ -5,6 +5,7 @@ import { useTheme } from 'next-themes';
 import { usePathname, useRouter } from 'next/navigation';
 import { Sun, Moon, Heart, ChevronDown } from 'lucide-react';
 import InstallPWA from './InstallPWA'; // Assuming this component exists
+import ReloadPrompt from './ReloadPrompt';
 
 const FLAGS: Record<string, string> = {
   fr: '🇫🇷', en: '🇬🇧', de: '🇩🇪', es: '🇪🇸', it: '🇮🇹', pl: '🇵🇱'
@@ -20,6 +21,7 @@ export default function Header() {
   const currentLocale = pathname.split('/')[1] || 'fr';
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isRotating, setIsRotating] = useState(false);
+  const [showReload, setShowReload] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -37,6 +39,7 @@ export default function Header() {
     const newPath = segments.join('/');
     router.push(newPath);
     setIsLangOpen(false);
+    setShowReload(true);
   };
 
   const triggerPanic = () => {
@@ -47,9 +50,11 @@ export default function Header() {
   if (!mounted) return <div className="h-[88px] mb-8" />; // Skeleton placeholder height
 
   return (
-    <header className="flex flex-col md:flex-row justify-between items-center mb-8 p-5 bg-[var(--color-surface)] rounded-[20px] shadow-[var(--shadow-soft)] gap-4 md:gap-0 transition-all duration-300">
+    <>
+      <ReloadPrompt show={showReload} onReload={() => setShowReload(false)} />
+      <header className="flex flex-col md:flex-row justify-between items-center mb-8 p-5 bg-[var(--color-surface)] rounded-[20px] shadow-[var(--shadow-soft)] gap-4 md:gap-0 transition-all duration-300">
 
-      {/* Logo Area */}
+        {/* Logo Area */}
       <div className="text-center md:text-left">
         <h1 className="text-2xl font-bold text-[var(--color-primary-dark)] tracking-wide m-0">
           L'IMPÉRATRICE
@@ -119,5 +124,6 @@ export default function Header() {
 
       </div>
     </header>
+    </>
   );
 }
