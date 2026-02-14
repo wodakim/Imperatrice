@@ -34,13 +34,17 @@ export function PremiumProvider({ children }: { children: ReactNode }) {
         .single();
 
       if (error) {
-        console.error('Error fetching premium status:', error);
+        // If table doesn't exist (PGRST205) or other error, default to false but don't crash console
+        if (error.code !== 'PGRST116' && error.code !== 'PGRST205') {
+             console.error('Error fetching premium status:', error);
+        }
         setIsPremium(false);
       } else {
         setIsPremium(data?.is_premium || false);
       }
     } catch (err) {
-      console.error('Error:', err);
+      // Suppress network/table errors to avoid noisy logs for missing schema
+      // console.error('Error:', err);
       setIsPremium(false);
     } finally {
       setIsLoading(false);

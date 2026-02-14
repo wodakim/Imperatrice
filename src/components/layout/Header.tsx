@@ -74,13 +74,13 @@ export default function Header() {
           </button>
 
           {isLangOpen && (
-            <div className="absolute right-0 top-full mt-2 w-32 bg-[var(--color-surface)] border border-[var(--color-accent)] rounded-[15px] shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200 z-[60]">
+            <div className="absolute right-0 top-full mt-2 w-32 bg-[var(--color-surface)] dark:bg-[#383848] border border-[var(--color-accent)] rounded-[15px] shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200 z-[60]">
               {Object.entries(FLAGS).map(([loc, flag]) => (
                 <button
                   key={loc}
                   onClick={() => changeLanguage(loc)}
-                  className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-3 hover:bg-[var(--color-bg)] transition-colors
-                    ${currentLocale === loc ? 'font-bold text-[var(--color-primary-dark)] bg-[var(--color-bg)]' : 'text-[var(--color-text-main)]'}
+                  className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-3 hover:bg-[var(--color-bg)] dark:hover:bg-black/20 transition-colors
+                    ${currentLocale === loc ? 'font-bold text-[var(--color-primary-dark)] bg-[var(--color-bg)] dark:bg-black/20' : 'text-[var(--color-text-main)]'}
                   `}
                 >
                   <span className="text-lg">{flag}</span>
