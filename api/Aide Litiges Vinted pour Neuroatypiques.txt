@@ -1,0 +1,240 @@
+﻿Rapport Technique : Architecture Cognitive et Juridique pour le Module de Résolution de Litiges "Impératrice"
+1. Introduction et Cadrage Stratégique
+L'économie circulaire, dominée en Europe par des plateformes comme Vinted, a radicalement transformé les habitudes de consommation. Cependant, ce modèle Consumer-to-Consumer (C2C) transfère la charge logistique, juridique et émotionnelle des professionnels vers les particuliers. Pour un utilisateur neuroatypique — présentant par exemple un Trouble du Spectre de l'Autisme (TSA), un Trouble du Déficit de l'Attention avec/sans Hyperactivité (TDAH) ou des troubles anxieux — la gestion d'un litige sur Vinted ne constitue pas seulement une nuisance administrative, mais une véritable épreuve cognitive et sensorielle susceptible de déclencher une paralysie décisionnelle ou une détresse émotionnelle intense.1
+Ce rapport détaille l'architecture fonctionnelle, technique et ergonomique de la section "Litige" de l'application Impératrice. L'objectif est de concevoir un système prothétique externe qui assume la charge mentale du litige, reconnaît automatiquement la nature juridique du problème via une analyse sémantique, et génère des réponses procédurales et communicationnelles ("Magic Box") adaptées. Cette approche repose sur une fusion entre l'ingénierie juridique (conformité au Code de la consommation et aux CGU Vinted 2025) et le design inclusif (réduction de la charge cognitive, communication non-violente).
+1.1 La Problématique de la Friction Transactionnelle en C2C
+Contrairement au commerce B2C (Business-to-Consumer) où le droit de rétractation est quasi-automatique, le commerce C2C sur Vinted opère dans une zone de friction élevée. Les utilisateurs doivent naviguer entre des règles de plateforme strictes (délais de 48h), des interlocuteurs parfois hostiles, et une interface qui favorise la rapidité au détriment de la clarté juridique.3
+Pour l'utilisateur neuroatypique, trois barrières majeures se dressent :
+1. La Dysphorie Sensible au Rejet (RSD) : Une critique ou un refus de la part d'un vendeur peut être perçu comme une agression personnelle majeure, menant à l'évitement (abandon du litige) ou à l'impulsivité (agression verbale).2
+2. Le Déficit des Fonctions Exécutives : La complexité séquentielle d'un litige (photos -> description -> sélection du motif -> négociation -> envoi -> preuve de dépôt) surcharge la mémoire de travail.5
+3. L'Ambigüité Sociale et Juridique : La difficulté à interpréter les intentions du vendeur ("Est-il malhonnête ou est-ce une erreur?") et à calibrer la réponse appropriée (ni trop passive, ni trop agressive).6
+1.2 Objectifs du Système "Impératrice"
+Le module "Litige" doit agir comme un tiers de confiance algorithmique. Il ne s'agit pas simplement d'un guide, mais d'un "exosquelette cognitif" qui :
+* Identifie la réalité juridique du problème au-delà de l'émotion de l'utilisateur.
+* Structure la résolution en micro-tâches linéaires et prévisibles.
+* Médie la communication via une IA générative qui filtre l'agressivité et formalise les demandes.
+________________
+2. Taxonomie Algorithmique des Litiges Vinted
+Pour que l'outil de "Reconnaissance de Litige" fonctionne efficacement, il est impératif d'établir une base de données taxonomique rigoureuse. Les systèmes de classification actuels (Machine Learning Zero-Shot) nécessitent des définitions précises pour mapper le langage naturel de l'utilisateur ("C'est dégueulasse, il y a une tache") vers une catégorie juridique exploitable ("Non-Conformité - Article L217-4").
+L'analyse exhaustive des Conditions Générales d'Utilisation (CGU) de Vinted et des retours d'expérience utilisateurs permet de dresser une matrice de décision à six dimensions.
+2.1 Matrice de Classification des Incidents
+Cette matrice servira de "Vérité Terrain" pour l'entraînement des modèles de reconnaissance et les arbres de décision du chatbot.
+
+
+Code
+	Catégorie Juridique
+	Terminologie Utilisateur (Mots-clés)
+	Enjeux Critiques & Procédure
+	Charge de la Preuve
+	D_01
+	Non-Conformité (SNAD)
+	"Tache", "Trou", "Mauvaise taille", "Déchiré", "Pue la cigarette", "Couleur différente"
+	Le motif le plus fréquent. L'acheteur doit prouver la différence. Retour aux frais de l'acheteur sauf accord contraire.4
+	Photos comparatives (Annonce vs Réalité).
+	D_02
+	Contrefaçon (IPR)
+	"Faux", "Fake", "Coutures bizarres", "Logo mal fait", "Pas de facture", "QR code invalide"
+	Zone de Danger. Ne jamais renvoyer l'article immédiatement (risque de recel). Politique de remboursement sans retour possible si avéré.8
+	Photos macro (coutures, étiquettes), comparaison officielle.
+	D_03
+	Avarie de Transport
+	"Cassé", "Écrasé", "Verre brisé", "Carton ouvert", "Emballage insuffisant"
+	Nécessite de prouver que l'emballage était suffisant ou insuffisant. Le litige se joue entre Vinted et le transporteur.10
+	Photos du carton extérieur, du calage intérieur, de l'objet cassé.
+	D_04
+	Logistique / Perte
+	"Bloqué", "Pas de mise à jour", "Colis vide", "Volé", "Non livré"
+	Angoisse élevée due à l'incertitude. Délais longs (jusqu'à 21 jours pour enquête).3
+	Capture d'écran suivi, attestation sur l'honneur.
+	D_05
+	Arnaque Complexe
+	"PayPal entre proches", "Vérification d'identité", "Email bizarre", "Lien externe"
+	Risque financier maximal. L'outil doit ordonner un arrêt immédiat de toute communication hors plateforme.13
+	Captures d'écran des messages, URL des liens frauduleux.
+	D_06
+	Harcèlement / Comportement
+	"Insultes", "Menaces", "Force la vente", "Note injustifiée"
+	Impact psychologique direct. Nécessite une fonction "Mute" et un signalement modération.14
+	Captures d'écran de la conversation.
+	2.2 Nuances Critiques pour l'Algorithme
+L'outil de reconnaissance doit être capable de discerner des subtilités contextuelles qui échappent souvent aux utilisateurs anxieux.
+* L'Article L217-4 vs Vente entre Particuliers : L'algorithme doit vérifier si le vendeur est un "Pro" ou un particulier. Si le vendeur est un professionnel (marqué "Pro" sur Vinted), l'utilisateur bénéficie de la garantie légale de conformité et du droit de rétractation de 14 jours (remboursement intégral, frais de retour souvent inclus).4 Le système doit scanner le profil vendeur pour adapter le conseil.
+* La boucle de la Contrefaçon (D_02) : Une erreur fréquente est de traiter une contrefaçon comme une non-conformité classique. Or, renvoyer une contrefaçon par la poste est techniquement illégal (transport de marchandises contrefaites). L'outil doit identifier ce scénario pour bloquer la suggestion de retour standard et orienter vers la procédure spécifique "Contrefaçon" de Vinted qui permet le remboursement ET la destruction de l'objet.8
+________________
+3. Architecture Technique du Moteur de Reconnaissance
+Pour garantir une expérience utilisateur fluide et sans stress, la reconnaissance du litige ne doit pas reposer sur un questionnaire interminable. Nous proposons une architecture hybride combinant l'analyse sémantique (LLM) et la rigueur procédurale (Arbres de Décision).
+3.1 Le Pipeline de Traitement "Zero-Shot"
+L'utilisateur est invité à décrire son problème en langage naturel dans un champ texte libre, ou à coller le message du vendeur.
+1. Entrée (Input) : "J'ai reçu les baskets mais la semelle se décolle et le vendeur me dit que c'est ma faute."
+2. Classification LLM (Zero-Shot Intent Classification) : Le système utilise un modèle de langage (type GPT-4o mini ou modèle open-source fine-tuné) pour mapper cette entrée vers l'une des catégories de la matrice (D_01 à D_06).16
+   * Prompt Système : "Analyse l'entrée suivante. Identifie le type de litige Vinted principal. Extrait l'émotion de l'utilisateur (Colère, Peur, Tristesse). Extrait les faits objectifs (Semelle décollée)."
+3. Vérification Déterministe : Pour éviter les hallucinations de l'IA, le système pose une seule question de confirmation basée sur la classification.
+   * Exemple : L'IA détecte D_01 (Non-conformité). Le système affiche : "Nous avons détecté un problème d'état de l'objet. Est-ce bien cela?" (Oui/Non).
+3.2 L'Arbre de Décision Dynamique (Decision Tree)
+Une fois la catégorie confirmée, le système déploie un arbre de décision logique pour affiner la stratégie. Contrairement à un chatbot classique, cet arbre est visuel (type "fil d'Ariane") pour que l'utilisateur sache toujours où il se situe dans le processus.18
+Exemple de Branche Logique pour D_01 (Non-Conformité) :
+1. Nœud 1 : Avez-vous validé la transaction ("Bien reçu")?
+   * Oui : -> Fin de procédure Vinted. (Redirection vers PayPal/Recours amiable).
+   * Non : -> Nœud 2.
+2. Nœud 2 : Êtes-vous dans les 48h suivant la livraison?
+   * Non : -> Alerte Urgence.
+   * Oui : -> Nœud 3.
+3. Nœud 3 : Le défaut était-il visible sur les photos de l'annonce?
+   * Analyse : Le système demande d'uploader la photo de l'annonce et la photo du défaut. Une vision par ordinateur (Computer Vision) peut aider à comparer, ou l'utilisateur le fait manuellement.
+3.3 Sécurité et Conformité des Données (Privacy)
+L'application Impératrice étant une tierce partie, elle doit opérer selon le principe de minimisation des données pour rassurer l'utilisateur anxieux et respecter le RGPD.20
+* Traitement Local : Si possible, l'analyse des captures d'écran (OCR) doit se faire côté client (dans le navigateur) pour ne pas envoyer de données personnelles sensibles (adresses sur les bordereaux) vers un serveur.
+* Anonymisation : Tout envoi vers une API LLM doit être préalablement anonymisé (remplacement des pseudos et adresses par).
+________________
+4. Design Neuro-Inclusif et Ergonomie Cognitive
+C'est ici que l'application Impératrice se distingue. L'interface ne doit pas seulement être fonctionnelle, elle doit être apaisante. Le design doit contrer activement la surcharge sensorielle et l'anxiété.1
+4.1 Principes de Design "Calm Tech"
+1. Palette Sensorielle Réduite : Utilisation de couleurs pastels et froides (bleu, vert d'eau) qui évoquent la stabilité. Évitement absolu du rouge vif pour les erreurs ou les alertes, remplacé par de l'orange doux ou du texte explicatif. Police sans serif à haute lisibilité (ex: Atkinson Hyperlegible) pour faciliter la lecture chez les dyslexiques.1
+2. Divulgation Progressive (Chunking) : Ne jamais afficher l'ensemble des étapes du litige d'un coup. Présenter une étape à la fois.
+   * Mauvais : "Prenez des photos, ouvrez le litige, envoyez le colis, donnez le suivi."
+   * Bon : Écran 1 : "Prenons une photo du défaut." -> Validation -> Écran 2 : "Maintenant, ouvrons le litige.".5
+3. Feedback Immédiat et Rassurant : À chaque action de l'utilisateur, le système doit confirmer la réussite par un micro-feedback visuel (check vert, vibration douce). Pour un utilisateur TDAH, cela valide la progression et maintient la dopamine nécessaire à la poursuite de la tâche.1
+4.2 Le "Bouton Panique" (De-escalation Feature)
+Pour les utilisateurs souffrant de RSD, un message agressif du vendeur peut provoquer une crise de panique. L'application doit intégrer un bouton "SOS" ou "Je panique" visible en permanence.
+* Action : Le clic masque immédiatement l'interface du litige et le message du vendeur.
+* Remplacement : L'écran affiche un exercice de cohérence cardiaque (animation de respiration) et un message factuel : "Vous êtes en sécurité. L'argent est bloqué par Vinted. Vous avez 48h pour répondre, rien ne presse pour l'instant.".21
+4.3 Gamification de la Preuve
+La constitution du dossier de preuve est l'étape la plus fastidieuse. Pour engager l'utilisateur, Impératrice transforme cette corvée en une "enquête" guidée.
+* Interface Caméra Guidée : Surcouche en réalité augmentée (ou simple guide visuel) montrant comment prendre la photo (ex: "Approche-toi pour voir la couture", "Mets une pièce de monnaie à côté pour l'échelle").
+* Checklist Visuelle :
+   * [ ] Photo du carton fermé (prouver l'état extérieur).
+   * [ ] Photo de l'étiquette d'envoi (lisible).
+   * [ ] Photo de l'article dans son emballage (prouver le calage).
+   * [ ] Photo du défaut en gros plan.
+Cette approche procédurale réduit la charge mentale en transformant une tâche abstraite ("Prouver ma bonne foi") en actions concrètes.11
+________________
+5. La "Magic Box" : Générateur de Réponses Procédurales
+Le cœur de la proposition de valeur est la "Magic Box". Pour un neuroatypique, formuler une demande est risqué : être trop gentil (et se faire avoir) ou trop agressif (et braquer le vendeur). L'outil génère des réponses basées sur la Communication Non-Violente (CNV) et l'ingénierie sociale.6
+5.1 Architecture du Prompt Engineering (CNV)
+Le générateur ne se contente pas de "polir" le texte. Il restructure le message selon le protocole OSBD (Observation, Sentiment, Besoin, Demande) adapté au contexte transactionnel.
+Structure du Prompt Système pour l'IA :
+"Tu es un médiateur expert en litiges e-commerce. Ta mission est de rédiger un message pour un vendeur Vinted.
+Contexte : Litige de type {{Dispute_Type}}.
+Preuves : {{User_Evidence_List}}.
+Objectif : Obtenir {{User_Goal}} (Remboursement / Retour).
+Ton : Factuel, Ferme mais Poli, Dépersonnalisé.
+Règles :
+1. Utilise la voix passive pour décrire les défauts ('Une tache est visible' et non 'Tu as taché').
+2. Cite les preuves ('Comme montré sur la photo 2').
+3. Termine par une question fermée ou une proposition d'action claire.
+4. Élimine tout langage émotionnel ou accusatoire."
+5.2 Sélecteur de "Température Émotionnelle"
+L'utilisateur garde le contrôle via un sélecteur de ton à trois niveaux, lui redonnant un sentiment d'agence (Agency).5
+Niveau 1 : Le Diplomate (Soft)
+* Usage : Vendeur bien noté, défaut mineur, doute sur l'origine du problème.
+* Stratégie : Présomption d'innocence. "L'erreur est humaine".
+* Exemple Généré : "Bonjour, j'ai bien reçu le colis, merci pour l'envoi rapide. En l'examinant, j'ai remarqué une petite tache sur la manche qui n'était pas visible sur les photos (voir image ci-jointe). Je suis sûr qu'il s'agit d'un oubli. Pouvons-nous trouver une solution ensemble?"
+Niveau 2 : Le Factuel (Neutral)
+* Usage : Vendeur silencieux, défaut majeur (SNAD), réponse automatique.
+* Stratégie : Rappel des faits et des règles Vinted.
+* Exemple Généré : "Bonjour. L'article reçu ne correspond pas à la description de l'annonce 'Très bon état'. Il présente une déchirure au niveau du col (voir photo 1). Conformément aux règles de Vinted sur la conformité, je ne peux pas accepter l'article dans cet état. Je demande le retour de l'article pour remboursement."
+Niveau 3 : Le Juridique (Assertive)
+* Usage : Vendeur agressif, mauvaise foi évidente, contrefaçon, menace.
+* Stratégie : Citation des articles de loi ou des CGU. Froideur administrative.
+* Exemple Généré : "Bonjour. L'article est une contrefaçon, ce qui contrevient aux CGU de Vinted et à l'article L713-2 du Code de la Propriété Intellectuelle. J'ai transmis les preuves (numéro de série invalide) au support Vinted. En l'absence de résolution immédiate, je maintiendrai le litige ouvert jusqu'à l'arbitrage de la plateforme."
+5.3 Scripts d'Urgence et Réponses "Tampon"
+L'application doit aussi fournir des "réponses éclairs" pour les situations où le vendeur tente de manipuler l'utilisateur.24
+* Scénario : Le vendeur dit "Renvoie-le moi à tes frais et je te rembourse par PayPal".
+   * Réponse Magique : "Désolé, mais pour ma sécurité, je dois suivre la procédure officielle Vinted. Le remboursement doit se faire via la plateforme une fois le retour validé par le système."
+* Scénario : Le vendeur dit "C'est la faute de la Poste, clôture le litige et vois avec eux".
+   * Réponse Magique : "La procédure Vinted prévoit que le litige doit rester ouvert pour que l'assurance transporteur fonctionne. Je ne peux pas clôturer le litige avant la résolution finale, sinon je perds toute protection."
+________________
+6. Workflows de Résolution Procéduraux (Détails Opérationnels)
+Cette section détaille les "Chemins Heureux" (Happy Paths) que l'application doit guider pas à pas. L'intégration de tableaux de données ici permet à l'utilisateur de visualiser rapidement ses options.
+6.1 Workflow : Article Non Conforme (Le Cas Classique)
+L'utilisateur a reçu un vêtement troué. Il panique.
+1. Stop Action : L'app affiche un grand panneau "STOP". "Ne clique pas sur 'Tout est OK'. Tu as 48h."
+2. Collecte de Preuves :
+   * Guidage photo (Défaut + Vue d'ensemble).
+3. Ouverture Litige :
+   * Bouton "J'ai un problème" -> Sélection "Non conforme".
+4. Négociation (Branche Décisionnelle) :
+Option
+	Avantage
+	Inconvénient
+	Conseil "Impératrice"
+	Retourner l'article
+	Remboursement intégral (Prix + Protection + Port Aller).
+	Frais de port retour à charge de l'acheteur (sauf vendeur sympa).
+	À choisir si l'article est inutilisable ou cher (>20€).
+	Garder l'article
+	Pas de frais de retour. Pas de colis à faire.
+	Pas de remboursement officiel via Vinted.
+	À choisir si le défaut est réparable. Négocier un geste via PayPal (Hors Vinted = Risque, mais courant).
+	Revendre
+	Récupération potentielle de l'argent.
+	Effort de revente. Frais Vinted.
+	Solution de dernier recours si le retour est trop cher (ex: frais de port > valeur article).
+	6.2 Workflow : Contrefaçon (Le Cas Critique)
+Ce workflow est spécifique car il inverse la logique de retour.9
+1. Identification : L'utilisateur suspecte un faux.
+2. Sécurisation : "Ne renvoie rien pour l'instant."
+3. Constitution du Dossier Expert : L'app demande des photos spécifiques selon la marque (ex: Nike = étiquette de taille, Sac de luxe = numéro de série, couture intérieure).
+4. Rédaction Magique : Génération d'un message signalant que l'article est contrefait et demandant le remboursement sans retour.
+5. Escalade : Si le vendeur refuse, l'app guide pour cliquer sur "Transmettre à Vinted" immédiatement.
+6.3 Workflow : Colis Perdu / Vide (Le Cas Angoissant)
+1. Vérification : Le suivi dit "Livré" mais rien dans la boîte?
+2. Enquête Voisinage : "Demande à tes voisins / gardien." (Checklist).
+3. Preuve de Non-Réception : Génération d'un modèle d'Attestation sur l'Honneur (document PDF pré-rempli avec les infos de la commande). Vinted exige souvent ce document manuscrit + carte d'identité.4
+4. Dépôt de Plainte : Si valeur élevée (>50€), l'app fournit le lien vers "Thésée" (plateforme de plainte e-commerce en France) ou la pré-plainte en ligne. C'est souvent le sésame pour débloquer Vinted.13
+________________
+7. Conformité Technique et Anti-Ban (Sécurité de l'Application)
+Le développement d'outils tiers pour Vinted ("Helper Apps") comporte un risque majeur : le bannissement de l'utilisateur pour "utilisation de logiciels d'automatisation".25 Vinted surveille les comportements non-humains (requêtes API trop rapides, scraping).
+7.1 Architecture "Passive" Obligatoire
+Pour protéger l'utilisateur, Impératrice ne doit jamais interagir directement avec les serveurs de Vinted (pas de requêtes HTTP directes, pas de clic automatique via un script).
+* Modèle "Sidecar" : L'application doit fonctionner à côté de Vinted (écran scindé sur mobile ou onglet séparé).
+* Flux de Données Manuel :
+   * L'utilisateur fait une capture d'écran du litige sur Vinted.
+   * Il partage l'image vers Impératrice.
+   * Impératrice analyse l'image (OCR), comprend le problème, et génère le texte.
+   * L'utilisateur copie le texte et le colle manuellement dans Vinted.
+* Pourquoi? Ce comportement est indétectable par Vinted car il simule une activité humaine normale (lecture, réflexion, écriture). Il n'y a pas d'injection de code dans l'app Vinted.27
+7.2 Transparence et Responsabilité
+Il est crucial d'intégrer des avertissements clairs (Disclaimers) dans l'application :
+* "Cette application est une aide à la décision, pas un avocat."
+* "Le résultat du litige dépend in fine de la décision du support Vinted."
+________________
+8. Synthèse et Recommandations d'Implémentation
+Pour réussir le module "Litige" de l'application Impératrice, l'approche doit être holistique. La technologie (IA, OCR) doit s'effacer derrière la psychologie.
+8.1 Roadmap de Développement Prioritaire
+1. Phase 1 : La Base de Connaissance. Intégrer la taxonomie des litiges (Section 2) et les workflows (Section 6) dans une structure de données statique.
+2. Phase 2 : L'Interface Calm Tech. Développer l'UI/UX avec les principes de design inclusif (Section 4). Créer le "Bouton Panique".
+3. Phase 3 : La Magic Box (Alpha). Connecter un LLM (API OpenAI ou Anthropic) avec les prompts CNV (Section 5). Tester les tons.
+4. Phase 4 : L'Assistant Visuel. Ajouter la reconnaissance d'image pour les preuves et l'OCR pour l'import des messages vendeurs.
+8.2 Impact Attendu
+En outillant l'utilisateur neuroatypique, Impératrice ne résout pas seulement des litiges financiers. Elle restaure un sentiment de compétence et de sécurité. Elle transforme une interaction hostile (le conflit) en une procédure administrative gérable. C'est l'essence même de l'accessibilité numérique : rendre le monde chaotique du C2C navigable pour tous les esprits.
+L'application Impératrice, armée de cette section "Litige", deviendra non seulement un assistant d'achat, mais un véritable bouclier juridique et émotionnel pour sa communauté.
+Sources des citations
+1. Neurodiversity In UX: 7 Key Design Principles, consulté le février 15, 2026, https://devqube.com/neurodiversity-in-ux/
+2. Designing Through a Neurodivergent Lens: The 7 Pillars of Emotionally Safe UX, consulté le février 15, 2026, https://www.kalamuna.com/blog/designing-through-neurodivergent-lens-7-pillars-emotionally-safe-ux
+3. vinted contact mail : 3 Méthodes Infaillibles Révélées (2025) - dépannage informatique, consulté le février 15, 2026, https://mon-depannage-informatique.fr/blog/vinted-contact-mail-3-methodes-infaillibles-2025
+4. Vente en ligne Vinted : Comment résoudre un litige, consulté le février 15, 2026, https://www.litige.fr/articles/vinted-comment-resoudre-un-litige
+5. Designing for Neurodivergence-16 UX Principles to Truly Include ..., consulté le février 15, 2026, https://medium.com/design-bootcamp/beyond-compliance-16-ux-principles-to-truly-include-neurodivergent-users-e7d3ff779665
+6. Neurodiversity in Mediation, consulté le février 15, 2026, https://mediate.com/neurodiversity-in-mediation/
+7. Lisez les avis marchands de vinted.com | 8 sur 13 - Avis Trustpilot, consulté le février 15, 2026, https://fr.trustpilot.com/review/vinted.com?page=8
+8. What's the procedure if you buy something that turns out to be fake? Do I return it and if so do I have to pay to return? (NO PERSONAL INFO) : r/vinted - Reddit, consulté le février 15, 2026, https://www.reddit.com/r/vinted/comments/1ezrhrc/whats_the_procedure_if_you_buy_something_that/
+9. Vinted Item Authenticity Policy - OneShop, consulté le février 15, 2026, https://tools.oneshop.com/blog/vinted-item-authenticity
+10. Vinted : Problèmes, litiges, arnaques. Toutes les solutions dans ce guide. - Letilor, consulté le février 15, 2026, https://www.letilor.com/2025/10/vinted-problemes-litiges-arnaques-toutes-les-solutions-dans-ce-guide/
+11. Sécuriser l'envoi Vinted : Emballages, Assurances et Astuces pour ..., consulté le février 15, 2026, https://vintylook.com/fr/articles/securiser-envoi-emballages-assurances-astuces-zero-litige-transport
+12. Réclamation à Vinted : Situations fréquentes et coordonnées, consulté le février 15, 2026, https://reclamation-sav.be/vinted/
+13. L'arnaque qui inquiète sur Vinted et Leboncoin - RSE Magazine, consulté le février 15, 2026, https://www.rse-magazine.com/larnaque-qui-inquiete-sur-vinted-et-leboncoin/
+14. Un utilisateur Vinted me menace de mort. Comment régler la situation ? : r/conseiljuridique, consulté le février 15, 2026, https://www.reddit.com/r/conseiljuridique/comments/1hgwian/un_utilisateur_vinted_me_menace_de_mort_comment/
+15. Vinted returns counterfeit items to seller - Reddit, consulté le février 15, 2026, https://www.reddit.com/r/vinted/comments/1iuql0t/vinted_returns_counterfeit_items_to_seller/
+16. Using LLMs for Intent Classification - Rasa, consulté le février 15, 2026, https://legacy-docs-oss.rasa.com/docs/rasa/next/llms/llm-intent/
+17. Zero-Shot LLM - User Guide - Syntphony, consulté le février 15, 2026, https://docs.conversational-ai.syntphony.com/user-guide/zero-shot-llm
+18. What is a Decision Tree? (Templates and Tips) - Canva, consulté le février 15, 2026, https://www.canva.com/online-whiteboard/decision-trees/
+19. Chatbot Decision Tree for Improved Customer Service - Yellow.ai, consulté le février 15, 2026, https://yellow.ai/blog/chatbot-decision-tree/
+20. Litiges sur Vinted : types, recours et procédures de remboursement, consulté le février 15, 2026, https://www.donneespersonnelles.fr/litiges-vinted
+21. Designing Calm: UX Principles for Reducing Users' Anxiety - UXmatters, consulté le février 15, 2026, https://www.uxmatters.com/mt/archives/2025/05/designing-calm-ux-principles-for-reducing-users-anxiety.php
+22. Neurodiversity in UX | Inclusive Design Principles Guide - Aufait UX, consulté le février 15, 2026, https://www.aufaitux.com/blog/neuro-inclusive-ux-design/
+23. Non Violent Communication (NVC) Model - UCOP, consulté le février 15, 2026, https://www.ucop.edu/ombuds/_files/nvc-model-requesting-change-remove.pdf
+24. Seller isn't responding to the problem report. : r/VintedDeutschland - Reddit, consulté le février 15, 2026, https://www.reddit.com/r/VintedDeutschland/comments/1o7i6kp/verk%C3%A4uferin_reagiert_nicht_auf_problemmeldung/?tl=en
+25. Warning about automated activity on my account – help! : r/vinted - Reddit, consulté le février 15, 2026, https://www.reddit.com/r/vinted/comments/1m8bdfb/warning_about_automated_activity_on_my_account/
+26. Vinted update as users face being banned after new rule change ..., consulté le février 15, 2026, https://www.bristolpost.co.uk/news/uk-world-news/vinted-users-could-risk-ban-10483929
+27. Vinted is threatening to permanently ban my account for using "external software tools" - I've never once used anything. I don't even know what an external software tool is. I'm genuinely fed up with this garbage company. : r/vinted - Reddit, consulté le février 15, 2026, https://www.reddit.com/r/vinted/comments/1m7ysrz/vinted_is_threatening_to_permanently_ban_my/
+28. How to Have Multiple Vinted Accounts Without Getting Banned: A Practical Guide, consulté le février 15, 2026, https://incogniton.com/blog/how-to-have-multiple-vinted-accounts-without-getting-banned/
