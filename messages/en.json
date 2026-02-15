@@ -152,7 +152,7 @@
   "pack_select": "-- Expert Packs --",
   "trophy_title": "Trophy Room",
   "trophy_subtitle": "Unlock achievements by using the app.",
-  "game_title": "Crush Mode Saga",
+  "game_title": "Infinite Vinted Crush",
   "score": "Score",
   "high_score": "Record",
   "btn_new_game": "New Game",
@@ -464,7 +464,9 @@
     "anchor_3": "👂 <b>3</b> things you hear",
     "anchor_2": "👃 <b>2</b> things you can smell",
     "anchor_1": "👅 <b>1</b> thing you can taste",
-    "btn_better": "I feel better 🌿"
+    "btn_better": "I feel better 🌿",
+    "infographic_title": "Infographic 2026",
+    "infographic_btn": "📚 Vinted Guide 2026"
   },
   "Studio": {
     "studio_title": "Virtual Studio",
@@ -736,7 +738,7 @@
     "script_measure": "Hello, here are the measurements: [MEASURES]. The fit is really great. Let me know if you need anything else! 📏"
   },
   "Crush": {
-    "game_title": "Crush Mode Saga",
+    "game_title": "Infinite Vinted Crush",
     "score": "Score",
     "high_score": "Record",
     "btn_new_game": "New Game"
@@ -806,5 +808,126 @@
     "tr_d_expert_seller": "Unlock 10 achievements.",
     "tr_n_imperatrice": "The Empress",
     "tr_d_imperatrice": "Unlock 20 achievements."
+  },
+  "Infographic": {
+    "title": "Guide Stratégique 2026",
+    "subtitle": "Comprendre l'algorithme et la saisonnalité pour mieux vendre.",
+    "sec1_title": "1. La Semaine Type : Quand Poster ?",
+    "sec1_desc": "L'algorithme favorise la nouveauté. Postez quand les acheteurs sont connectés. Le <b>Dimanche Soir (18h-22h)</b> est le moment roi.",
+    "prime_title": "🔥 Le Prime Time",
+    "prime_desc": "Dimanche 18h - 22h. C'est là que tout se joue.",
+    "avoid_title": "⚠️ À Éviter",
+    "avoid_desc": "Lundi matin et les après-midis en semaine.",
+    "sec2_title": "2. Les Pics de Trafic 2026",
+    "sec2_desc": "Optimisez vos boosts ! Ne boostez pas en Juillet (creux), gardez votre budget pour Novembre (pic).",
+    "sec3_title": "3. Calendrier Stratégique",
+    "days": [
+      "Lundi",
+      "Mardi",
+      "Mercredi",
+      "Jeudi",
+      "Vendredi",
+      "Samedi",
+      "Dimanche"
+    ],
+    "months": [
+      "Jan",
+      "Fév",
+      "Mar",
+      "Avr",
+      "Mai",
+      "Juin",
+      "Juil",
+      "Août",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Déc"
+    ],
+    "cal_jan_t": "Grand Froid",
+    "cal_jan_i": [
+      "Manteaux lourds",
+      "Ski",
+      "Cadeaux reçus"
+    ],
+    "cal_feb_t": "Fin Hiver",
+    "cal_feb_i": [
+      "Gros pulls",
+      "Bottes fourrées",
+      "St Valentin"
+    ],
+    "cal_mar_t": "Renouveau",
+    "cal_mar_i": [
+      "Trenchs",
+      "Sneakers",
+      "Blouses"
+    ],
+    "cal_apr_t": "Pré-Été",
+    "cal_apr_i": [
+      "Robes printemps",
+      "T-shirts",
+      "Mariage"
+    ],
+    "cal_may_t": "Plein Soleil",
+    "cal_may_i": [
+      "Maillots",
+      "Sandales",
+      "Shorts"
+    ],
+    "cal_jun_t": "Festivals",
+    "cal_jun_i": [
+      "Lunettes",
+      "Robes Maxi",
+      "Camping"
+    ],
+    "cal_jul_t": "Soldes / Creux",
+    "cal_jul_i": [
+      "Lots petits prix",
+      "Vide-Dressing"
+    ],
+    "cal_aug_t": "Rentrée",
+    "cal_aug_i": [
+      "Cartables",
+      "Jeans",
+      "Baskets"
+    ],
+    "cal_sep_t": "Automne",
+    "cal_sep_i": [
+      "Blazers",
+      "Bottines",
+      "Pulls légers"
+    ],
+    "cal_oct_t": "Cozy Season",
+    "cal_oct_i": [
+      "Laine",
+      "Parkas",
+      "Halloween"
+    ],
+    "cal_nov_t": "Black Friday",
+    "cal_nov_i": [
+      "Luxe / Marque",
+      "Jouets",
+      "Coffrets"
+    ],
+    "cal_dec_t": "Fêtes",
+    "cal_dec_i": [
+      "Paillettes",
+      "Accessoires",
+      "Cadeaux"
+    ],
+    "full_months": [
+      "Janvier",
+      "Février",
+      "Mars",
+      "Avril",
+      "Mai",
+      "Juin",
+      "Juillet",
+      "Août",
+      "Septembre",
+      "Octobre",
+      "Novembre",
+      "Décembre"
+    ]
   }
 }
