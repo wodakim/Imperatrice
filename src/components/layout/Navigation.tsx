@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { Link } from '@/i18n/routing'; // Correct next-intl Link
+import { Link } from '@/i18n/navigation'; // Correct next-intl Link
 import {
   LayoutDashboard,
   Camera,

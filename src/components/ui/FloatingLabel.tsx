@@ -56,7 +56,12 @@ export const FloatingLabelSelect = React.forwardRef<HTMLSelectElement, SelectPro
         <div className="relative">
             <select
               ref={ref}
-              className={clsx(INPUT_CLASSES, "appearance-none cursor-pointer pr-10", error && "!border-red-500 focus:!border-red-500")}
+              className={clsx(
+                  INPUT_CLASSES,
+                  "appearance-none cursor-pointer pr-10",
+                  "[&>option]:bg-[var(--color-surface)] [&>option]:text-[var(--color-text-main)]", // Fix dropdown contrast
+                  error && "!border-red-500 focus:!border-red-500"
+              )}
               {...props}
             >
               {children}

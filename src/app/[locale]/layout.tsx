@@ -4,6 +4,7 @@ import { ThemeProvider } from 'next-themes';
 import { Inter, Caveat } from 'next/font/google';
 import clsx from 'clsx';
 import PanicRoom from '@/components/layout/PanicRoom';
+import TrophyListener from '@/components/gamification/TrophyListener';
 import Header from '@/components/layout/Header';
 import Navigation from '@/components/layout/Navigation';
 import '../globals.css';
@@ -49,6 +50,7 @@ export default async function LocaleLayout({
             <BrandThemeProvider>
               <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
                 <PanicRoom />
+                <TrophyListener />
                 <LoginModal />
                 <div className="max-w-4xl mx-auto p-5 pb-32 min-h-screen flex flex-col">
                   <Header />
