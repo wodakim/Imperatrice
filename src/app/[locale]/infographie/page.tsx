@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 
 export default function InfographicPage() {
   const router = useRouter();
-  const t = useTranslations('Dashboard'); // Reuse some keys or just hardcode for this specific content
+  const t = useTranslations('Dashboard');
 
   const weeklyData = [
     { day: 'Lundi', score: 45, color: 'bg-red-200' },
@@ -40,7 +40,7 @@ export default function InfographicPage() {
       <div className="mb-8 flex items-center gap-4">
         <button
           onClick={() => router.back()}
-          className="p-2 rounded-full bg-[var(--color-surface)] hover:bg-[var(--color-bg)] transition-colors"
+          className="p-2 rounded-full bg-[var(--color-surface)] hover:bg-[var(--color-bg)] transition-colors shadow-sm"
         >
           <ArrowLeft size={24} className="text-[var(--color-text-main)]" />
         </button>
@@ -84,7 +84,7 @@ export default function InfographicPage() {
                 {weeklyData.map((d) => (
                     <div key={d.day} className="flex items-center gap-2">
                         <span className="w-20 text-xs font-bold text-right">{d.day}</span>
-                        <div className="flex-1 h-6 bg-[var(--color-bg)] rounded-full overflow-hidden relative">
+                        <div className="flex-1 h-6 bg-gray-100 dark:bg-white/5 rounded-full overflow-hidden relative">
                             <motion.div
                                 initial={{ width: 0 }}
                                 whileInView={{ width: `${d.score}%` }}
@@ -109,14 +109,18 @@ export default function InfographicPage() {
             Optimisez vos boosts ! Ne boostez pas en Juillet (creux), gardez votre budget pour Novembre (pic).
           </p>
 
-          <div className="flex items-end justify-between h-48 gap-2 px-2">
+          {/* FIX: Removed items-end to allow columns to stretch to full height */}
+          <div className="flex justify-between h-64 gap-2 px-2">
              {trafficData.map((d) => (
-                 <div key={d.month} className="flex flex-col items-center flex-1 gap-2 group">
-                     <div className="w-full bg-[var(--color-bg)] rounded-t-lg relative flex-1 flex items-end overflow-hidden">
+                 // FIX: Added h-full to column so flex-1 child knows how much to grow
+                 <div key={d.month} className="flex flex-col items-center flex-1 gap-2 group h-full">
+                     {/* FIX: Improved track visibility with bg-gray-200/dark:bg-white/10 */}
+                     <div className="w-full bg-gray-200 dark:bg-white/10 rounded-t-lg relative flex-1 flex items-end overflow-hidden">
                          <motion.div
                             initial={{ height: 0 }}
                             whileInView={{ height: `${d.val}%` }}
                             transition={{ duration: 0.8, delay: 0.1 }}
+                            // FIX: Ensure d.color is applied. Note: Dynamic classes must exist in safety list or be full strings.
                             className={`w-full ${d.color} opacity-80 group-hover:opacity-100 transition-opacity rounded-t-md`}
                          />
                      </div>
