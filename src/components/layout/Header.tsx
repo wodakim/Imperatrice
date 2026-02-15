@@ -3,23 +3,31 @@
 import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 import { usePathname, useRouter } from 'next/navigation';
-import { Sun, Moon, Heart, ChevronDown } from 'lucide-react';
+import { Sun, Moon, Heart, ChevronDown, Palette } from 'lucide-react';
 import InstallPWA from './InstallPWA'; // Assuming this component exists
 import ReloadPrompt from './ReloadPrompt';
+import { useBrandTheme } from '@/components/providers/BrandThemeProvider';
 
 const FLAGS: Record<string, string> = {
   fr: '🇫🇷', en: '🇬🇧', de: '🇩🇪', es: '🇪🇸', it: '🇮🇹', pl: '🇵🇱'
 };
 
+const THEMES = [
+  { id: 'classic', name: 'Classique', icon: '✨' },
+  { id: 'fraise', name: 'Fraise', icon: '🍓' },
+];
+
 export default function Header() {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+  const { brand, setBrand } = useBrandTheme();
   const router = useRouter();
   const pathname = usePathname();
 
   // Extract locale from path
   const currentLocale = pathname.split('/')[1] || 'fr';
   const [isLangOpen, setIsLangOpen] = useState(false);
+  const [isThemeOpen, setIsThemeOpen] = useState(false);
   const [isRotating, setIsRotating] = useState(false);
   const [showReload, setShowReload] = useState(false);
 
@@ -106,11 +114,40 @@ export default function Header() {
           <Heart size={20} fill="currentColor" stroke="none" />
         </button>
 
-        {/* Theme Toggle */}
+        {/* Brand Theme Selector */}
+        <div className="relative z-40">
+            <button
+                onClick={() => setIsThemeOpen(!isThemeOpen)}
+                className="w-11 h-11 rounded-full border-2 border-[var(--color-accent)] bg-[var(--color-bg)] text-[var(--color-primary-dark)] flex items-center justify-center hover:bg-[var(--color-surface)] transition-colors"
+                title="Changer le style"
+            >
+                <Palette size={20} />
+            </button>
+
+            {isThemeOpen && (
+                <div className="absolute right-0 top-full mt-2 w-40 bg-[var(--color-surface)] border border-[var(--color-accent)] rounded-[15px] shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                    {THEMES.map((t) => (
+                        <button
+                            key={t.id}
+                            onClick={() => { setBrand(t.id as any); setIsThemeOpen(false); }}
+                            className={`w-full text-left px-4 py-3 text-sm flex items-center gap-3 hover:bg-[var(--color-bg)] transition-colors
+                                ${brand === t.id ? 'font-bold text-[var(--color-primary-dark)] bg-[var(--color-bg)]' : 'text-[var(--color-text-main)]'}
+                            `}
+                        >
+                            <span className="text-lg">{t.icon}</span>
+                            {t.name}
+                        </button>
+                    ))}
+                </div>
+            )}
+        </div>
+
+        {/* Light/Dark Toggle */}
         <button
           onClick={toggleTheme}
           className="w-11 h-11 rounded-full border-2 border-[var(--color-primary)] text-[var(--color-primary-dark)] bg-transparent flex items-center justify-center hover:bg-[var(--color-bg)] transition-colors overflow-hidden"
-          aria-label="Changer le thème"
+          aria-label="Changer le mode jour/nuit"
+          title={theme === 'dark' ? 'Mode Jour' : 'Mode Nuit'}
         >
            <div className={`transition-transform duration-500 ease-in-out ${isRotating ? 'rotate-[360deg]' : 'rotate-0'}`}>
             {theme === 'dark' ? <Moon size={20} /> : <Sun size={20} />}

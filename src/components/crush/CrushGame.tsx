@@ -1,204 +1,201 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
-import { RotateCcw, Trophy } from 'lucide-react';
+import { RotateCcw } from 'lucide-react';
 import clsx from 'clsx';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const WIDTH = 8;
-const CANDY_COLORS = ['👗', '👠', '👜', '📦', '⭐', '💖'];
+const CANDY_TYPES = ['👗', '👠', '👜', '📦', '⭐', '💖'];
+
+type Candy = {
+    id: number;
+    type: string;
+};
 
 export default function CrushGame() {
   const t = useTranslations('Crush');
-  const [grid, setGrid] = useState<string[]>([]);
+  const [grid, setGrid] = useState<Candy[]>([]);
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
-  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [selected, setSelected] = useState<number | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [combo, setCombo] = useState(1);
   const [mounted, setMounted] = useState(false);
 
-  // Initialize
+  // Unique ID generator for stable keys
+  const [nextId, setNextId] = useState(0);
+
   useEffect(() => {
     setMounted(true);
     const saved = localStorage.getItem('crush_highscore');
     if (saved) setHighScore(parseInt(saved));
-    createBoard();
+    initGame();
   }, []);
 
-  const createBoard = useCallback(() => {
-    const newGrid = [];
+  const generateCandy = (idCounter: number): { candy: Candy, nextId: number } => {
+      const type = CANDY_TYPES[Math.floor(Math.random() * CANDY_TYPES.length)];
+      return { candy: { id: idCounter, type }, nextId: idCounter + 1 };
+  };
+
+  const initGame = () => {
+    let currentId = nextId;
+    // Ensure the initial board has no matches?
+    // For simplicity, we just generate random and let the loop clean it up or accept it.
+    const newGrid: Candy[] = [];
     for (let i = 0; i < WIDTH * WIDTH; i++) {
-        const randomColor = CANDY_COLORS[Math.floor(Math.random() * CANDY_COLORS.length)];
-        newGrid.push(randomColor);
+        const { candy, nextId: n } = generateCandy(currentId);
+        currentId = n;
+        newGrid.push(candy);
     }
+    setNextId(currentId);
     setGrid(newGrid);
     setScore(0);
     setCombo(1);
-    setSelectedId(null);
     setIsProcessing(false);
-  }, []);
+    setSelected(null);
 
-  const checkForMatches = useCallback((currentGrid: string[]) => {
-    const matches = new Set<number>();
+    // Initial cleanup (optional, but good for UX)
+    // setTimeout(() => processBoard(newGrid, currentId, 0), 500);
+  };
 
-    // Horizontal
-    for (let i = 0; i < 64; i++) {
-        const rowOfThree = [i, i + 1, i + 2];
-        const decidedColor = currentGrid[i];
-        const isBlank = currentGrid[i] === '';
+  const checkMatches = (currentGrid: Candy[]) => {
+      const matches = new Set<number>();
 
-        if (
-            i % WIDTH < WIDTH - 2 &&
-            rowOfThree.every(index => currentGrid[index] === decidedColor && !isBlank)
-        ) {
-            rowOfThree.forEach(index => matches.add(index));
-        }
-    }
-
-    // Vertical
-    for (let i = 0; i <= 47; i++) {
-        const columnOfThree = [i, i + WIDTH, i + WIDTH * 2];
-        const decidedColor = currentGrid[i];
-        const isBlank = currentGrid[i] === '';
-
-        if (columnOfThree.every(index => currentGrid[index] === decidedColor && !isBlank)) {
-            columnOfThree.forEach(index => matches.add(index));
-        }
-    }
-
-    return Array.from(matches);
-  }, []);
-
-  const moveIntoSquareBelow = useCallback((currentGrid: string[]) => {
-      const newGrid = [...currentGrid];
-      let moved = false;
-
-      // Work from bottom up
-      for (let i = 55; i >= 0; i--) {
-          const isFirstRow = i < WIDTH;
-
-          if (newGrid[i + WIDTH] === '') {
-              newGrid[i + WIDTH] = newGrid[i];
-              newGrid[i] = '';
-              moved = true;
-          }
-
-          if (isFirstRow && newGrid[i] === '') {
-              newGrid[i] = CANDY_COLORS[Math.floor(Math.random() * CANDY_COLORS.length)];
-              moved = true;
+      // Horizontal
+      for (let i = 0; i < WIDTH * WIDTH; i++) {
+          if (i % WIDTH > WIDTH - 3) continue;
+          const r = [i, i + 1, i + 2];
+          const type = currentGrid[i]?.type;
+          if (!type) continue;
+          if (r.every(idx => currentGrid[idx]?.type === type)) {
+              r.forEach(idx => matches.add(idx));
           }
       }
-      return { newGrid, moved };
-  }, []);
 
-  // Game Loop
-  useEffect(() => {
-      if (!mounted || !grid.length) return;
+      // Vertical
+      for (let i = 0; i < WIDTH * (WIDTH - 2); i++) {
+          const c = [i, i + WIDTH, i + WIDTH * 2];
+          const type = currentGrid[i]?.type;
+          if (!type) continue;
+          if (c.every(idx => currentGrid[idx]?.type === type)) {
+              c.forEach(idx => matches.add(idx));
+          }
+      }
 
-      const timer = setInterval(() => {
-          const matches = checkForMatches(grid);
+      return Array.from(matches);
+  };
 
-          if (matches.length > 0) {
-              // Valid matches found
-              const newGrid = [...grid];
-              matches.forEach(id => newGrid[id] = '');
-              setGrid(newGrid);
+  const processBoard = useCallback((currentGrid: Candy[], currentIdCounter: number, currentCombo: number) => {
+      setIsProcessing(true);
 
-              // Score Update with Combo
-              const points = matches.length * 10 * combo;
-              setScore(prev => {
-                  const newScore = prev + points;
-                  if (newScore > highScore) {
-                      setHighScore(newScore);
-                      localStorage.setItem('crush_highscore', newScore.toString());
-                  }
+      // 1. Check Matches
+      const matches = checkMatches(currentGrid);
 
-                  // Trophies check
-                  if (typeof window !== 'undefined') {
-                       if (newScore >= 100) window.dispatchEvent(new CustomEvent('unlockTrophy', { detail: 'high_score_100' }));
-                       if (newScore >= 500) window.dispatchEvent(new CustomEvent('unlockTrophy', { detail: 'score_500' }));
-                  }
-                  return newScore;
-              });
+      if (matches.length === 0) {
+          setIsProcessing(false);
+          setCombo(1);
+          return;
+      }
 
-              // Increase combo
-              setCombo(c => Math.min(c + 1, 5));
+      // 2. Remove Matches & Score
+      const points = matches.length * 10 * currentCombo;
+      setScore(prev => {
+          const newS = prev + points;
+          if (newS > highScore) {
+              setHighScore(newS);
+              localStorage.setItem('crush_highscore', newS.toString());
+          }
+          // Trophies
+          if (typeof window !== 'undefined') {
+              if (newS >= 100) window.dispatchEvent(new CustomEvent('unlockTrophy', { detail: 'high_score_100' }));
+              if (newS >= 500) window.dispatchEvent(new CustomEvent('unlockTrophy', { detail: 'score_500' }));
+          }
+          return newS;
+      });
 
-              if(matches.length > 4 && typeof window !== 'undefined') {
-                  window.dispatchEvent(new CustomEvent('unlockTrophy', { detail: 'combo_master' }));
-              }
+      if (matches.length >= 4 && typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('unlockTrophy', { detail: 'combo_master' }));
+      }
 
-          } else {
-              // No matches, check if we need to drop items
-              const { newGrid, moved } = moveIntoSquareBelow(grid);
-              if (moved) {
-                  setGrid(newGrid);
-              } else {
-                  // Stable state
-                  setIsProcessing(false);
-                  if (combo > 1) {
-                      // Reset combo after chain reaction ends
-                      setTimeout(() => setCombo(1), 500);
-                  }
+      // Create a temporary grid with nulls for matched items
+      const tempGrid = [...currentGrid];
+      matches.forEach(idx => {
+          // @ts-ignore
+          tempGrid[idx] = null;
+      });
+
+      // 3. Gravity (Move items down)
+      const finalGrid = new Array(WIDTH * WIDTH).fill(null);
+      let nextId = currentIdCounter;
+
+      for (let col = 0; col < WIDTH; col++) {
+          let writeIdx = WIDTH * (WIDTH - 1) + col; // Start from bottom
+          for (let row = WIDTH - 1; row >= 0; row--) {
+              const readIdx = row * WIDTH + col;
+              if (tempGrid[readIdx] !== null) {
+                  finalGrid[writeIdx] = tempGrid[readIdx];
+                  writeIdx -= WIDTH;
               }
           }
-      }, 150);
+          // Fill remaining top spaces with new candies
+          while (writeIdx >= 0) {
+              const { candy, nextId: n } = generateCandy(nextId);
+              nextId = n;
+              finalGrid[writeIdx] = candy;
+              writeIdx -= WIDTH;
+          }
+      }
 
-      return () => clearInterval(timer);
-  }, [grid, highScore, combo, checkForMatches, moveIntoSquareBelow, mounted]);
+      setNextId(nextId);
+      setGrid(finalGrid as Candy[]);
+      setCombo(currentCombo + 1);
 
+      // 4. Recursion (Check again after delay)
+      setTimeout(() => {
+          processBoard(finalGrid as Candy[], nextId, currentCombo + 1);
+      }, 600);
+  }, [highScore]);
 
   const handleInteraction = (index: number) => {
       if (isProcessing) return;
 
-      if (selectedId === null) {
-          setSelectedId(index);
+      if (selected === null) {
+          setSelected(index);
       } else {
-          // Check adjacency
-          const validMoves = [
-              selectedId - 1,
-              selectedId + 1,
-              selectedId - WIDTH,
-              selectedId + WIDTH
-          ];
+          // Check if adjacent
+          const diff = Math.abs(selected - index);
+          const isAdjacent = (diff === 1 && Math.floor(selected / WIDTH) === Math.floor(index / WIDTH)) || diff === WIDTH;
 
-          // Prevent wrapping left/right
-          if (selectedId % WIDTH === 0 && index === selectedId - 1) return setSelectedId(index);
-          if (selectedId % WIDTH === WIDTH - 1 && index === selectedId + 1) return setSelectedId(index);
-
-          if (validMoves.includes(index)) {
-              // Valid adjacent move -> Swap
+          if (isAdjacent) {
+              // Swap
               const newGrid = [...grid];
-              const temp = newGrid[index];
-              newGrid[index] = newGrid[selectedId];
-              newGrid[selectedId] = temp;
+              const temp = newGrid[selected];
+              newGrid[selected] = newGrid[index];
+              newGrid[index] = temp;
 
-              // Check if swap results in a match
-              const matches = checkForMatches(newGrid);
+              // Check if valid move
+              const matches = checkMatches(newGrid);
 
               if (matches.length > 0) {
+                  // Valid
                   setGrid(newGrid);
-                  setSelectedId(null);
-                  setIsProcessing(true);
+                  setSelected(null);
                   if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('unlockTrophy', { detail: 'gamer' }));
+                  setTimeout(() => processBoard(newGrid, nextId, 1), 300);
               } else {
-                  // No match, swap visually then revert logic (or just revert immediately)
-                  // We'll set it, wait a bit, then revert to show "invalid move"
-                  setGrid(newGrid);
-                  setIsProcessing(true);
-                  setTimeout(() => {
-                      const revertGrid = [...newGrid];
-                      revertGrid[selectedId] = newGrid[index];
-                      revertGrid[index] = newGrid[selectedId];
-                      setGrid(revertGrid);
-                      setSelectedId(null);
-                      setIsProcessing(false);
-                  }, 400);
+                  // Invalid - Animate swap back?
+                  // For now, just reset selection
+                  setSelected(index); // Just select the new one instead? Or feedback?
+                  // Let's select the new one to allow "oops I clicked wrong one, I meant this one"
+                  // But if they clicked adjacent, they probably meant to swap.
+                  // Visual feedback for invalid swap would be nice.
+                  // Simplified: Just update selection.
+                  setSelected(index);
               }
           } else {
-              setSelectedId(index);
+              setSelected(index);
           }
       }
   };
@@ -235,24 +232,24 @@ export default function CrushGame() {
             className="grid grid-cols-8 gap-1 bg-[var(--color-bg)] p-2 rounded-[20px] mx-auto aspect-square w-full shadow-inner border-2 border-[var(--color-accent)]"
         >
             <AnimatePresence mode='popLayout'>
-                {grid.map((candy, index) => (
+                {grid.map((item, index) => (
                     <motion.div
-                        key={`${index}-${candy}`} // Key based on index AND content ensures re-render on change
+                        key={item.id} // Stable ID for layout animation
                         layout
-                        initial={{ scale: 0.8, opacity: 0 }}
+                        initial={{ scale: 0, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
+                        transition={{ type: "spring", damping: 20, stiffness: 300 }}
                         onClick={() => handleInteraction(index)}
                         className={clsx(
                             "rounded-lg flex items-center justify-center text-2xl md:text-3xl cursor-pointer transition-all relative",
-                            selectedId === index
+                            selected === index
                                 ? "bg-[var(--color-accent)] ring-2 ring-[var(--color-primary)] z-10 shadow-lg scale-110"
                                 : "hover:bg-white/10 active:scale-95",
-                            candy === '' && "invisible"
+                            !item && "invisible"
                         )}
                     >
-                        <span className="filter drop-shadow-md select-none pointer-events-none">{candy}</span>
+                        <span className="filter drop-shadow-md select-none pointer-events-none">{item?.type}</span>
                     </motion.div>
                 ))}
             </AnimatePresence>
@@ -261,7 +258,7 @@ export default function CrushGame() {
         {/* Controls */}
         <div className="mt-6 flex justify-center gap-4">
             <button
-                onClick={createBoard}
+                onClick={initGame}
                 className="bg-[var(--color-primary-dark)] text-white px-8 py-3 rounded-full font-bold shadow-lg hover:brightness-110 active:scale-95 transition-all flex items-center gap-2 border-b-4 border-black/20"
             >
                 <RotateCcw size={20} /> {t('btn_new_game')}

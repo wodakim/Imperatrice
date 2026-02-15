@@ -60,7 +60,7 @@ export default function PackingChecklist() {
                 className={`
                     flex items-center gap-3 p-3 rounded-xl border transition-all cursor-pointer select-none
                     ${checkedItems.includes(idx)
-                        ? 'bg-[var(--color-success)] border-transparent text-white'
+                        ? 'bg-[var(--color-success)] border-transparent text-[var(--color-text-main)] font-bold shadow-inner'
                         : 'bg-[var(--color-bg)] border-transparent hover:border-[var(--color-accent)]'}
                 `}
             >
@@ -68,7 +68,7 @@ export default function PackingChecklist() {
                     type="checkbox"
                     checked={checkedItems.includes(idx)}
                     onChange={() => toggleItem(idx)}
-                    className="w-5 h-5 rounded-md accent-[var(--color-primary-dark)]"
+                    className="w-5 h-5 rounded-md accent-[var(--color-primary-dark)] cursor-pointer"
                 />
                 <span className={checkedItems.includes(idx) ? 'line-through opacity-80' : ''}>
                     {item}

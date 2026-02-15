@@ -7,7 +7,7 @@
 
 @layer base {
   :root {
-    /* Light Mode (Pastel/Feminine) - MATCHING INDEX.HTML */
+    /* Default (Classic) - Light Mode */
     --background: #FFF0F5; /* Lavender Blush */
     --surface: #FFFFFF;
     --primary: #D8BFD8; /* Thistle */
@@ -20,9 +20,13 @@
     --warning: #FFDAC1; /* Pastel Orange */
     --border-radius: 20px;
     --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+
+    /* Strawberry Theme Default Variables (Light) */
+    --strawberry-bg: #FFF0F5;
+    --strawberry-pattern: radial-gradient(circle, #ffccd5 10%, transparent 11%), radial-gradient(circle, #ffccd5 10%, transparent 11%);
   }
 
-  /* Dark Mode (Sensory Friendly - Slate/Mauve) */
+  /* Dark Mode (Default/Classic) */
   .dark {
     --background: #2D2D3A; /* Dark Slate */
     --surface: #383848;
@@ -37,6 +41,49 @@
     --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
   }
 
+  /* -----------------------------------------------------------------
+     STRAWBERRY THEME (FRAISE)
+     ----------------------------------------------------------------- */
+
+  [data-brand="fraise"] {
+    /* Light Mode - Strawberry */
+    --background: #FFF5F7; /* Very light pink */
+    --surface: #FFFFFF;
+    --primary: #FFB7B2; /* Pastel Pink */
+    --primary-dark: #FF6B6B; /* Strawberry Red */
+    --secondary: #98FB98; /* Pale Green (Leaves) */
+    --accent: #FFC0CB; /* Pink */
+    --text-main: #5D2E2E; /* Dark Red/Brown Text */
+    --text-muted: #A67B7B;
+    --success: #98FB98;
+    --warning: #FFE4B5;
+
+    /* Background Pattern with Blur */
+    background-color: var(--background);
+    background-image: var(--strawberry-pattern);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+    /* Note: Backdrop-filter blur is applied to a pseudo-element or overlay usually,
+       but here we simulate it with soft colors or use a fixed overlay. */
+  }
+
+  /* Dark Mode - Strawberry */
+  .dark[data-brand="fraise"], [data-brand="fraise"].dark {
+    --background: #2E1A1A; /* Dark Red/Brown */
+    --surface: #3D2626;
+    --primary: #FF6B6B; /* Strawberry Red */
+    --primary-dark: #FF8787; /* Light Red */
+    --secondary: #6B8E23; /* Olive Drab (Leaves) */
+    --accent: #8B3A3A; /* Dark Red */
+    --text-main: #FFE4E1; /* Misty Rose */
+    --text-muted: #C08081;
+    --success: #556B2F;
+    --warning: #8B4513;
+
+    /* Darker Pattern */
+    background-image: radial-gradient(circle, #3E2020 10%, transparent 11%), radial-gradient(circle, #3E2020 10%, transparent 11%);
+  }
+
   * {
     transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
   }
@@ -44,6 +91,21 @@
   body {
     @apply bg-[var(--background)] text-[var(--text-main)] min-h-screen overflow-x-hidden antialiased;
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  /* Helper to show the blur effect for Strawberry theme */
+  body[data-brand="fraise"]::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    backdrop-filter: blur(3px); /* Gentle blur */
+    background: radial-gradient(circle at center, transparent 0%, var(--background) 100%);
+    opacity: 0.6;
   }
 }
 

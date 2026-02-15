@@ -12,6 +12,7 @@ import { JsonLd, generateSoftwareAppSchema } from '@/components/seo/JsonLd';
 import CookieBanner from '@/components/layout/CookieBanner';
 import LoginModal from '@/components/auth/LoginModal';
 import { PremiumProvider } from '@/context/PremiumContext';
+import { BrandThemeProvider } from '@/components/providers/BrandThemeProvider';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const caveat = Caveat({ subsets: ['latin'], variable: '--font-caveat' });
@@ -45,18 +46,20 @@ export default async function LocaleLayout({
       <body className={clsx(inter.variable, caveat.variable, "antialiased min-h-screen bg-[var(--color-bg)] text-[var(--color-text-main)] transition-colors duration-300 font-sans")}>
         <NextIntlClientProvider messages={messages}>
           <PremiumProvider>
-            <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
-              <PanicRoom />
-              <LoginModal />
-              <div className="max-w-4xl mx-auto p-5 pb-32 min-h-screen flex flex-col">
-                <Header />
-                <Navigation />
-                <main className="mt-5 animate-fade-in flex-1">
-                  {children}
-                </main>
-                <CookieBanner />
-              </div>
-            </ThemeProvider>
+            <BrandThemeProvider>
+              <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+                <PanicRoom />
+                <LoginModal />
+                <div className="max-w-4xl mx-auto p-5 pb-32 min-h-screen flex flex-col">
+                  <Header />
+                  <Navigation />
+                  <main className="mt-5 animate-fade-in flex-1">
+                    {children}
+                  </main>
+                  <CookieBanner />
+                </div>
+              </ThemeProvider>
+            </BrandThemeProvider>
           </PremiumProvider>
         </NextIntlClientProvider>
       </body>
