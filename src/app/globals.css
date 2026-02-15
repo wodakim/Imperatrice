@@ -50,7 +50,7 @@
     --background: #FFF5F7; /* Very light pink */
     --surface: #FFFFFF;
     --primary: #FFB7B2; /* Pastel Pink */
-    --primary-dark: #FF6B6B; /* Strawberry Red */
+    --primary-dark: #ff5f84; /* Strawberry Red */
     --secondary: #98FB98; /* Pale Green (Leaves) */
     --accent: #FFC0CB; /* Pink */
     --text-main: #5D2E2E; /* Dark Red/Brown Text */
@@ -71,7 +71,7 @@
   .dark[data-brand="fraise"], [data-brand="fraise"].dark {
     --background: #2E1A1A; /* Dark Red/Brown */
     --surface: #3D2626;
-    --primary: #FF6B6B; /* Strawberry Red */
+    --primary: #ff5f84; /* Strawberry Red */
     --primary-dark: #FF8787; /* Light Red */
     --secondary: #6B8E23; /* Olive Drab (Leaves) */
     --accent: #8B3A3A; /* Dark Red */
@@ -116,9 +116,9 @@
 }
 
 @keyframes pulse-sos {
-  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7); }
-  70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
-  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 95, 132, 0.7); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 95, 132, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 95, 132, 0); }
 }
 
 @keyframes breathe {
