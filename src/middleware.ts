@@ -1,14 +1,20 @@
 import createMiddleware from 'next-intl/middleware';
+import {defineRouting} from 'next-intl/routing';
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
-import { routing } from './navigation';
+
+export const routing = defineRouting({
+  locales: ['fr', 'en', 'de', 'es', 'it', 'pl'],
+  defaultLocale: 'fr',
+  localeDetection: true
+});
+
+const handleI18n = createMiddleware(routing);
 
 export default async function middleware(req: NextRequest) {
-  // 1. Initialiser le middleware i18n
-  const handleI18n = createMiddleware(routing);
   const res = handleI18n(req);
 
-  // 2. Initialiser Supabase (pour rafraîchir la session si nécessaire)
+  // Initialize Supabase client for auth checks
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -25,8 +31,11 @@ export default async function middleware(req: NextRequest) {
     }
   );
 
+  // Protected routes logic
   const path = req.nextUrl.pathname;
   const protectedRoutes = ['/admin', '/profile'];
+  // Add other protected routes if needed, e.g. /dashboard might be protected or not depending on specs
+  // For now, restoring original logic for /admin and /profile
   const isProtected = protectedRoutes.some(route => path.includes(route));
 
   if (isProtected) {
@@ -43,6 +52,5 @@ export default async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  // Matcher standard pour next-intl + exclusion auth
-  matcher: ['/((?!api|_next|_vercel|.*\\..*|auth).*)']
+  matcher: ['/', '/(fr|en|de|es|it|pl)/:path*']
 };

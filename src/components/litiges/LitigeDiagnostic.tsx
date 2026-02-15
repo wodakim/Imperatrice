@@ -12,6 +12,7 @@ interface LitigeDiagnosticProps {
 
 export default function LitigeDiagnostic({ onStrategySelect }: LitigeDiagnosticProps) {
   const t = useTranslations('Litiges');
+  const tStrategies = useTranslations('Litiges.Strategies');
   const [buyerMessage, setBuyerMessage] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<{ category: string; reason: string } | null>(null);
@@ -149,8 +150,8 @@ export default function LitigeDiagnostic({ onStrategySelect }: LitigeDiagnosticP
               />
               <div className="p-5 rounded-xl border-2 border-[var(--color-border)] peer-checked:border-[var(--color-primary)] peer-checked:bg-[var(--color-primary-light)] hover:bg-[var(--color-bg)] transition-all h-full text-center group-hover:border-[var(--color-border-hover)] bg-[var(--color-surface)]">
                 <div className="text-3xl mb-2">{s.icon}</div>
-                <div className="font-medium text-[var(--color-text-primary)]">{s.title}</div>
-                <div className="text-xs text-[var(--color-text-muted)] mt-1">{s.description}</div>
+                <div className="font-medium text-[var(--color-text-primary)]">{tStrategies(`${s.id}.title`)}</div>
+                <div className="text-xs text-[var(--color-text-muted)] mt-1">{tStrategies(`${s.id}.description`)}</div>
               </div>
             </label>
           ))}
