@@ -197,21 +197,33 @@ export default function SeoGenerator() {
 
         {/* Preview Title */}
         <div className="bg-[var(--color-bg)] p-4 rounded-[15px] border-2 border-dashed border-[var(--color-primary-dark)] relative group hover:border-solid transition-all">
-            <div className="flex justify-between items-center mb-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)]">{t('label_preview')}</span>
-                <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${seoScore >= 80 ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
-                    Score: {seoScore}/100
-                </span>
-            </div>
+            <div className="flex justify-between items-start mb-2 gap-4">
+                <div className="flex-1">
+                    <div className="flex justify-between items-center mb-1">
+                        <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)]">{t('label_preview')}</span>
+                        <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${seoScore >= 80 ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
+                            Score: {seoScore}/100
+                        </span>
+                    </div>
+                    <div className="h-1.5 bg-gray-200 rounded-full mb-3 overflow-hidden w-full">
+                        <div
+                            className="h-full transition-all duration-500 ease-out"
+                            style={{
+                                width: `${seoScore}%`,
+                                backgroundColor: seoScore < 40 ? '#ff6b6b' : seoScore < 80 ? '#ffd93d' : '#4ade80'
+                            }}
+                        />
+                    </div>
+                </div>
 
-            <div className="h-1.5 bg-gray-200 rounded-full mb-3 overflow-hidden">
-                <div
-                    className="h-full transition-all duration-500 ease-out"
-                    style={{
-                        width: `${seoScore}%`,
-                        backgroundColor: seoScore < 40 ? '#ff6b6b' : seoScore < 80 ? '#ffd93d' : '#4ade80'
-                    }}
-                />
+                {/* Copy Button Moved to Top Right Flex Item */}
+                <button
+                    onClick={() => handleCopy(generatedTitle)}
+                    className="bg-[var(--color-surface)] hover:bg-white p-2 rounded-lg transition-colors flex items-center gap-1 text-xs font-bold text-[var(--color-primary-dark)] shadow-sm border border-[var(--color-accent)] whitespace-nowrap"
+                    title={t('btn_copy')}
+                >
+                    <Copy size={14} /> {t('btn_copy')}
+                </button>
             </div>
 
             <p className="font-bold text-lg mb-2 min-h-[1.75rem] break-words select-all">{generatedTitle || "..."}</p>
@@ -221,14 +233,6 @@ export default function SeoGenerator() {
                     <AlertCircle size={12} /> Conseil: {seoScore < 50 ? t('seo_hint_short') : t('seo_hint_adj')}
                 </div>
             )}
-
-            <button
-                onClick={() => handleCopy(generatedTitle)}
-                className="absolute top-4 right-4 bg-white/50 hover:bg-white p-2 rounded-lg transition-colors flex items-center gap-1 text-xs font-bold text-[var(--color-primary-dark)] shadow-sm"
-                title={t('btn_copy')}
-            >
-                <Copy size={14} /> {t('btn_copy')}
-            </button>
         </div>
       </div>
 
@@ -312,18 +316,21 @@ export default function SeoGenerator() {
             </div>
         </div>
 
-        <div className="bg-[var(--color-bg)] p-4 rounded-[15px] border-2 border-dashed border-[var(--color-primary-dark)] relative hover:border-solid transition-all">
-            <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] block mb-2">{t('label_preview')}</span>
+        <div className="bg-[var(--color-bg)] p-4 rounded-[15px] border-2 border-dashed border-[var(--color-primary-dark)] relative hover:border-solid transition-all flex flex-col gap-2">
+            <div className="flex justify-between items-start">
+                 <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] block mb-2">{t('label_preview')}</span>
+                 <button
+                    onClick={() => handleCopy(generatedDesc)}
+                    className="bg-[var(--color-surface)] hover:bg-white p-2 rounded-lg transition-colors flex items-center gap-1 text-xs font-bold text-[var(--color-primary-dark)] shadow-sm border border-[var(--color-accent)]"
+                    title={t('btn_copy')}
+                >
+                    <Copy size={14} /> {t('btn_copy')}
+                </button>
+            </div>
+
             <div className="whitespace-pre-wrap text-sm leading-relaxed text-[var(--color-text-main)] min-h-[4rem] select-all">
                 {generatedDesc || "..."}
             </div>
-            <button
-                onClick={() => handleCopy(generatedDesc)}
-                className="absolute top-4 right-4 bg-white/50 hover:bg-white p-2 rounded-lg transition-colors flex items-center gap-1 text-xs font-bold text-[var(--color-primary-dark)] shadow-sm"
-                title={t('btn_copy')}
-            >
-                <Copy size={14} /> {t('btn_copy')}
-            </button>
         </div>
 
       </div>
