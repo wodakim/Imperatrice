@@ -9,7 +9,8 @@ import {
   Wrench,
   Coffee,
   Gamepad2,
-  Trophy
+  Trophy,
+  Shield
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
@@ -37,6 +38,7 @@ export default function Navigation() {
     { href: '/relax', icon: Coffee, label: t('relax') },
     { href: '/crush', icon: Gamepad2, label: t('crush') },
     { href: '/trophies', icon: Trophy, label: t('trophies') },
+    { href: '/litiges', icon: Shield, label: t('litiges') },
   ];
 
   return (

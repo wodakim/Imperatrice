@@ -43,3 +43,9 @@ drop trigger if exists on_auth_user_created on auth.users;
 create trigger on_auth_user_created
   after insert on auth.users
   for each row execute procedure public.handle_new_user();
+
+-- Add columns for Litige Shield (Bouclier Litige)
+alter table public.profiles
+add column if not exists litige_credits integer default 0,
+add column if not exists last_litige_usage timestamp with time zone,
+add column if not exists daily_litige_count integer default 0;
