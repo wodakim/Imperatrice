@@ -148,3 +148,14 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
+/* Override text-white */
+.text-white {
+    color: #F44336;
+}
+
+@supports (color: color-mix(in lab, red, red)) {
+    .text-white\/90 {
+        color: #03A9F4;
+    }
+}
