@@ -3,6 +3,7 @@
 import SpoonsWidget from '@/components/dashboard/SpoonsWidget';
 import ChronoWidget from '@/components/dashboard/ChronoWidget';
 import DailyTip from '@/components/dashboard/DailyTip';
+import InfographicCard from '@/components/dashboard/InfographicCard';
 
 export default function DashboardPage() {
   return (
@@ -11,6 +12,7 @@ export default function DashboardPage() {
         <SpoonsWidget />
         <ChronoWidget />
       </div>
+      <InfographicCard />
       <DailyTip />
     </div>
   );

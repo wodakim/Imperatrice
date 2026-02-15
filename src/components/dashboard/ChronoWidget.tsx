@@ -25,15 +25,15 @@ export default function ChronoWidget() {
       setTimeStr(now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
       setDayStr(new Intl.DateTimeFormat('fr-FR', { weekday: 'long' }).format(now));
 
-      // Algo Slots (Exact Match to Prototype)
+      // Algo Slots (Updated via Infographic 2026)
       const slots: Record<number, number[][]> = {
-        0: [[10, 12], [18, 21]], // Sun
-        1: [[7, 9], [19, 21]],   // Mon
+        0: [[10, 12], [18, 22]], // Sun (Prime Time extended)
+        1: [[19, 21]],           // Mon (Avoid morning)
         2: [[19, 21]],           // Tue
-        3: [[12, 14], [18, 20]], // Wed
+        3: [[14, 16], [18, 20]], // Wed
         4: [[19, 21]],           // Thu
-        5: [[13, 16], [20, 23]], // Fri
-        6: [[9, 11], [17, 19]]   // Sat
+        5: [[17, 23]],           // Fri (Party/Relax)
+        6: [[10, 12], [17, 20]]  // Sat
       };
 
       const todaySlots = slots[day] || [];
