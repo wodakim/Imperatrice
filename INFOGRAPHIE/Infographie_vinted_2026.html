@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendrier Stratégique Vinted 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Palette: "Energetic & Playful" inspired (Vibrant Teals, Corals, and Deep Blues) -->
+    <!-- Primary: #0077B6 (Vinted-esque Blue) -->
+    <!-- Secondary: #FF6B6B (Alert/Sale Coral) -->
+    <!-- Accent: #4ECDC4 (Fresh Teal) -->
+    <!-- Background: #F7F9FC -->
+    
+    <style>
+        /* Custom Chart Container Styling for Responsiveness */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px; /* Max width to prevent stretching on large screens */
+            height: 350px;    /* Default height */
+            margin: 0 auto;   /* Center horizontally */
+        }
+
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 300px; /* Smaller height for mobile */
+            }
+        }
+        
+        /* Custom Scrollbar for a polished look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0077B6;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #005f91;
+        }
+    </style>
+    <!-- 
+        PLAN NARRATIF:
+        1. Introduction: L'importance du timing sur Vinted.
+        2. Les Règles d'Or (Hebdomadaire): Radar Chart montrant l'activité par jour/heure.
+        3. Analyse des Tendances Catégorielles (Saisonnier): Line Chart montrant la montée/descente des types de vêtements.
+        4. Le Calendrier Stratégique (Timeline HTML): Mois par mois, quoi vendre.
+        5. Prévisions de Trafic (Volume): Bar Chart des pics de trafic estimés.
+        6. Conclusion: Résumé tactique.
+
+        CHOIX DES VISUALISATIONS (NO SVG / NO MERMAID):
+        - Activité Hebdo: Radar Chart (Chart.js) -> Compare les jours de la semaine.
+        - Tendances Saisonnières: Line Chart (Chart.js) -> Montre les croisements de courbes (Hiver vs Été).
+        - Volume Trafic: Bar Chart (Chart.js) -> Montre les mois les plus forts.
+        - Calendrier: Grid Layout HTML/Tailwind -> Meilleur pour du texte structuré et des listes.
+    -->
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+
+    <!-- Header Section -->
+    <header class="bg-gradient-to-r from-[#0077B6] to-[#4ECDC4] text-white py-12 shadow-lg">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight">Vinted 2026</h1>
+            <h2 class="text-2xl md:text-3xl font-light mb-6 opacity-90">Le Calendrier Stratégique Ultime pour Vendeurs</h2>
+            <p class="max-w-2xl mx-auto text-lg opacity-90">
+                Ne vendez pas au hasard. Maximisez vos revenus en alignant vos mises en ligne avec la psychologie des acheteurs et la saisonnalité de 2026.
+            </p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 space-y-16">
+
+        <!-- SECTION 1: TIMING HEBDOMADAIRE -->
+        <section id="weekly-timing" class="scroll-mt-20">
+            <div class="bg-white rounded-2xl shadow-md p-6 md:p-8 border-t-4 border-[#FF6B6B]">
+                <h3 class="text-2xl font-bold text-[#0077B6] mb-4">1. La Semaine Type : Quand Poster ?</h3>
+                <p class="text-gray-600 mb-6 leading-relaxed">
+                    Avant de regarder l'année, maîtrisez la semaine. L'algorithme de Vinted favorise la nouveauté. Poster au moment où les acheteurs sont connectés (le soir et le week-end) augmente drastiquement vos vues.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <!-- Chart Col -->
+                    <div class="w-full">
+                        <div class="chart-container">
+                            <canvas id="weeklyRadarChart"></canvas>
+                        </div>
+                        <p class="text-center text-sm text-gray-500 mt-2 italic">Score d'activité acheteur (0-100)</p>
+                    </div>
+                    
+                    <!-- Text Col -->
+                    <div class="space-y-4">
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-[#0077B6]">
+                            <h4 class="font-bold text-[#0077B6]">Le Dimanche Soir (18h - 22h)</h4>
+                            <p class="text-sm">Le "Prime Time" absolu. Les utilisateurs préparent leur semaine et scrollent sur leur canapé. C'est le moment pour vos meilleures pièces.</p>
+                        </div>
+                        <div class="bg-red-50 p-4 rounded-lg border-l-4 border-[#FF6B6B]">
+                            <h4 class="font-bold text-[#FF6B6B]">À Éviter</h4>
+                            <p class="text-sm">Le Lundi matin et les après-midis en semaine (heures de bureau/école). Vos articles seront enterrés avant le soir.</p>
+                        </div>
+                        <div class="bg-teal-50 p-4 rounded-lg border-l-4 border-[#4ECDC4]">
+                            <h4 class="font-bold text-[#4ECDC4]">Astuce Boost</h4>
+                            <p class="text-sm">Si vous ne pouvez pas poster le dimanche, préparez vos brouillons et publiez-les manuellement à 19h précises.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: TENDANCES SAISONNIÈRES -->
+        <section id="seasonal-trends">
+            <div class="bg-white rounded-2xl shadow-md p-6 md:p-8 border-t-4 border-[#4ECDC4]">
+                <h3 class="text-2xl font-bold text-[#0077B6] mb-4">2. La Vague Saisonnière 2026</h3>
+                <p class="text-gray-600 mb-6 leading-relaxed">
+                    Le secret de la vente rapide est l'anticipation. Mettez en ligne les articles environ <strong>3 à 4 semaines</strong> avant le pic de besoin réel (météo). Voici comment la demande évolue pour les trois grandes catégories.
+                </p>
+
+                <div class="w-full">
+                    <div class="chart-container" style="max-height: 400px;">
+                        <canvas id="seasonalLineChart"></canvas>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                    <div class="text-center p-3 rounded bg-blue-50">
+                        <span class="block font-bold text-[#0077B6] text-lg">Hiver</span>
+                        <span class="text-xs">Pic: Nov - Jan</span>
+                    </div>
+                    <div class="text-center p-3 rounded bg-red-50">
+                        <span class="block font-bold text-[#FF6B6B] text-lg">Été</span>
+                        <span class="text-xs">Pic: Mai - Juil</span>
+                    </div>
+                    <div class="text-center p-3 rounded bg-teal-50">
+                        <span class="block font-bold text-[#4ECDC4] text-lg">Transition</span>
+                        <span class="text-xs">Pic: Mar/Avr & Sep</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: CALENDRIER MENSUEL (HTML STRUCTURE) -->
+        <section id="monthly-calendar">
+            <h3 class="text-3xl font-bold text-slate-800 mb-8 text-center">3. Votre Feuille de Route Mensuelle 2026</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Janvier -->
+                <div class="bg-white rounded-xl shadow p-5 border-l-8 border-blue-800 hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="text-xl font-bold text-gray-800">Janvier</h4>
+                        <span class="text-xs font-bold px-2 py-1 bg-blue-100 text-blue-800 rounded">Grand Froid</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Les acheteurs cherchent les bonnes affaires post-Noël et l'équipement ski.</p>
+                    <ul class="text-sm space-y-1">
+                        <li class="flex items-center"><span class="text-blue-500 mr-2">●</span> Manteaux lourds & Doudounes</li>
+                        <li class="flex items-center"><span class="text-blue-500 mr-2">●</span> Équipement de Ski</li>
+                        <li class="flex items-center"><span class="text-blue-500 mr-2">●</span> Cadeaux reçus (neufs avec étiquette)</li>
+                        <li class="flex items-center"><span class="text-gray-400 mr-2">✕</span> Robes légères</li>
+                    </ul>
+                </div>
+
+                <!-- Février -->
+                <div class="bg-white rounded-xl shadow p-5 border-l-8 border-blue-600 hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="text-xl font-bold text-gray-800">Février</h4>
+                        <span class="text-xs font-bold px-2 py-1 bg-blue-100 text-blue-800 rounded">Fin Hiver</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Dernier appel pour le gros hiver. Début timide de la mi-saison.</p>
+                    <ul class="text-sm space-y-1">
+                        <li class="flex items-center"><span class="text-blue-500 mr-2">●</span> Gros pulls (soldes)</li>
+                        <li class="flex items-center"><span class="text-blue-500 mr-2">●</span> Bottes fourrées</li>
+                        <li class="flex items-center"><span class="text-blue-500 mr-2">●</span> Costumes St Valentin</li>
+                        <li class="flex items-center"><span class="text-gray-400 mr-2">✕</span> Shorts</li>
+                    </ul>
+                </div>
+
+                <!-- Mars -->
+                <div class="bg-white rounded-xl shadow p-5 border-l-8 border-teal-400 hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="text-xl font-bold text-gray-800">Mars</h4>
+                        <span class="text-xs font-bold px-2 py-1 bg-teal-100 text-teal-800 rounded">Renouveau</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Le "Grand Ménage de Printemps". Les acheteurs veulent de la couleur.</p>
+                    <ul class="text-sm space-y-1">
+                        <li class="flex items-center"><span class="text-teal-500 mr-2">●</span> Trenchs & Vestes en jean</li>
+                        <li class="flex items-center"><span class="text-teal-500 mr-2">●</span> Baskets / Sneakers</li>
+                        <li class="flex items-center"><span class="text-teal-500 mr-2">●</span> Blouses légères</li>
+                        <li class="flex items-center"><span class="text-gray-400 mr-2">✕</span> Manteaux de fourrure</li>
+                    </ul>
+                </div>
+
+                <!-- Avril -->
+                <div class="bg-white rounded-xl shadow p-5 border-l-8 border-teal-500 hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="text-xl font-bold text-gray-800">Avril</h4>
+                        <span class="text-xs font-bold px-2 py-1 bg-teal-100 text-teal-800 rounded">Pré-Été</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Les premiers rayons de soleil déclenchent les achats d'été anticipés.</p>
+                    <ul class="text-sm space-y-1">
+                        <li class="flex items-center"><span class="text-teal-500 mr-2">●</span> Robes de printemps</li>
+                        <li class="flex items-center"><span class="text-teal-500 mr-2">●</span> T-shirts graphiques</li>
+                        <li class="flex items-center"><span class="text-teal-500 mr-2">●</span> Tenues de mariage/baptême</li>
+                    </ul>
+                </div>
+
+                <!-- Mai -->
+                <div class="bg-white rounded-xl shadow p-5 border-l-8 border-red-400 hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="text-xl font-bold text-gray-800">Mai</h4>
+                        <span class="text-xs font-bold px-2 py-1 bg-red-100 text-red-800 rounded">Plein Soleil</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Le pic absolu pour les vêtements de vacances et plage.</p>
+                    <ul class="text-sm space-y-1">
+                        <li class="flex items-center"><span class="text-red-500 mr-2">●</span> Maillots de bain</li>
+                        <li class="flex items-center"><span class="text-red-500 mr-2">●</span> Sandales & Nu-pieds</li>
+                        <li class="flex items-center"><span class="text-red-500 mr-2">●</span> Shorts & Bermudas</li>
+                    </ul>
+                </div>
+
+                <!-- Juin -->
+                <div class="bg-white rounded-xl shadow p-5 border-l-8 border-red-500 hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="text-xl font-bold text-gray-800">Juin</h4>
+                        <span class="text-xs font-bold px-2 py-1 bg-red-100 text-red-800 rounded">Festivals</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Achats de dernière minute pour les vacances. Visez le "look festival".</p>
+                    <ul class="text-sm space-y-1">
+                        <li class="flex items-center"><span class="text-red-500 mr-2">●</span> Lunettes de soleil</li>
+                        <li class="flex items-center"><span class="text-red-500 mr-2">●</span> Robes maxi / Bohème</li>
+                        <li class="flex items-center"><span class="text-red-500 mr-2">●</span> Articles de camping/voyage</li>
+                    </ul>
+                </div>
+
+                <!-- Juillet -->
+                <div class="bg-white rounded-xl shadow p-5 border-l-8 border-yellow-500 hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="text-xl font-bold text-gray-800">Juillet</h4>
+                        <span class="text-xs font-bold px-2 py-1 bg-yellow-100 text-yellow-800 rounded">Soldes</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Trafic ralenti. Il faut casser les prix pour vendre ("Vide-Dressing").</p>
+                    <ul class="text-sm space-y-1">
+                        <li class="flex items-center"><span class="text-yellow-600 mr-2">●</span> Lots à petits prix</li>
+                        <li class="flex items-center"><span class="text-yellow-600 mr-2">●</span> Début précoce Rentrée (fin mois)</li>
+                    </ul>
+                </div>
+
+                <!-- Août -->
+                <div class="bg-white rounded-xl shadow p-5 border-l-8 border-indigo-500 hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="text-xl font-bold text-gray-800">Août</h4>
+                        <span class="text-xs font-bold px-2 py-1 bg-indigo-100 text-indigo-800 rounded">Back to School</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Dès le 15 août, c'est la course à la rentrée. Période critique pour les enfants.</p>
+                    <ul class="text-sm space-y-1">
+                        <li class="flex items-center"><span class="text-indigo-500 mr-2">●</span> Cartables & Sacs à dos</li>
+                        <li class="flex items-center"><span class="text-indigo-500 mr-2">●</span> Jeans & Baskets neuves</li>
+                        <li class="flex items-center"><span class="text-indigo-500 mr-2">●</span> Vêtements pluie légers</li>
+                    </ul>
+                </div>
+
+                <!-- Septembre -->
+                <div class="bg-white rounded-xl shadow p-5 border-l-8 border-indigo-600 hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="text-xl font-bold text-gray-800">Septembre</h4>
+                        <span class="text-xs font-bold px-2 py-1 bg-indigo-100 text-indigo-800 rounded">Transition Automne</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">La garde-robe change. On cherche du confort pour le travail/école.</p>
+                    <ul class="text-sm space-y-1">
+                        <li class="flex items-center"><span class="text-indigo-500 mr-2">●</span> Blazers & Vestes</li>
+                        <li class="flex items-center"><span class="text-indigo-500 mr-2">●</span> Bottines automne</li>
+                        <li class="flex items-center"><span class="text-indigo-500 mr-2">●</span> Pulls légers</li>
+                    </ul>
+                </div>
+
+                <!-- Octobre -->
+                <div class="bg-white rounded-xl shadow p-5 border-l-8 border-blue-700 hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="text-xl font-bold text-gray-800">Octobre</h4>
+                        <span class="text-xs font-bold px-2 py-1 bg-blue-100 text-blue-800 rounded">Cozy Season</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Le froid arrive. Les matières chaudes sont recherchées.</p>
+                    <ul class="text-sm space-y-1">
+                        <li class="flex items-center"><span class="text-blue-500 mr-2">●</span> Laine & Cachemire</li>
+                        <li class="flex items-center"><span class="text-blue-500 mr-2">●</span> Parkas</li>
+                        <li class="flex items-center"><span class="text-blue-500 mr-2">●</span> Costumes Halloween</li>
+                    </ul>
+                </div>
+
+                <!-- Novembre -->
+                <div class="bg-white rounded-xl shadow p-5 border-l-8 border-gray-800 hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="text-xl font-bold text-gray-800">Novembre</h4>
+                        <span class="text-xs font-bold px-2 py-1 bg-gray-200 text-gray-800 rounded">Black Friday</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Gros volume de trafic. Préparez les cadeaux de Noël.</p>
+                    <ul class="text-sm space-y-1">
+                        <li class="flex items-center"><span class="text-gray-800 mr-2">●</span> Articles de marque/luxe</li>
+                        <li class="flex items-center"><span class="text-gray-800 mr-2">●</span> Jouets & Jeux</li>
+                        <li class="flex items-center"><span class="text-gray-800 mr-2">●</span> Coffrets beauté</li>
+                    </ul>
+                </div>
+
+                <!-- Décembre -->
+                <div class="bg-white rounded-xl shadow p-5 border-l-8 border-yellow-400 hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="text-xl font-bold text-gray-800">Décembre</h4>
+                        <span class="text-xs font-bold px-2 py-1 bg-yellow-100 text-yellow-800 rounded">Fêtes</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Dernière ligne droite (jusqu'au 15). Puis tenues de soirée.</p>
+                    <ul class="text-sm space-y-1">
+                        <li class="flex items-center"><span class="text-yellow-600 mr-2">●</span> Tenues de fête (Paillettes)</li>
+                        <li class="flex items-center"><span class="text-yellow-600 mr-2">●</span> Accessoires de soirée</li>
+                        <li class="flex items-center"><span class="text-yellow-600 mr-2">●</span> Dernière minute cadeaux</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 4: VOLUME DE TRAFIC -->
+        <section id="traffic-volume">
+            <div class="bg-white rounded-2xl shadow-md p-6 md:p-8 border-t-4 border-[#0077B6]">
+                <h3 class="text-2xl font-bold text-[#0077B6] mb-4">4. Les Pics de Trafic Estimés 2026</h3>
+                <p class="text-gray-600 mb-6 leading-relaxed">
+                    Savoir QUOI vendre est important, mais savoir QUAND il y a le plus d'acheteurs sur l'application permet d'optimiser vos options "Booster" payantes. Ne boostez pas en Juillet (creux), boostez en Novembre (pic).
+                </p>
+
+                <div class="w-full">
+                    <div class="chart-container">
+                        <canvas id="trafficBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: RÉSUMÉ -->
+        <footer class="bg-gray-800 text-white rounded-2xl p-8 mt-12 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 text-[#4ECDC4]">En Résumé</h3>
+                    <p class="mb-4 text-gray-300">
+                        La clé du succès sur Vinted en 2026 est la <strong>synchronisation</strong>. Les acheteurs fonctionnent par impulsion météo et contrainte calendaire (Noël, Rentrée).
+                    </p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-300">
+                        <li>Postez le <strong>Dimanche soir</strong>.</li>
+                        <li>Anticipez la météo de <strong>3 semaines</strong>.</li>
+                        <li>Gardez vos pièces de luxe pour <strong>Novembre</strong>.</li>
+                        <li>Videz le stock à petit prix en <strong>Juillet</strong>.</li>
+                    </ul>
+                </div>
+                <div class="flex items-center justify-center bg-gray-700 rounded-xl p-6">
+                    <div class="text-center">
+                        <p class="text-lg font-bold mb-2">Objectif 2026</p>
+                        <p class="text-4xl font-extrabold text-[#FF6B6B]">Vendre Mieux.</p>
+                        <p class="text-sm text-gray-400 mt-2">Plutôt que vendre plus.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        // --- UTILITIES ---
+
+        // Function to wrap long labels (max ~16 chars)
+        function wrapLabel(label) {
+            const maxLen = 16;
+            if (label.length <= maxLen) return label;
+            
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if (currentLine.length + 1 + words[i].length <= maxLen) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        // Shared Tooltip Configuration for Multiline Support
+        const sharedTooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        // --- CHART 1: WEEKLY RADAR CHART ---
+        const ctxRadar = document.getElementById('weeklyRadarChart').getContext('2d');
+        
+        // Data processing for labels
+        const rawDays = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+        const processedDays = rawDays.map(wrapLabel);
+
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: processedDays,
+                datasets: [{
+                    label: 'Activité Acheteurs',
+                    data: [45, 50, 65, 60, 70, 85, 98], // Peak on Sunday
+                    fill: true,
+                    backgroundColor: 'rgba(78, 205, 196, 0.2)', // #4ECDC4 with opacity
+                    borderColor: '#4ECDC4',
+                    pointBackgroundColor: '#0077B6',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#0077B6'
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: sharedTooltipConfig
+                },
+                scales: {
+                    r: {
+                        angleLines: { color: '#eee' },
+                        grid: { color: '#eee' },
+                        suggestedMin: 0,
+                        suggestedMax: 100,
+                        ticks: { display: false } // Hide numbers for cleaner look
+                    }
+                }
+            }
+        });
+
+        // --- CHART 2: SEASONAL TRENDS LINE CHART ---
+        const ctxLine = document.getElementById('seasonalLineChart').getContext('2d');
+        const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'];
+
+        new Chart(ctxLine, {
+            type: 'line',
+            data: {
+                labels: months,
+                datasets: [
+                    {
+                        label: 'Hiver (Manteaux, Ski)',
+                        data: [90, 70, 40, 10, 5, 5, 5, 15, 30, 60, 95, 100],
+                        borderColor: '#0077B6', // Deep Blue
+                        backgroundColor: '#0077B6',
+                        tension: 0.4,
+                        borderWidth: 3
+                    },
+                    {
+                        label: 'Été (Maillots, Robes)',
+                        data: [5, 10, 25, 60, 95, 100, 80, 50, 20, 10, 5, 5],
+                        borderColor: '#FF6B6B', // Coral
+                        backgroundColor: '#FF6B6B',
+                        tension: 0.4,
+                        borderWidth: 3
+                    },
+                    {
+                        label: 'Rentrée (Sacs, Jeans)',
+                        data: [20, 20, 30, 30, 30, 40, 50, 100, 90, 50, 30, 20],
+                        borderColor: '#4ECDC4', // Teal
+                        backgroundColor: '#4ECDC4',
+                        tension: 0.4,
+                        borderWidth: 3,
+                        borderDash: [5, 5] // Dashed for specific event
+                    }
+                ]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: sharedTooltipConfig
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        display: false // Hide Y axis numbers, focus on curve shape
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // --- CHART 3: TRAFFIC VOLUME BAR CHART ---
+        const ctxBar = document.getElementById('trafficBarChart').getContext('2d');
+
+        new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: months,
+                datasets: [{
+                    label: 'Volume de Trafic Estimé',
+                    data: [80, 70, 75, 80, 85, 75, 50, 65, 90, 85, 95, 80],
+                    backgroundColor: [
+                        '#0077B6', '#0077B6', '#4ECDC4', '#4ECDC4', '#FF6B6B', '#FF6B6B', 
+                        '#e2e8f0', '#4ECDC4', '#0077B6', '#0077B6', '#FF6B6B', '#0077B6'
+                    ],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: sharedTooltipConfig
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { display: true, color: '#f1f1f1' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    </script>
+    <!-- NO SVG USED. NO MERMAID JS USED. -->
+</body>
+</html>
