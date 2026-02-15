@@ -415,7 +415,8 @@
     "tools": "Outils",
     "relax": "Détente",
     "crush": "Crush",
-    "trophies": "Succès"
+    "trophies": "Succès",
+    "litiges": "Litiges"
   },
   "Dashboard": {
     "spoons_title": "Mes Cuillères",
@@ -929,5 +930,36 @@
       "Novembre",
       "Décembre"
     ]
+  },
+  "Litiges": {
+    "title": "Bouclier Vendeur IA",
+    "subtitle": "Résolution de Litige Assistée par IA",
+    "desc": "L'intelligence artificielle analyse le message de l'acheteur pour vous et rédige la réponse parfaite.",
+    "step_1_title": "Analyse du message",
+    "step_1_badge": "Gemini AI Ready",
+    "input_label": "Collez ici le message de l'acheteur (même agressif) :",
+    "input_ph": "Ex: 'C'est une honte, l'article est tout taché, je veux être remboursé tout de suite !!'",
+    "btn_analyze": "✨ Analyser l'intention",
+    "or_manual": "Ou sélectionnez manuellement :",
+    "legal_context": "Analyse Juridique",
+    "outcome_chart": "Probabilité d'Issue",
+    "checklist_title": "🛡️ Votre Dossier de Preuve",
+    "checklist_desc": "Cochez chaque étape réalisée pour consolider votre défense.",
+    "ai_box_title": "💬 Réponse IA",
+    "detail_label": "Détail (ex: la tache citée)",
+    "detail_ph": "Décrivez le point de désaccord...",
+    "tone_label": "Ton de la réponse",
+    "tone_diplomat": "🕊️ Le Diplomate (Pédagogue)",
+    "tone_factual": "⚖️ Le Factuel (Neutre)",
+    "tone_legal": "🏛️ Le Juridique (Ferme)",
+    "output_ph": "La réponse générée apparaîtra ici...",
+    "btn_generate": "✨ Générer la réponse",
+    "btn_copy": "Copier le texte",
+    "daily_limit_title": "Limite Quotidienne Atteinte",
+    "daily_limit_desc": "Vous avez utilisé votre réponse gratuite du jour.",
+    "premium_offer": "Obtenez 5 réponses supplémentaires pour 1,99€.",
+    "btn_buy": "Acheter 5 Crédits (1,99€)",
+    "btn_manual": "Continuer sans IA",
+    "credits_left": "Crédits restants :"
   }
 }
