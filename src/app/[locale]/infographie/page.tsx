@@ -25,13 +25,13 @@ export default function InfographicPage() {
     { month: t.raw('months')[1], val: 70, color: 'bg-[var(--color-primary)]' },
     { month: t.raw('months')[2], val: 75, color: 'bg-[var(--color-primary)]' },
     { month: t.raw('months')[3], val: 80, color: 'bg-[var(--color-primary)]' },
-    { month: t.raw('months')[4], val: 85, color: 'bg-[#FF6B6B]' },
-    { month: t.raw('months')[5], val: 75, color: 'bg-[#FF6B6B]' },
+    { month: t.raw('months')[4], val: 85, color: 'bg-[#ff5f84]' },
+    { month: t.raw('months')[5], val: 75, color: 'bg-[#ff5f84]' },
     { month: t.raw('months')[6], val: 50, color: 'bg-gray-300' }, // Low
     { month: t.raw('months')[7], val: 65, color: 'bg-[var(--color-secondary)]' },
     { month: t.raw('months')[8], val: 90, color: 'bg-[var(--color-primary-dark)]' },
     { month: t.raw('months')[9], val: 85, color: 'bg-[var(--color-primary-dark)]' },
-    { month: t.raw('months')[10], val: 95, color: 'bg-[#FF6B6B]' }, // Peak
+    { month: t.raw('months')[10], val: 95, color: 'bg-[#ff5f84]' }, // Peak
     { month: t.raw('months')[11], val: 80, color: 'bg-[var(--color-primary-dark)]' },
   ];
 
@@ -73,9 +73,9 @@ export default function InfographicPage() {
       <div className="grid gap-8">
 
         {/* SECTION 1: TIMING */}
-        <section className="bg-[var(--color-surface)] rounded-[25px] p-6 shadow-md border-t-4 border-[#FF6B6B]">
+        <section className="bg-[var(--color-surface)] rounded-[25px] p-6 shadow-md border-t-4 border-[#ff5f84]">
           <div className="flex items-center gap-3 mb-6">
-            <Clock className="text-[#FF6B6B]" size={28} />
+            <Clock className="text-[#ff5f84]" size={28} />
             <h2 className="text-xl font-bold text-[var(--color-text-main)]">{t('sec1_title')}</h2>
           </div>
 
@@ -87,8 +87,8 @@ export default function InfographicPage() {
                     <h4 className="font-bold text-[var(--color-primary-dark)] mb-1">{t('prime_title')}</h4>
                     <p className="text-sm">{t('prime_desc')}</p>
                 </div>
-                <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-xl border-l-4 border-[#FF6B6B]">
-                    <h4 className="font-bold text-[#FF6B6B] mb-1">{t('avoid_title')}</h4>
+                <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-xl border-l-4 border-[#ff5f84]">
+                    <h4 className="font-bold text-[#ff5f84] mb-1">{t('avoid_title')}</h4>
                     <p className="text-sm">{t('avoid_desc')}</p>
                 </div>
             </div>
