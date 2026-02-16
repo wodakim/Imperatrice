@@ -402,11 +402,11 @@
     }
   },
   "Auth": {
-    "login_title": "Connexion / Inscription",
+    "login_title": "Accedi / Registrati",
     "email_label": "Email",
-    "password_label": "Mot de passe",
-    "signin_button": "Se connecter",
-    "signup_button": "S'inscrire"
+    "password_label": "Password",
+    "signin_button": "Accedi",
+    "signup_button": "Registrati"
   },
   "Navigation": {
     "home": "Home",
@@ -937,138 +937,138 @@
     "desc": "L'intelligenza artificiale analizza il messaggio dell'acquirente per te e redige la risposta perfetta.",
     "step_1_title": "Analisi del messaggio",
     "step_1_badge": "Gemini AI Pronto",
-    "input_label": "Incolla qui il messaggio dell'acquirente (anche se aggressivo):",
-    "input_ph": "Es: 'È una vergogna, l'articolo è macchiato, voglio il rimborso subito!!'",
+    "input_label": "Incolla qui il messaggio dell'acquirente:",
+    "input_ph": "Es: 'L'articolo è macchiato, voglio il rimborso!!'",
     "btn_analyze": "✨ Analizza Intento",
     "or_manual": "O seleziona manualmente:",
     "legal_context": "Analisi Legale",
     "outcome_chart": "Probabilità di Esito",
     "checklist_title": "🛡️ Il Tuo Dossier Prove",
-    "checklist_desc": "Spunta ogni passaggio completato per rafforzare la tua difesa.",
+    "checklist_desc": "Spunta ogni passaggio per rafforzare la tua difesa.",
     "ai_box_title": "💬 Risposta IA",
-    "detail_label": "Dettaglio (es: la macchia citata)",
+    "detail_label": "Dettaglio (es: la macchia)",
     "detail_ph": "Descrivi il punto di disaccordo...",
-    "tone_label": "Tono della risposta",
-    "tone_diplomat": "🕊️ Il Diplomatico (Educativo)",
-    "tone_factual": "⚖️ Il Fattuale (Neutro)",
-    "tone_legal": "🏛️ Il Legale (Fermo)",
-    "output_ph": "La risposta generata apparirà qui...",
-    "btn_generate": "✨ Genera Risposta",
-    "btn_copy": "Copia Testo",
+    "tone_label": "Tono",
+    "tone_diplomat": "🕊️ Diplomatico",
+    "tone_factual": "⚖️ Fattuale",
+    "tone_legal": "🏛️ Legale",
+    "output_ph": "Risposta generata...",
+    "btn_generate": "✨ Genera",
+    "btn_copy": "Copia",
     "daily_limit_title": "Limite Giornaliero Raggiunto",
-    "daily_limit_desc": "Hai utilizzato la tua risposta giornaliera gratuita.",
-    "premium_offer": "Ottieni 5 risposte extra per 1,99€.",
-    "btn_buy": "Acquista 5 Crediti (1,99€)",
+    "daily_limit_desc": "Risposta giornaliera usata.",
+    "premium_offer": "5 risposte extra per 1,99€.",
+    "btn_buy": "5 Crediti (1,99€)",
     "btn_manual": "Continua senza IA",
     "credits_left": "Crediti rimasti:",
     "Strategies": {
       "snad": {
-        "title": "[it] \"Non conforme\"",
-        "description": "[it] Défaut, tache, trou, erreur de couleur...",
-        "context": "[it] L'acheteur prétend que l'article ne correspond pas (Article L217-4). Sur Vinted, c'est à lui de prouver la non-conformité par des photos claires.",
-        "tip": "[it] Conseil : Ne validez jamais le remboursement avant d'avoir vu les photos preuves ET d'avoir reçu l'article en retour.",
+        "title": "Non conforme",
+        "description": "Difetto, macchia, colore errato...",
+        "context": "L'acquirente sostiene che l'articolo non corrisponde. Deve provarlo con foto.",
+        "tip": "Consiglio: Non rimborsare mai prima di vedere le foto E ricevere il reso.",
         "checklist": [
-          "[it] Ne pas cliquer sur 'Rembourser' !",
-          "[it] Demander des photos du défaut sous la lumière du jour.",
-          "[it] Comparer avec mes photos originales.",
-          "[it] Si j'accepte le retour : attendre le numéro de suivi."
+          "Non cliccare su Rimborsa!",
+          "Chiedi foto alla luce del giorno.",
+          "Confronta con le foto originali.",
+          "Attendi il numero di tracciamento."
         ],
         "chartLabels": [
-          "[it] Remboursement immédiat (À éviter)",
-          "[it] Retour accepté",
-          "[it] Litige gagné"
+          "Rimborso Immediato (Evitare)",
+          "Reso Accettato",
+          "Disputa Vinta"
         ],
-        "defaultTemplate": "[it] Bonjour. J'ai bien noté votre réclamation. L'article était conforme lors de l'envoi. Merci de fournir les photos prouvant la non-conformité."
+        "defaultTemplate": "Ciao. Ho preso nota del reclamo. L'articolo era conforme. Per favore fornisci foto che provino il problema."
       },
       "mind": {
-        "title": "[it] \"Ça ne va pas\"",
-        "description": "[it] Taille, avis, style...",
-        "context": "[it] L'acheteur n'aime pas l'article ou la taille ne va pas. Ce n'est PAS un motif de litige valable si l'annonce était correcte.",
-        "tip": "[it] Vinted ne force pas les retours pour 'Changement d'avis'. Vous êtes en position de force.",
+        "title": "Cambio idea/Taglia",
+        "description": "Taglia non va, stile...",
+        "context": "All'acquirente non piace o taglia errata. Questo NON è un motivo valido su Vinted.",
+        "tip": "Non sei obbligato ad accettare resi per 'Cambio idea'.",
         "checklist": [
-          "[it] Vérifier que la taille indiquée est la bonne.",
-          "[it] Faire capture d'écran de ma description.",
-          "[it] Refuser poliment mais fermement le retour.",
-          "[it] Suggérer la remise en vente."
+          "Verifica taglia.",
+          "Screenshot descrizione.",
+          "Rifiuta educatamente il reso.",
+          "Suggerisci rivendita."
         ],
         "chartLabels": [
-          "[it] Remboursement forcé",
-          "[it] Accord amiable",
-          "[it] Gain de cause (Refus)"
+          "Rimborso Forzato",
+          "Accordo Amichevole",
+          "Vinto (Rifiuto)"
         ],
-        "defaultTemplate": "[it] Bonjour. La taille indiquée dans l'annonce est conforme. Le motif 'taille ne va pas' ne permet pas d'ouvrir un litige. Je ne peux donc pas accepter le retour."
+        "defaultTemplate": "Ciao. La taglia è corretta. 'Non veste' non è un motivo valido. Non posso accettare il reso."
       },
       "damage": {
-        "title": "[it] \"Arrivé cassé\"",
-        "description": "[it] Colis abîmé transport.",
-        "context": "[it] L'article est arrivé cassé. C'est un problème de transport. Votre responsabilité dépend de la qualité de votre emballage.",
-        "tip": "[it] Ne vous blâmez pas. Si vous avez bien emballé, c'est au transporteur de payer.",
+        "title": "Arrivato rotto",
+        "description": "Danno da trasporto.",
+        "context": "Arrivato rotto. È un problema del corriere se imballato bene.",
+        "tip": "Non incolparti. Il corriere dovrebbe pagare.",
         "checklist": [
-          "[it] Demander photo du carton extérieur.",
-          "[it] Demander photo du calage intérieur.",
-          "[it] Signaler à Vinted 'Avarie de transport'.",
-          "[it] Ne pas clore le litige."
+          "Foto scatola esterna.",
+          "Foto imballaggio interno.",
+          "Segnala 'Danno Trasporto'.",
+          "Non chiudere disputa."
         ],
         "chartLabels": [
-          "[it] Indemnisé transporteur",
-          "[it] Perte vendeur",
-          "[it] Remboursement acheteur"
+          "Corriere Rimborsa",
+          "Perdita Venditore",
+          "Rimborso Acquirente"
         ],
-        "defaultTemplate": "[it] Bonjour. Il semble s'agir d'une avarie de transport. Merci de transmettre les photos de l'emballage et de l'objet pour la réclamation transporteur."
+        "defaultTemplate": "Ciao. Sembra un danno da trasporto. Invia foto dell'imballaggio per l'assicurazione."
       },
       "fake": {
-        "title": "[it] \"Contrefaçon\"",
-        "description": "[it] Accusation d'authenticité.",
-        "context": "[it] Accusation de contrefaçon. DANGER : L'acheteur peut être remboursé SANS renvoyer l'article s'il prouve que c'est faux.",
-        "tip": "[it] Agissez vite. Fournissez vos factures ou preuves d'achat immédiatement.",
+        "title": "Contraffazione",
+        "description": "Reclamo autenticità.",
+        "context": "Pericolo: L'acquirente può essere rimborsato SENZA reso se provato falso.",
+        "tip": "Agisci in fretta. Fornisci fatture subito.",
         "checklist": [
-          "[it] Retrouver facture ou preuve d'achat.",
-          "[it] Prendre en photo les détails d'authenticité.",
-          "[it] Transmettre au support.",
-          "[it] Rester très formel."
+          "Trova ricevuta.",
+          "Foto dettagli autenticità.",
+          "Invia al Supporto.",
+          "Resta formale."
         ],
         "chartLabels": [
-          "[it] Perte sèche",
-          "[it] Retour autorisé",
-          "[it] Gain (Authenticité validée)"
+          "Perdita Totale",
+          "Reso Autorizzato",
+          "Vinto (Autentico)"
         ],
-        "defaultTemplate": "[it] Bonjour. Je conteste formellement cette accusation. L'article est authentique. Je transmets les preuves d'authenticité au support Vinted immédiatement."
+        "defaultTemplate": "Ciao. Contesto formalmente. L'articolo è autentico. Invio prove al supporto immediatamente."
       },
       "lost": {
-        "title": "[it] \"Colis Perdu\"",
-        "description": "[it] Suivi bloqué ou 'Livré' mais rien.",
-        "context": "[it] Angoisse élevée due à l'incertitude. Délais longs (jusqu'à 21 jours pour enquête).",
-        "tip": "[it] Ne paniquez pas. Si le colis est perdu par le transporteur, vous serez remboursé (jusqu'à 25€ sans assurance, plus avec).",
+        "title": "Pacco perso",
+        "description": "Bloccato o non consegnato.",
+        "context": "Alta ansia. Lunghi ritardi (fino a 21 giorni).",
+        "tip": "Niente panico. Se perso dal corriere, verrai rimborsato.",
         "checklist": [
-          "[it] Vérifier le suivi sur le site du transporteur (pas juste Vinted).",
-          "[it] Ouvrir une enquête transporteur.",
-          "[it] Prévenir l'acheteur qu'une enquête est en cours.",
-          "[it] Remplir le formulaire de perte Vinted."
+          "Controlla sito corriere.",
+          "Apri indagine.",
+          "Avvisa acquirente.",
+          "Compila modulo smarrimento."
         ],
         "chartLabels": [
-          "[it] Remboursé par Vinted",
-          "[it] Perte (si pas de preuve)",
-          "[it] Retrouvé"
+          "Rimborsato da Vinted",
+          "Perdita (No prove)",
+          "Trovato"
         ],
-        "defaultTemplate": "[it] Bonjour. Je vois que le suivi est bloqué. J'ouvre immédiatement une enquête auprès du transporteur. Merci de patienter le temps de leur réponse."
+        "defaultTemplate": "Ciao. Il tracciamento è bloccato. Apro subito un'indagine. Attendi la loro risposta."
       },
       "scam": {
-        "title": "[it] \"Arnaque\"",
-        "description": "[it] Demande email, PayPal, lien bizarre.",
-        "context": "[it] Risque financier maximal. L'outil doit ordonner un arrêt immédiat de toute communication hors plateforme.",
-        "tip": "[it] STOP ! Ne cliquez sur rien. Ne donnez jamais votre email ou numéro.",
+        "title": "Truffa",
+        "description": "Richiesta Email, PayPal...",
+        "context": "Alto Rischio. Ferma ogni comunicazione fuori dalla piattaforma.",
+        "tip": "STOP! Mai dare email o telefono.",
         "checklist": [
-          "[it] Ne PAS cliquer sur les liens.",
-          "[it] Ne PAS donner d'email.",
-          "[it] Signaler le profil à Vinted.",
-          "[it] Bloquer l'utilisateur."
+          "Non cliccare link.",
+          "Non dare email.",
+          "Segnala profilo.",
+          "Blocca utente."
         ],
         "chartLabels": [
-          "[it] Sécurité (si arrêt)",
-          "[it] Risque (si clic)",
-          "[it] -"
+          "Sicuro (Se fermato)",
+          "Rischio (Se cliccato)",
+          "-"
         ],
-        "defaultTemplate": "[it] Bonjour. Je ne communique que via la plateforme Vinted pour la sécurité de la transaction. Merci."
+        "defaultTemplate": "Ciao. Comunico solo tramite Vinted per sicurezza. Grazie."
       }
     }
   }

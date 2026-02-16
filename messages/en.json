@@ -937,8 +937,8 @@
     "desc": "Artificial intelligence analyzes the buyer's message for you and drafts the perfect response.",
     "step_1_title": "Message Analysis",
     "step_1_badge": "Gemini AI Ready",
-    "input_label": "Paste the buyer's message here (even if aggressive):",
-    "input_ph": "Ex: 'It's a shame, the item is stained, I want a refund right now!!'",
+    "input_label": "Paste the buyer's message here:",
+    "input_ph": "Ex: 'The item is stained, I want a refund!!'",
     "btn_analyze": "✨ Analyze Intent",
     "or_manual": "Or select manually:",
     "legal_context": "Legal Analysis",
@@ -946,129 +946,129 @@
     "checklist_title": "🛡️ Your Evidence File",
     "checklist_desc": "Check each step completed to strengthen your defense.",
     "ai_box_title": "💬 AI Response",
-    "detail_label": "Detail (e.g., the mentioned stain)",
-    "detail_ph": "Describe the point of disagreement...",
-    "tone_label": "Response Tone",
-    "tone_diplomat": "🕊️ The Diplomat (Educational)",
-    "tone_factual": "⚖️ The Factual (Neutral)",
-    "tone_legal": "🏛️ The Legal (Firm)",
-    "output_ph": "The generated response will appear here...",
-    "btn_generate": "✨ Generate Response",
-    "btn_copy": "Copy Text",
+    "detail_label": "Detail (e.g., the stain)",
+    "detail_ph": "Describe the disagreement...",
+    "tone_label": "Tone",
+    "tone_diplomat": "🕊️ Diplomat",
+    "tone_factual": "⚖️ Factual",
+    "tone_legal": "🏛️ Legal",
+    "output_ph": "Generated response...",
+    "btn_generate": "✨ Generate",
+    "btn_copy": "Copy",
     "daily_limit_title": "Daily Limit Reached",
-    "daily_limit_desc": "You have used your free daily response.",
+    "daily_limit_desc": "Free daily response used.",
     "premium_offer": "Get 5 extra responses for €1.99.",
     "btn_buy": "Buy 5 Credits (€1.99)",
     "btn_manual": "Continue without AI",
     "credits_left": "Credits left:",
     "Strategies": {
       "snad": {
-        "title": "\"Non conforme\"",
-        "description": "Défaut, tache, trou, erreur de couleur...",
-        "context": "The buyer prétend que l'article ne correspond pas (Article L217-4). Sur Vinted, c'est à lui de prouver la non-conformité par des photos claires.",
-        "tip": "Conseil : Ne validez jamais le remboursement avant d'avoir vu les photos preuves ET d'avoir reçu l'article en retour.",
+        "title": "Not as described",
+        "description": "Defect, stain, wrong color...",
+        "context": "The buyer claims the item does not match. They must prove it with photos.",
+        "tip": "Advice: Never refund before seeing photo proof AND receiving the return.",
         "checklist": [
-          "Ne pas cliquer sur 'Refund' !",
-          "Demander des photos du défaut sous la lumière du jour.",
-          "Comparer avec mes photos originales.",
-          "Si j'accepte le retour : attendre le numéro de suivi."
+          "Don't click Refund yet!",
+          "Ask for daylight photos.",
+          "Compare with original photos.",
+          "Wait for tracking number."
         ],
         "chartLabels": [
-          "Remboursement immédiat (À éviter)",
-          "Retour accepté",
-          "Litige gagné"
+          "Immediate Refund (Avoid)",
+          "Return Accepted",
+          "Dispute Won"
         ],
-        "defaultTemplate": "Hello. J'ai bien noté votre réclamation. L'article était conforme lors de l'envoi. Thank you de fournir les photos prouvant la non-conformité."
+        "defaultTemplate": "Hello. I noted your claim. The item was as described when sent. Please provide photos proving the issue."
       },
       "mind": {
-        "title": "\"Ça ne va pas\"",
-        "description": "Taille, avis, style...",
-        "context": "The buyer n'aime pas l'article ou la taille ne va pas. Ce n'est PAS un motif de litige valable si l'annonce était correcte.",
-        "tip": "Vinted ne force pas les retours pour 'Changement d'avis'. Vous êtes en position de force.",
+        "title": "Changed Mind/Size",
+        "description": "Size doesn't fit, style...",
+        "context": "Buyer doesn't like it or size is wrong. This is NOT a valid dispute reason on Vinted.",
+        "tip": "You are not forced to accept returns for 'Changed Mind'.",
         "checklist": [
-          "Vérifier que la taille indiquée est la bonne.",
-          "Faire capture d'écran de ma description.",
-          "Refuser poliment mais fermement le retour.",
-          "Suggérer la remise en vente."
+          "Check size listing.",
+          "Screenshot description.",
+          "Politely refuse return.",
+          "Suggest reselling."
         ],
         "chartLabels": [
-          "Remboursement forcé",
-          "Accord amiable",
-          "Gain de cause (Refus)"
+          "Forced Refund",
+          "Friendly Agreement",
+          "Dispute Won (Refusal)"
         ],
-        "defaultTemplate": "Hello. La taille indiquée dans l'annonce est conforme. Le motif 'taille ne va pas' ne permet pas d'ouvrir un litige. Je ne peux donc pas accepter le retour."
+        "defaultTemplate": "Hello. The size listed is correct. 'Doesn't fit' is not a valid dispute reason. I cannot accept the return."
       },
       "damage": {
-        "title": "\"Arrivé cassé\"",
-        "description": "Colis abîmé transport.",
-        "context": "L'article est arrivé cassé. C'est un problème de transport. Votre responsabilité dépend de la qualité de votre emballage.",
-        "tip": "Ne vous blâmez pas. Si vous avez bien emballé, c'est au transporteur de payer.",
+        "title": "Arrived Broken",
+        "description": "Transport damage.",
+        "context": "Item arrived broken. It's a carrier issue if you packed it well.",
+        "tip": "Don't blame yourself. The carrier should pay.",
         "checklist": [
-          "Demander photo du carton extérieur.",
-          "Demander photo du calage intérieur.",
-          "Signaler à Vinted 'Avarie de transport'.",
-          "Ne pas clore le litige."
+          "Ask for outer box photo.",
+          "Ask for inner packaging photo.",
+          "Report 'Transport Damage' to Vinted.",
+          "Do not close dispute."
         ],
         "chartLabels": [
-          "Indemnisé transporteur",
-          "Perte vendeur",
-          "Remboursement acheteur"
+          "Carrier Refunded",
+          "Seller Loss",
+          "Buyer Refunded"
         ],
-        "defaultTemplate": "Hello. Il semble s'agir d'une avarie de transport. Thank you de transmettre les photos de l'emballage et de l'objet pour la réclamation transporteur."
+        "defaultTemplate": "Hello. Sounds like transport damage. Please send photos of the packaging and item for the insurance claim."
       },
       "fake": {
-        "title": "\"Contrefaçon\"",
-        "description": "Accusation d'authenticité.",
-        "context": "Accusation de contrefaçon. DANGER : The buyer peut être remboursé SANS renvoyer l'article s'il prouve que c'est faux.",
-        "tip": "Agissez vite. Fournissez vos factures ou preuves d'achat immédiatement.",
+        "title": "Counterfeit",
+        "description": "Authenticity claim.",
+        "context": "Danger: Buyer can be refunded WITHOUT return if proven fake.",
+        "tip": "Act fast. Provide invoices immediately.",
         "checklist": [
-          "Retrouver facture ou preuve d'achat.",
-          "Prendre en photo les détails d'authenticité.",
-          "Transmettre au support.",
-          "Rester très formel."
+          "Find receipt/invoice.",
+          "Photo of authenticity details.",
+          "Send to Support.",
+          "Stay formal."
         ],
         "chartLabels": [
-          "Perte sèche",
-          "Retour autorisé",
-          "Gain (Authenticité validée)"
+          "Total Loss",
+          "Return Authorized",
+          "Won (Authentic)"
         ],
-        "defaultTemplate": "Hello. Je conteste formellement cette accusation. L'article est authentique. Je transmets les preuves d'authenticité au support Vinted immédiatement."
+        "defaultTemplate": "Hello. I formally contest this. The item is authentic. I am sending proof to Vinted support immediately."
       },
       "lost": {
-        "title": "\"Colis Perdu\"",
-        "description": "Suivi bloqué ou 'Livré' mais rien.",
-        "context": "Angoisse élevée due à l'incertitude. Délais longs (jusqu'à 21 jours pour enquête).",
-        "tip": "Ne paniquez pas. Si le colis est perdu par le transporteur, vous serez remboursé (jusqu'à 25€ sans assurance, plus avec).",
+        "title": "Package Lost",
+        "description": "Stuck or not delivered.",
+        "context": "High anxiety. Long delays (up to 21 days).",
+        "tip": "Don't panic. If lost by carrier, you get refunded.",
         "checklist": [
-          "Vérifier le suivi sur le site du transporteur (pas juste Vinted).",
-          "Ouvrir une enquête transporteur.",
-          "Prévenir l'acheteur qu'une enquête est en cours.",
-          "Remplir le formulaire de perte Vinted."
+          "Check carrier site.",
+          "Open carrier inquiry.",
+          "Notify buyer.",
+          "Fill lost form."
         ],
         "chartLabels": [
-          "Remboursé par Vinted",
-          "Perte (si pas de preuve)",
-          "Retrouvé"
+          "Refunded by Vinted",
+          "Loss (No proof)",
+          "Found"
         ],
-        "defaultTemplate": "Hello. Je vois que le suivi est bloqué. J'ouvre immédiatement une enquête auprès du transporteur. Thank you de patienter le temps de leur réponse."
+        "defaultTemplate": "Hello. Tracking is stuck. I am opening an inquiry with the carrier immediately. Please wait for their response."
       },
       "scam": {
-        "title": "\"Arnaque\"",
-        "description": "Demande email, PayPal, lien bizarre.",
-        "context": "Risque financier maximal. L'outil doit ordonner un arrêt immédiat de toute communication hors plateforme.",
-        "tip": "STOP ! Ne cliquez sur rien. Ne donnez jamais votre email ou numéro.",
+        "title": "Scam",
+        "description": "Email request, PayPal...",
+        "context": "High Risk. Stop all communication outside the platform.",
+        "tip": "STOP! Never give your email or phone number.",
         "checklist": [
-          "Ne PAS cliquer sur les liens.",
-          "Ne PAS donner d'email.",
-          "Signaler le profil à Vinted.",
-          "Bloquer l'utilisateur."
+          "Don't click links.",
+          "Don't give email.",
+          "Report profile.",
+          "Block user."
         ],
         "chartLabels": [
-          "Sécurité (si arrêt)",
-          "Risque (si clic)",
+          "Safe (If stopped)",
+          "Risk (If clicked)",
           "-"
         ],
-        "defaultTemplate": "Hello. Je ne communique que via la plateforme Vinted pour la sécurité de la transaction. Thank you."
+        "defaultTemplate": "Hello. I only communicate via Vinted for transaction safety. Thank you."
       }
     }
   }

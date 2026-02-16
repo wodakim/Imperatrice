@@ -402,11 +402,11 @@
     }
   },
   "Auth": {
-    "login_title": "Connexion / Inscription",
+    "login_title": "Zaloguj się / Zarejestruj się",
     "email_label": "Email",
-    "password_label": "Mot de passe",
-    "signin_button": "Se connecter",
-    "signup_button": "S'inscrire"
+    "password_label": "Hasło",
+    "signin_button": "Zaloguj się",
+    "signup_button": "Zarejestruj się"
   },
   "Navigation": {
     "home": "Start",
@@ -937,138 +937,138 @@
     "desc": "Sztuczna inteligencja analizuje wiadomość kupującego i redaguje idealną odpowiedź.",
     "step_1_title": "Analiza wiadomości",
     "step_1_badge": "Gemini AI Gotowe",
-    "input_label": "Wklej tutaj wiadomość kupującego (nawet agresywną):",
-    "input_ph": "Np: 'To wstyd, przedmiot jest poplamiony, chcę natychmiastowego zwrotu!!'",
+    "input_label": "Wklej tutaj wiadomość kupującego:",
+    "input_ph": "Np: 'Przedmiot jest poplamiony, chcę zwrotu!!'",
     "btn_analyze": "✨ Analizuj Intencję",
     "or_manual": "Lub wybierz ręcznie:",
     "legal_context": "Analiza Prawna",
     "outcome_chart": "Prawdopodobieństwo Wyniku",
     "checklist_title": "🛡️ Twoja Teczka Dowodowa",
-    "checklist_desc": "Zaznacz każdy ukończony krok, aby wzmocnić swoją obronę.",
+    "checklist_desc": "Zaznacz każdy krok, aby wzmocnić obronę.",
     "ai_box_title": "💬 Odpowiedź AI",
-    "detail_label": "Szczegół (np. wspomniana plama)",
+    "detail_label": "Szczegół (np. plama)",
     "detail_ph": "Opisz punkt sporny...",
-    "tone_label": "Ton odpowiedzi",
-    "tone_diplomat": "🕊️ Dyplomata (Edukacyjny)",
-    "tone_factual": "⚖️ Rzeczowy (Neutralny)",
-    "tone_legal": "🏛️ Prawny (Stanowczy)",
-    "output_ph": "Wygenerowana odpowiedź pojawi się tutaj...",
-    "btn_generate": "✨ Generuj Odpowiedź",
-    "btn_copy": "Kopiuj Tekst",
+    "tone_label": "Ton",
+    "tone_diplomat": "🕊️ Dyplomata",
+    "tone_factual": "⚖️ Rzeczowy",
+    "tone_legal": "🏛️ Prawny",
+    "output_ph": "Wygenerowana odpowiedź...",
+    "btn_generate": "✨ Generuj",
+    "btn_copy": "Kopiuj",
     "daily_limit_title": "Osiągnięto Limit Dzienny",
-    "daily_limit_desc": "Wykorzystałeś swoją darmową dzienną odpowiedź.",
-    "premium_offer": "Uzyskaj 5 dodatkowych odpowiedzi za 1,99€.",
+    "daily_limit_desc": "Darmowa odpowiedź wykorzystana.",
+    "premium_offer": "5 dodatkowych odpowiedzi za 1,99€.",
     "btn_buy": "Kup 5 Kredytów (1,99€)",
     "btn_manual": "Kontynuuj bez AI",
-    "credits_left": "Pozostałe kredyty:",
+    "credits_left": "Kredyty:",
     "Strategies": {
       "snad": {
-        "title": "[pl] \"Non conforme\"",
-        "description": "[pl] Défaut, tache, trou, erreur de couleur...",
-        "context": "[pl] L'acheteur prétend que l'article ne correspond pas (Article L217-4). Sur Vinted, c'est à lui de prouver la non-conformité par des photos claires.",
-        "tip": "[pl] Conseil : Ne validez jamais le remboursement avant d'avoir vu les photos preuves ET d'avoir reçu l'article en retour.",
+        "title": "Niezgodny z opisem",
+        "description": "Wada, plama, zły kolor...",
+        "context": "Kupujący twierdzi, że przedmiot jest niezgodny. Musi to udowodnić zdjęciami.",
+        "tip": "Rada: Nigdy nie zwracaj pieniędzy przed zobaczeniem zdjęć I otrzymaniem zwrotu.",
         "checklist": [
-          "[pl] Ne pas cliquer sur 'Rembourser' !",
-          "[pl] Demander des photos du défaut sous la lumière du jour.",
-          "[pl] Comparer avec mes photos originales.",
-          "[pl] Si j'accepte le retour : attendre le numéro de suivi."
+          "Nie klikaj Zwrot!",
+          "Poproś o zdjęcia w świetle dziennym.",
+          "Porównaj z oryginałem.",
+          "Czekaj na numer śledzenia."
         ],
         "chartLabels": [
-          "[pl] Remboursement immédiat (À éviter)",
-          "[pl] Retour accepté",
-          "[pl] Litige gagné"
+          "Natychmiastowy Zwrot (Unikaj)",
+          "Zwrot Zaakceptowany",
+          "Spór Wygrany"
         ],
-        "defaultTemplate": "[pl] Bonjour. J'ai bien noté votre réclamation. L'article était conforme lors de l'envoi. Merci de fournir les photos prouvant la non-conformité."
+        "defaultTemplate": "Cześć. Przyjąłem zgłoszenie. Przedmiot był zgodny z opisem. Proszę o zdjęcia potwierdzające problem."
       },
       "mind": {
-        "title": "[pl] \"Ça ne va pas\"",
-        "description": "[pl] Taille, avis, style...",
-        "context": "[pl] L'acheteur n'aime pas l'article ou la taille ne va pas. Ce n'est PAS un motif de litige valable si l'annonce était correcte.",
-        "tip": "[pl] Vinted ne force pas les retours pour 'Changement d'avis'. Vous êtes en position de force.",
+        "title": "Zmiana zdania/Rozmiar",
+        "description": "Rozmiar nie pasuje, styl...",
+        "context": "Kupującemu się nie podoba lub rozmiar zły. To NIE jest ważny powód sporu na Vinted.",
+        "tip": "Nie musisz akceptować zwrotów z powodu 'Zmiany zdania'.",
         "checklist": [
-          "[pl] Vérifier que la taille indiquée est la bonne.",
-          "[pl] Faire capture d'écran de ma description.",
-          "[pl] Refuser poliment mais fermement le retour.",
-          "[pl] Suggérer la remise en vente."
+          "Sprawdź rozmiar.",
+          "Zrzut ekranu opisu.",
+          "Grzecznie odmów zwrotu.",
+          "Zasugeruj odsprzedaż."
         ],
         "chartLabels": [
-          "[pl] Remboursement forcé",
-          "[pl] Accord amiable",
-          "[pl] Gain de cause (Refus)"
+          "Wymuszony Zwrot",
+          "Ugoda",
+          "Wygrana (Odmowa)"
         ],
-        "defaultTemplate": "[pl] Bonjour. La taille indiquée dans l'annonce est conforme. Le motif 'taille ne va pas' ne permet pas d'ouvrir un litige. Je ne peux donc pas accepter le retour."
+        "defaultTemplate": "Cześć. Rozmiar jest poprawny. 'Nie pasuje' to nie powód sporu. Nie mogę przyjąć zwrotu."
       },
       "damage": {
-        "title": "[pl] \"Arrivé cassé\"",
-        "description": "[pl] Colis abîmé transport.",
-        "context": "[pl] L'article est arrivé cassé. C'est un problème de transport. Votre responsabilité dépend de la qualité de votre emballage.",
-        "tip": "[pl] Ne vous blâmez pas. Si vous avez bien emballé, c'est au transporteur de payer.",
+        "title": "Dotarło uszkodzone",
+        "description": "Uszkodzenie w transporcie.",
+        "context": "Przedmiot dotarł uszkodzony. To wina przewoźnika, jeśli dobrze zapakowałeś.",
+        "tip": "Nie obwiniaj się. Przewoźnik powinien zapłacić.",
         "checklist": [
-          "[pl] Demander photo du carton extérieur.",
-          "[pl] Demander photo du calage intérieur.",
-          "[pl] Signaler à Vinted 'Avarie de transport'.",
-          "[pl] Ne pas clore le litige."
+          "Zdjęcie pudełka z zewnątrz.",
+          "Zdjęcie wnętrza.",
+          "Zgłoś 'Uszkodzenie w transporcie'.",
+          "Nie zamykaj sporu."
         ],
         "chartLabels": [
-          "[pl] Indemnisé transporteur",
-          "[pl] Perte vendeur",
-          "[pl] Remboursement acheteur"
+          "Zwrot od przewoźnika",
+          "Strata sprzedawcy",
+          "Zwrot dla kupującego"
         ],
-        "defaultTemplate": "[pl] Bonjour. Il semble s'agir d'une avarie de transport. Merci de transmettre les photos de l'emballage et de l'objet pour la réclamation transporteur."
+        "defaultTemplate": "Cześć. To wygląda na uszkodzenie w transporcie. Wyślij zdjęcia opakowania do ubezpieczenia."
       },
       "fake": {
-        "title": "[pl] \"Contrefaçon\"",
-        "description": "[pl] Accusation d'authenticité.",
-        "context": "[pl] Accusation de contrefaçon. DANGER : L'acheteur peut être remboursé SANS renvoyer l'article s'il prouve que c'est faux.",
-        "tip": "[pl] Agissez vite. Fournissez vos factures ou preuves d'achat immédiatement.",
+        "title": "Podróbka",
+        "description": "Zarzut nieoryginalności.",
+        "context": "Niebezpieczeństwo: Kupujący może dostać zwrot BEZ odesłania, jeśli udowodni podróbkę.",
+        "tip": "Działaj szybko. Natychmiast dostarcz faktury.",
         "checklist": [
-          "[pl] Retrouver facture ou preuve d'achat.",
-          "[pl] Prendre en photo les détails d'authenticité.",
-          "[pl] Transmettre au support.",
-          "[pl] Rester très formel."
+          "Znajdź paragon.",
+          "Zdjęcie detali autentyczności.",
+          "Wyślij do Supportu.",
+          "Zachowaj formalność."
         ],
         "chartLabels": [
-          "[pl] Perte sèche",
-          "[pl] Retour autorisé",
-          "[pl] Gain (Authenticité validée)"
+          "Całkowita strata",
+          "Zwrot zatwierdzony",
+          "Wygrana (Oryginał)"
         ],
-        "defaultTemplate": "[pl] Bonjour. Je conteste formellement cette accusation. L'article est authentique. Je transmets les preuves d'authenticité au support Vinted immédiatement."
+        "defaultTemplate": "Cześć. Formalnie zaprzeczam. Przedmiot jest oryginalny. Wysyłam dowody do supportu natychmiast."
       },
       "lost": {
-        "title": "[pl] \"Colis Perdu\"",
-        "description": "[pl] Suivi bloqué ou 'Livré' mais rien.",
-        "context": "[pl] Angoisse élevée due à l'incertitude. Délais longs (jusqu'à 21 jours pour enquête).",
-        "tip": "[pl] Ne paniquez pas. Si le colis est perdu par le transporteur, vous serez remboursé (jusqu'à 25€ sans assurance, plus avec).",
+        "title": "Paczka zaginiona",
+        "description": "Zablokowana lub niedostarczona.",
+        "context": "Duży stres. Długie opóźnienia (do 21 dni).",
+        "tip": "Bez paniki. Jeśli przewoźnik zgubi, dostaniesz zwrot.",
         "checklist": [
-          "[pl] Vérifier le suivi sur le site du transporteur (pas juste Vinted).",
-          "[pl] Ouvrir une enquête transporteur.",
-          "[pl] Prévenir l'acheteur qu'une enquête est en cours.",
-          "[pl] Remplir le formulaire de perte Vinted."
+          "Sprawdź stronę przewoźnika.",
+          "Otwórz dochodzenie.",
+          "Powiadom kupującego.",
+          "Wypełnij formularz zagubienia."
         ],
         "chartLabels": [
-          "[pl] Remboursé par Vinted",
-          "[pl] Perte (si pas de preuve)",
-          "[pl] Retrouvé"
+          "Zwrot od Vinted",
+          "Strata (Brak dowodu)",
+          "Znaleziona"
         ],
-        "defaultTemplate": "[pl] Bonjour. Je vois que le suivi est bloqué. J'ouvre immédiatement une enquête auprès du transporteur. Merci de patienter le temps de leur réponse."
+        "defaultTemplate": "Cześć. Śledzenie stoi. Otwieram dochodzenie u przewoźnika natychmiast. Proszę czekać na odpowiedź."
       },
       "scam": {
-        "title": "[pl] \"Arnaque\"",
-        "description": "[pl] Demande email, PayPal, lien bizarre.",
-        "context": "[pl] Risque financier maximal. L'outil doit ordonner un arrêt immédiat de toute communication hors plateforme.",
-        "tip": "[pl] STOP ! Ne cliquez sur rien. Ne donnez jamais votre email ou numéro.",
+        "title": "Oszustwo",
+        "description": "Prośba o Email, PayPal...",
+        "context": "Wysokie Ryzyko. Przerwij komunikację poza platformą.",
+        "tip": "STOP! Nigdy nie podawaj emaila ani telefonu.",
         "checklist": [
-          "[pl] Ne PAS cliquer sur les liens.",
-          "[pl] Ne PAS donner d'email.",
-          "[pl] Signaler le profil à Vinted.",
-          "[pl] Bloquer l'utilisateur."
+          "Nie klikaj w linki.",
+          "Nie podawaj emaila.",
+          "Zgłoś profil.",
+          "Zablokuj użytkownika."
         ],
         "chartLabels": [
-          "[pl] Sécurité (si arrêt)",
-          "[pl] Risque (si clic)",
-          "[pl] -"
+          "Bezpiecznie (Jeśli przerwano)",
+          "Ryzyko (Jeśli kliknięto)",
+          "-"
         ],
-        "defaultTemplate": "[pl] Bonjour. Je ne communique que via la plateforme Vinted pour la sécurité de la transaction. Merci."
+        "defaultTemplate": "Cześć. Komunikuję się tylko przez Vinted dla bezpieczeństwa. Dzięki."
       }
     }
   }
