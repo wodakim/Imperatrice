@@ -415,7 +415,8 @@
     "tools": "Narzędzia",
     "relax": "Relaks",
     "crush": "Crush",
-    "trophies": "Trofea"
+    "trophies": "Trofea",
+    "litiges": "Spory"
   },
   "Dashboard": {
     "spoons_title": "Moje Łyżki",
@@ -929,5 +930,146 @@
       "Novembre",
       "Décembre"
     ]
+  },
+  "Litiges": {
+    "title": "Tarcza Sporów Sprzedawcy AI",
+    "subtitle": "Rozwiązywanie Sporów Wspomagane AI",
+    "desc": "Sztuczna inteligencja analizuje wiadomość kupującego i redaguje idealną odpowiedź.",
+    "step_1_title": "Analiza wiadomości",
+    "step_1_badge": "Gemini AI Gotowe",
+    "input_label": "Wklej tutaj wiadomość kupującego (nawet agresywną):",
+    "input_ph": "Np: 'To wstyd, przedmiot jest poplamiony, chcę natychmiastowego zwrotu!!'",
+    "btn_analyze": "✨ Analizuj Intencję",
+    "or_manual": "Lub wybierz ręcznie:",
+    "legal_context": "Analiza Prawna",
+    "outcome_chart": "Prawdopodobieństwo Wyniku",
+    "checklist_title": "🛡️ Twoja Teczka Dowodowa",
+    "checklist_desc": "Zaznacz każdy ukończony krok, aby wzmocnić swoją obronę.",
+    "ai_box_title": "💬 Odpowiedź AI",
+    "detail_label": "Szczegół (np. wspomniana plama)",
+    "detail_ph": "Opisz punkt sporny...",
+    "tone_label": "Ton odpowiedzi",
+    "tone_diplomat": "🕊️ Dyplomata (Edukacyjny)",
+    "tone_factual": "⚖️ Rzeczowy (Neutralny)",
+    "tone_legal": "🏛️ Prawny (Stanowczy)",
+    "output_ph": "Wygenerowana odpowiedź pojawi się tutaj...",
+    "btn_generate": "✨ Generuj Odpowiedź",
+    "btn_copy": "Kopiuj Tekst",
+    "daily_limit_title": "Osiągnięto Limit Dzienny",
+    "daily_limit_desc": "Wykorzystałeś swoją darmową dzienną odpowiedź.",
+    "premium_offer": "Uzyskaj 5 dodatkowych odpowiedzi za 1,99€.",
+    "btn_buy": "Kup 5 Kredytów (1,99€)",
+    "btn_manual": "Kontynuuj bez AI",
+    "credits_left": "Pozostałe kredyty:",
+    "Strategies": {
+      "snad": {
+        "title": "[pl] \"Non conforme\"",
+        "description": "[pl] Défaut, tache, trou, erreur de couleur...",
+        "context": "[pl] L'acheteur prétend que l'article ne correspond pas (Article L217-4). Sur Vinted, c'est à lui de prouver la non-conformité par des photos claires.",
+        "tip": "[pl] Conseil : Ne validez jamais le remboursement avant d'avoir vu les photos preuves ET d'avoir reçu l'article en retour.",
+        "checklist": [
+          "[pl] Ne pas cliquer sur 'Rembourser' !",
+          "[pl] Demander des photos du défaut sous la lumière du jour.",
+          "[pl] Comparer avec mes photos originales.",
+          "[pl] Si j'accepte le retour : attendre le numéro de suivi."
+        ],
+        "chartLabels": [
+          "[pl] Remboursement immédiat (À éviter)",
+          "[pl] Retour accepté",
+          "[pl] Litige gagné"
+        ],
+        "defaultTemplate": "[pl] Bonjour. J'ai bien noté votre réclamation. L'article était conforme lors de l'envoi. Merci de fournir les photos prouvant la non-conformité."
+      },
+      "mind": {
+        "title": "[pl] \"Ça ne va pas\"",
+        "description": "[pl] Taille, avis, style...",
+        "context": "[pl] L'acheteur n'aime pas l'article ou la taille ne va pas. Ce n'est PAS un motif de litige valable si l'annonce était correcte.",
+        "tip": "[pl] Vinted ne force pas les retours pour 'Changement d'avis'. Vous êtes en position de force.",
+        "checklist": [
+          "[pl] Vérifier que la taille indiquée est la bonne.",
+          "[pl] Faire capture d'écran de ma description.",
+          "[pl] Refuser poliment mais fermement le retour.",
+          "[pl] Suggérer la remise en vente."
+        ],
+        "chartLabels": [
+          "[pl] Remboursement forcé",
+          "[pl] Accord amiable",
+          "[pl] Gain de cause (Refus)"
+        ],
+        "defaultTemplate": "[pl] Bonjour. La taille indiquée dans l'annonce est conforme. Le motif 'taille ne va pas' ne permet pas d'ouvrir un litige. Je ne peux donc pas accepter le retour."
+      },
+      "damage": {
+        "title": "[pl] \"Arrivé cassé\"",
+        "description": "[pl] Colis abîmé transport.",
+        "context": "[pl] L'article est arrivé cassé. C'est un problème de transport. Votre responsabilité dépend de la qualité de votre emballage.",
+        "tip": "[pl] Ne vous blâmez pas. Si vous avez bien emballé, c'est au transporteur de payer.",
+        "checklist": [
+          "[pl] Demander photo du carton extérieur.",
+          "[pl] Demander photo du calage intérieur.",
+          "[pl] Signaler à Vinted 'Avarie de transport'.",
+          "[pl] Ne pas clore le litige."
+        ],
+        "chartLabels": [
+          "[pl] Indemnisé transporteur",
+          "[pl] Perte vendeur",
+          "[pl] Remboursement acheteur"
+        ],
+        "defaultTemplate": "[pl] Bonjour. Il semble s'agir d'une avarie de transport. Merci de transmettre les photos de l'emballage et de l'objet pour la réclamation transporteur."
+      },
+      "fake": {
+        "title": "[pl] \"Contrefaçon\"",
+        "description": "[pl] Accusation d'authenticité.",
+        "context": "[pl] Accusation de contrefaçon. DANGER : L'acheteur peut être remboursé SANS renvoyer l'article s'il prouve que c'est faux.",
+        "tip": "[pl] Agissez vite. Fournissez vos factures ou preuves d'achat immédiatement.",
+        "checklist": [
+          "[pl] Retrouver facture ou preuve d'achat.",
+          "[pl] Prendre en photo les détails d'authenticité.",
+          "[pl] Transmettre au support.",
+          "[pl] Rester très formel."
+        ],
+        "chartLabels": [
+          "[pl] Perte sèche",
+          "[pl] Retour autorisé",
+          "[pl] Gain (Authenticité validée)"
+        ],
+        "defaultTemplate": "[pl] Bonjour. Je conteste formellement cette accusation. L'article est authentique. Je transmets les preuves d'authenticité au support Vinted immédiatement."
+      },
+      "lost": {
+        "title": "[pl] \"Colis Perdu\"",
+        "description": "[pl] Suivi bloqué ou 'Livré' mais rien.",
+        "context": "[pl] Angoisse élevée due à l'incertitude. Délais longs (jusqu'à 21 jours pour enquête).",
+        "tip": "[pl] Ne paniquez pas. Si le colis est perdu par le transporteur, vous serez remboursé (jusqu'à 25€ sans assurance, plus avec).",
+        "checklist": [
+          "[pl] Vérifier le suivi sur le site du transporteur (pas juste Vinted).",
+          "[pl] Ouvrir une enquête transporteur.",
+          "[pl] Prévenir l'acheteur qu'une enquête est en cours.",
+          "[pl] Remplir le formulaire de perte Vinted."
+        ],
+        "chartLabels": [
+          "[pl] Remboursé par Vinted",
+          "[pl] Perte (si pas de preuve)",
+          "[pl] Retrouvé"
+        ],
+        "defaultTemplate": "[pl] Bonjour. Je vois que le suivi est bloqué. J'ouvre immédiatement une enquête auprès du transporteur. Merci de patienter le temps de leur réponse."
+      },
+      "scam": {
+        "title": "[pl] \"Arnaque\"",
+        "description": "[pl] Demande email, PayPal, lien bizarre.",
+        "context": "[pl] Risque financier maximal. L'outil doit ordonner un arrêt immédiat de toute communication hors plateforme.",
+        "tip": "[pl] STOP ! Ne cliquez sur rien. Ne donnez jamais votre email ou numéro.",
+        "checklist": [
+          "[pl] Ne PAS cliquer sur les liens.",
+          "[pl] Ne PAS donner d'email.",
+          "[pl] Signaler le profil à Vinted.",
+          "[pl] Bloquer l'utilisateur."
+        ],
+        "chartLabels": [
+          "[pl] Sécurité (si arrêt)",
+          "[pl] Risque (si clic)",
+          "[pl] -"
+        ],
+        "defaultTemplate": "[pl] Bonjour. Je ne communique que via la plateforme Vinted pour la sécurité de la transaction. Merci."
+      }
+    }
   }
 }

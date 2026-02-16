@@ -61,10 +61,18 @@ const SimpleDonutChart = ({ data, labels }: { data: number[]; labels: string[] }
 
 export default function LitigeDashboard({ strategy }: LitigeDashboardProps) {
   const t = useTranslations('Litiges');
+  const tStrategies = useTranslations('Litiges.Strategies');
   const { credits, isDailyUsed, useCredit, buyCredits } = useLitigeCredits();
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [generatedText, setGeneratedText] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
+
+  // Fetch translated content
+  const context = tStrategies(`${strategy.id}.context`);
+  const tip = tStrategies(`${strategy.id}.tip`);
+  const chartLabels = tStrategies.raw(`${strategy.id}.chartLabels`);
+  const checklist = tStrategies.raw(`${strategy.id}.checklist`);
+  const defaultTemplate = tStrategies(`${strategy.id}.defaultTemplate`);
 
   const handleGenerate = async (detail: string, tone: string) => {
     // 1. Check Credits
@@ -82,7 +90,7 @@ export default function LitigeDashboard({ strategy }: LitigeDashboardProps) {
       // Construct prompt
       const prompt = `Agis comme un expert en résolution de litiges e-commerce (Vinted).
             Rédige une réponse courte pour un vendeur.
-            Contexte juridique : ${strategy.context}.
+            Contexte juridique : ${context}.
             Détails fournis par le vendeur : ${detail}.
             Ton souhaité : ${tone} (Diplomate=emphatique, Factuel=neutre, Juridique=ferme).
             Instruction : Reste calme, professionnel, ne t'excuse pas si le vendeur est dans son droit. Ne signe pas le message.`;
@@ -99,7 +107,7 @@ export default function LitigeDashboard({ strategy }: LitigeDashboardProps) {
 
     } catch (e) {
       console.error(e);
-      setGeneratedText(strategy.defaultTemplate + " (Erreur IA, modèle par défaut chargé)");
+      setGeneratedText(defaultTemplate + " (Erreur IA, modèle par défaut chargé)");
     } finally {
       setIsGenerating(false);
     }
@@ -120,12 +128,12 @@ export default function LitigeDashboard({ strategy }: LitigeDashboardProps) {
             {t('legal_context')}
           </h3>
           <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-4">
-            {strategy.context}
+            {context}
           </p>
           <div className="bg-[var(--color-bg)] rounded-lg p-3 border border-[var(--color-border)] flex items-start gap-2">
             <Lightbulb className="text-[var(--color-primary)] flex-shrink-0 mt-0.5" size={16} />
             <p className="text-xs text-[var(--color-text-primary)] font-medium">
-              {strategy.tip}
+              {tip}
             </p>
           </div>
         </div>
@@ -134,13 +142,13 @@ export default function LitigeDashboard({ strategy }: LitigeDashboardProps) {
           <h3 className="font-serif font-bold text-[var(--color-text-primary)] mb-4 text-sm uppercase tracking-wider">
             {t('outcome_chart')}
           </h3>
-          <SimpleDonutChart data={strategy.chartData} labels={strategy.chartLabels} />
+          <SimpleDonutChart data={strategy.chartData} labels={chartLabels} />
         </div>
       </div>
 
       {/* Center Column: Checklist */}
       <div className="bg-[var(--color-surface)] rounded-2xl shadow-sm border border-[var(--color-border)]">
-        <LitigeChecklist items={strategy.checklist} />
+        <LitigeChecklist items={checklist} />
       </div>
 
       {/* Right Column: Magic Box */}
